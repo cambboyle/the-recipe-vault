@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="container">
+        <section class="mx-auto my-5" style="max-width: 23rem;">
+            <div class="card card-form mt-2 mb-4">
+                <div class="card-body rounded-top">
+                    <h3 class="text-center text-uppercase">Register</h3>
+                    <!-- Form -->
+                    <form class="pb-3 px-3" method="POST" action="{{ url_for('register') }}">
+                        <!-- Username -->
+                        <div class="col-sm-12 d-flex justify-content-center align-items-center mb-4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <i class="fas fa-user-circle fa-2x me-3"></i>
+                                    <input type="text" name="username" id="username" class="form-control" />
+                                    <label class="form-label" for="username">Username</label>
+                                </div>
+                            </div>
+                        </div>
+                            <!-- Password -->
+                        <div class="col-sm-12 d-flex justify-content-center align-items-center pb-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <i class="fas fa-user-lock fa-2x me-3"></i>
+                                    <input type="password" name="password" id="password" class="form-control" />
+                                    <label class="form-label" for="password">Password</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Register Button-->
+                        <div class="row">
+                            <button type="submit" class="col-sm-12 btn-lrg text-shadow">
+                                Register
+                                <i class="fas fa-sign-in-alt"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
