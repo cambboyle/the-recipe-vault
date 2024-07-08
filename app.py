@@ -25,6 +25,7 @@ def get_recipes():
     return render_template("recipes.html", recipes=recipes)
 
 
+# Register
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -53,9 +54,11 @@ def register():
         # put user in session
         session["user"] = request.form.get("username").lower()
         flash("Registered successfully")
+        return redirect(url_for("profile", username=session["user"]))
     return render_template("register.html")
 
 
+# Login
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -69,7 +72,10 @@ def login():
                 existing_user["password"], request.form.get("password")):
                     # put user in session
                     session["user"] = request.form.get("username").lower()
-                    flash("Welcome back {}!".format(request.form.get("username")))
+                    flash("Welcome back {}!".format(
+                        request.form.get("username")))
+                    return redirect(url_for(
+                        "profile", username=session["user"]))
             else:
                 # Incorrect password
                 flash("Incorrect username or password")
@@ -81,6 +87,15 @@ def login():
             return redirect(url_for("login"))
 
     return render_template("login.html")
+
+
+# Profile
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    # grab the username from the session
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    return render_template("profile.html", username=username)
 
 
 if __name__ == "__main__":
