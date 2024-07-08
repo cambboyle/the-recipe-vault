@@ -63,12 +63,24 @@
           </div>
         </div>
     </nav>
-    <div class="container-fluid text-center">
-        {% block content %}
-        {% endblock %}
-    </div>
     
+    <section>
+      <!-- Flash messages -->
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="row flashes">
+              <h4 class="text-center">{{ message }}</h4>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}  
+    </section>
 
+    <main class="container">
+      {% block content %}
+      {% endblock %}
+    </main>
     <footer class="text-center">
         <p> &copy; 2024 The Recipe Vault</p>
     </footer>

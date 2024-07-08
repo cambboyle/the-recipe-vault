@@ -13,21 +13,35 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <i class="fas fa-user-circle fa-2x me-3"></i>
-                                    <input type="text" name="username" id="username" class="form-control" />
+                                    <input type="text" name="username" id="username" minlength="5"
+                                        maxlength="20" pattern="^[a-zA-Z0-9]{5,20}*$" class="form-control" required>
                                     <label class="form-label" for="username">Username</label>
                                 </div>
                             </div>
                         </div>
-                            <!-- Password -->
+                        <!-- Email -->
+                        <div class="col-sm-12 d-flex justify-content-center align-items-center pb-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <i class="fa-solid fa-envelope fa-2x me-3"></i>
+                                    <input type="email" name="email" id="email" 
+                                        pattern="^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}*$" class="form-control" required>
+                                    <label class="form-label" for="email">Email</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Password -->
                         <div class="col-sm-12 d-flex justify-content-center align-items-center pb-3">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <i class="fas fa-user-lock fa-2x me-3"></i>
-                                    <input type="password" name="password" id="password" class="form-control" />
+                                    <input type="password" name="password" id="password" minlength="5" 
+                                        maxlength="20" pattern="^[a-zA-Z0-9]{5,20}*$" class="form-control" required>
                                     <label class="form-label" for="password">Password</label>
                                 </div>
                             </div>
                         </div>
+                        
                         <!-- Register Button-->
                         <div class="row">
                             <button type="submit" class="col-sm-12 btn-lrg text-shadow">
