@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome -->
     <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
     <!-- Google Fonts -->
     <link 
-    rel="preconnect" 
-    href="https://fonts.googleapis.com">
+      rel="preconnect" 
+      href="https://fonts.googleapis.com">
     <link 
-    rel="preconnect" 
-    href="https://fonts.gstatic.com" 
-    crossorigin>
+      rel="preconnect" 
+      href="https://fonts.gstatic.com" 
+      crossorigin>
     <link 
-    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Outfit:wght@100..900&display=swap" 
-    rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Outfit:wght@100..900&display=swap" 
+      rel="stylesheet">
     <!-- MDB -->
     <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
-    rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
+      rel="stylesheet"
     />
     <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/style.css') }}"
-    type="text/css">
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+      type="text/css">
     {% block styles %}
     {% endblock %}
     <title>The Recipe Vault</title>
@@ -100,7 +100,7 @@
         {% if messages %}
           {% for message in messages %}
             <div class="row flashes">
-              <h4 class="text-center">{{ message }}</h4>
+              <h4 class="text-center" style="color: limegreen;">{{ message }}</h4>
             </div>
           {% endfor %}
         {% endif %}
@@ -110,7 +110,35 @@
     <main class="container">
       {% block content %}
       {% endblock %}
+      <!-- Create Recipe Button -->
+      <div class="" data-mdb-button-init data-mdb-ripple-init>
+        <button type="button" class="btn btn-floating text-white btn-lg fixed-button" 
+          data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#newRecipeModal">
+          <i class="fa-solid fa-plus pe-none"></i>
+        </button>
+      </div>
+      <!-- Create Recipe Modal 
+        MODAL STRUCTURE IS FROM MDB DOCS
+        CONTENT AND STYLES ARE CUSTOMIZED
+      -->
+      <div class="modal fade" id="newRecipeModal" tabindex="-1" aria-labelledby="newRecipeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="myModal">Create New Recipe</h5>
+              <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-mdb-ripple-init>Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
+    
     <footer class="text-center">
         <p> &copy; 2024 The Recipe Vault</p>
     </footer>

@@ -18,3 +18,12 @@ body {
 .flashes h4 {
     line-height: 2;
 }
+
+/* Modal call button position*/
+.fixed-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #707070;
+  }

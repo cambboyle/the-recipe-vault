@@ -110,6 +110,20 @@ def logout():
     session.pop("user")
     return redirect(url_for("login"))
 
+# Route to view a single recipe
+@app.route("/recipe/<recipe_id>")
+def recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
+    # if there is a session user
+    if session.get("user"):
+        return render_template("recipe.html", recipe=recipe)
+
+    # if there is no session user
+    else:
+        flash("Please login to view the recipe")
+        return render_template("recipes.html", recipe=recipe)
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

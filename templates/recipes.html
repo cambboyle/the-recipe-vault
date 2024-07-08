@@ -1,6 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h3 class="text-center mx-auto">Recipes</h3>
+<hr>
+
+<div class="row">
+    {% for recipe in recipes %}
+    <!-- card content-->
+    <div class="col-sm-4">
+        <div class="card"> 
+
+            <!-- prep time-->
+                <div class="card-text">
+                    <span class="">Prep Time: {{ recipe.prep_time }}</span>
+                </div>
+            <!-- card image -->
+            <div class="card-image">
+                <img src="{{ url_for('static', filename='images/default.jpg') }}" 
+                    alt="" class="card-img-top">
+            </div>
+
+            <!-- recipe title -->
+            <div class="card-body">
+                <span class="card-title">
+                    <h2>{{ recipe.recipe_name }}</h2>
+                    <div class="">
+                        <strong>{{ recipe.category_name }}</strong>
+                    </div>
+                </span>
+                <!-- recipe description -->
+                <p class="card-text">{{ recipe.recipe_description }}</p>
+                <!-- ingredients 
+                    <div class="card-text">
+                        {% for ingredient in recipe.main_ingredients %}
+                            <li>
+                                {{ ingredient.capitalize() }}
+                            </li>
+                        {% endfor %}
+                    </div>
+                -->
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+<!-- Recipes
     {% for recipe in recipes %}
         <h2>{{ recipe.recipe_name }}</h2><br>
         <p>{{ recipe.recipe_description }}</p><br>
@@ -25,5 +73,6 @@
         <p> <b>Snack Type:</b> {{ recipe.food_type }}</p>
         
     {% endfor %}
+-->
 
 {% endblock %}

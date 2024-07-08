@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-sm-12 text-center">
+        {% extends "base.html" %}
+        {% block content %}
+
+            {% for recipe in recipes %}
+                <h2>{{ recipe.recipe_name }}</h2><br>
+                <p>{{ recipe.recipe_description }}</p><br>
+
+                {% for ingredient in recipe.main_ingredients %}
+                    <li>{{ ingredient.capitalize() }}</li>
+                {% endfor %}
+
+                <p> Serving Size: {{ recipe.serving_size }}</p>
+
+                <p> Prep Time: {{ recipe.prep_time }}</p>
+
+                <p> Cook Time: {{ recipe.cook_time }}</p>
+
+                <h3>Method</h3>
+                <ol>
+                    {% for method in recipe.recipe_method %}
+                    <li>{{ method.capitalize() }}</li>
+                    {% endfor %}<br>
+                </ol>
+
+                <p> <b>Snack Type:</b> {{ recipe.food_type }}</p>
+                
+            {% endfor %}
+
+        {% endblock %}
+    </div>
+</div>
