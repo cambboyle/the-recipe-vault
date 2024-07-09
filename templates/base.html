@@ -55,33 +55,20 @@
             <ul class="navbar-nav">
               {% if session.user %}
                 <li class="nav-item">
-                  <a 
-                    class="nav-link" 
-                    href="{{ url_for('profile', username=session['user']) }}">
-                    Profile
-                  </a>
+                  <a class="nav-link" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a 
-                    class="nav-link" 
-                    href="{{ url_for('logout') }}">
-                    Log Out
-                  </a>
+                  <a class="nav-link" href="{{ url_for('add_recipe') }}">Add Recipe</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
                 </li>
               {% else%}
                 <li class="nav-item">
-                  <a 
-                    class="nav-link" 
-                    href="{{ url_for('login') }}">
-                    Log In
-                  </a>
+                  <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
                 </li>
                 <li class="nav-item">
-                  <a 
-                    class="nav-link" 
-                    href="{{ url_for('register') }}">
-                    Register
-                  </a>
+                  <a class="nav-link" href="{{ url_for('register') }}">Register</a>
                 </li>
               {% endif %}
             </ul>
