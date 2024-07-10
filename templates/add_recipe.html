@@ -2,20 +2,63 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3 class="text-center mx-auto">Add Recipe</h3>
+<h3 class="text-center mx-auto py-5">Add Recipe</h3>
 
 <div class="row">
-    <form class="col-sm-12" action="" method="post">
+    <form class="col-sm-12" action="" method="POST">
+        <!-- Recipe Name -->
         <div class="row">
             <div class="col-sm-12">
-                <i class="fas fa-user-circle"></i>
-                <input type="text" id="recipe_name" class="form-control" placeholder="Recipe Name">
-                <label for="recipe_name">Recipe Name</label>
+                <i class="fas fa-tags py-2"></i>
+                <input type="text" id="recipe_name" name="recipe_name"  minlength="5" maxlength="50" 
+                    class="form-control" placeholder="Recipe Name" required>
             </div>
+        </div>
+        <!-- Recipe Description-->
+        <div class="row">
             <div class="col-sm-12">
-                <i class="fas fa-tags"></i>
-                <input type="text" id="category_name" class="form-control" placeholder="Category Name">
-                <label for="category_name">Category Name</label>
+                <i class="fa-solid fa-pencil py-2"></i>
+                <textarea id="recipe_description" name="recipe_description" minlength="5" 
+                    maxlength="300" class="form-control" placeholder="Recipe Description" required></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Ingredients -->
+            <div class="col-sm-12">
+                <i class="fa-solid fa-utensils py-2"></i>
+                <input type="text" id="ingredients" name="ingredients" minlength="5" maxlength="50" 
+                    class="form-control" placeholder="Ingredients" required>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Servings -->
+            <div class="col-sm-4">
+                <i class="fa-solid fa-utensils py-2"></i>
+                <input type="number" id="servings" name="servings" min="1" max="20" 
+                    class="form-control" placeholder="Servings" required>
+            </div>
+            <!-- Dietary Restrictions -->
+            <div class="col-sm-4">
+                <i class="fa-solid fa-utensils py-2"></i>
+                <select id="dietary" name="dietary" class="form-control" required>
+                    <option value="None">None</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Vegan">Vegan</option>
+                    <option value="Gluten-Free">Gluten-Free</option>
+                    <option value="Dairy-Free">Dairy-Free</option>
+                </select>
+            </div>
+            <!--  -->
+            <div class="col-sm-4">
+                <i class="fa-solid fa-utensils py-2"></i>
+                <select id="meal_type" name="meal_type" class="form-control" required>
+                    <i class="fa-solid fa-angle-down"></i>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Snack">Snack</option>
+                    <option value="Dessert">Dessert</option>
+                </select>
             </div>
         </div>
     </form>
