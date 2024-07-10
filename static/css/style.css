@@ -27,3 +27,12 @@ body {
     z-index: 1000;
     background-color: #707070;
   }
+
+/* Forms */
+
+.form-outline i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
