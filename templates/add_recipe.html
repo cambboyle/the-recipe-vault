@@ -15,12 +15,17 @@
                         class="form-control" placeholder="Recipe Name" required>
                 </div>
             </div>
+        <!-- Cuisine -->
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-earth-americas"></i></span>
-                    <input type="text" id="recipe_category" name="recipe_category" minlength="5" maxlength="50" 
-                        class="form-control" placeholder="Cuisine" required>
-                </div>
+                    <select class="form-control" id="cuisine_name" name="cuisine_name" required>
+                        <option value="" disabled selected>Select Cuisine</option>
+                        {% for category in categories %}
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
             </div>
         </div>
         <!-- Recipe Description-->
@@ -37,10 +42,11 @@
         <div class="row mb-3">
             <div class="col-sm-12">
                 <h5>Ingredients</h5>
+                <em style="font-size: smaller;">(Include measurements/quantities if necessary)</em>
                 <div id="ingredients-container">
                     <div class="ingredient-input mb-2">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="ingredients" placeholder="Add Ingredient (Include measurements/quantities if necessary)" required>
+                            <input type="text" class="form-control" name="ingredients" placeholder="Add Ingredient" required>
                         </div>
                     </div>
                 </div>
@@ -97,11 +103,9 @@
                     <span class="input-group-text"><i class="fa-solid fa-leaf"></i></span>
                     <select class="form-control" id="dietary" name="dietary" required>
                         <option value="" disabled selected>Select dietary restriction</option>
-                        <option value="None">None</option>
-                        <option value="Vegetarian">Vegetarian</option>
-                        <option value="Vegan">Vegan</option>
-                        <option value="Gluten-Free">Gluten-Free</option>
-                        <option value="Dairy-Free">Dairy-Free</option>
+                        {% for dietary in dietaries %}
+                            <option value="{{ dietary.dietary_name }}">{{ dietary.dietary_name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
@@ -111,13 +115,17 @@
                     <span class="input-group-text"><i class="fa-solid fa-bowl-food py-2"></i></span>
                     <select class="form-control" id="meal_type" name="meal_type" required>
                         <option value="" disabled selected>Select meal type</option>
-                        <option value="Breakfast">Breakfast</option>
-                        <option value="Lunch">Lunch</option>
-                        <option value="Dinner">Dinner</option>
-                        <option value="Snack">Snack</option>
-                        <option value="Dessert">Dessert</option>
+                        {% for meal in meals %}
+                            <option value="{{ meal.meal_type }}">{{ meal.meal_type }}</option>
+                        {% endfor %}
                     </select>
                 </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-6 offset-sm-3 text-center">
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </form>
