@@ -1,44 +1,67 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3 class="text-center mx-auto">Recipes</h3>
+<h3 class="text-center py-5">All Recipes</h3>
 <hr>
 
 <div class="row">
     {% for recipe in recipes %}
     <!-- card content-->
-    <div class="col-sm-4">
-        <div class="card"> 
+        <div class="col-sm-4">
+            <div class="card"> 
 
             <!-- prep time-->
                 <div class="card-text">
-                    <span class="">Prep Time: {{ recipe.prep_time }}</span>
+                    <span class="col-sm-6">Prep Time: {{ recipe.prep_time }}</span>
+                    <span class="col-sm-6 right">Serving Size: {{ recipe.serving_size }}</span>
+                    <span class="col-sm-6 right">Cooking Time: {{ recipe.cooking_time }}</span>
                 </div>
             <!-- card image -->
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='images/default.jpg') }}" 
-                    alt="" class="card-img-top">
-            </div>
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='images/default.jpg') }}" 
+                        alt="" class="card-img-top">
+                </div>
 
             <!-- recipe title -->
-            <div class="card-body">
-                <span class="card-title">
-                    <h2>{{ recipe.recipe_name }}</h2>
-                    <div class="">
+                <div class="card-body row">
+                    <span class="card-title">
+                        <h2>{{ recipe.recipe_name }}</h2>
+                        <hr>
+                        <p><em>by: {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
+                    </span>
+                    <div class="col-sm-6">
                         <strong>{{ recipe.category_name }}</strong>
                     </div>
-                </span>
+                    <div class="col-sm-6">
+                        <p>{{ recipe.meal_type }}</p>
+                    </div>
+                    <div class="col-sm-12">
+                        <p><b>Dietary Requirements: </b> {{ recipe.dietary }}</p>
+                    </div>
                 <!-- recipe description -->
-                <p class="card-text">{{ recipe.recipe_description }}</p>
-                <!-- ingredients 
+                    <p class="card-text">{{ recipe.recipe_description }}</p>
+                <!-- ingredients -->
                     <div class="card-text">
+                        <h4>Ingredients</h4>
+                        <hr>
                         {% for ingredient in recipe.main_ingredients %}
                             <li>
                                 {{ ingredient.capitalize() }}
                             </li>
                         {% endfor %}
                     </div>
-                -->
+                    <br>
+                <!-- recipe method -->
+                    <div class="card-text">
+                        <h4>Method</h4>
+                        <hr>
+                        {% for method in recipe.recipe_method %}
+                            <li>
+                                {{ method.capitalize() }}
+                            </li>
+                        {% endfor %}
+                    </div>
+                
             </div>
         </div>
     </div>

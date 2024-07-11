@@ -5,7 +5,7 @@
 <h3 class="text-center mx-auto py-5">Add Recipe</h3>
 
 <div class="row">
-    <form class="col-sm-12" action="" method="POST">
+    <form class="col-sm-12" action="{{ url_for('add_recipe') }}" method="POST">
         <!-- Recipe Name -->
         <div class="row mb-3">
             <div class="col-sm-8">
@@ -19,7 +19,7 @@
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-earth-americas"></i></span>
-                    <select class="form-control" id="cuisine_name" name="cuisine_name" required>
+                    <select class="form-control" id="category_name" name="category_name" required>
                         <option value="" disabled selected>Select Cuisine</option>
                         {% for category in categories %}
                             <option value="{{ category.category_name }}">{{ category.category_name }}</option>
@@ -46,14 +46,13 @@
                 <div id="ingredients-container">
                     <div class="ingredient-input mb-2">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="ingredients" placeholder="Add Ingredient" required>
+                            <input type="text" class="form-control" name="main_ingredients" placeholder="Add Ingredient" required>
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary mt-2" id="add-ingredient">Add Ingredient</button>
+                <button type="button" class="btn btn-secondary mt-2" id="add_ingredient">Add Ingredient</button>
             </div>
         </div>
-
         <!-- Recipe Steps -->
         <div class="row mb-3">
             <div class="col-sm-12">
@@ -62,42 +61,42 @@
                     <div class="step-input mb-2">
                         <div class="input-group">
                             <span class="input-group-text">Step 1</span>
-                            <textarea class="form-control" name="steps[]" rows="2" placeholder="Describe this step" required></textarea>
+                            <textarea class="form-control" name="recipe_method" rows="2" placeholder="Describe this step" required></textarea>
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary mt-2" id="add-step">Add Step</button>
+                <button type="button" class="btn btn-secondary mt-2" id="add_step">Add Step</button>
             </div>
         </div>
         
         <div class="row mb-3">
-            <!-- Servings -->
+        <!-- Servings -->
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-utensils py-2"></i></span>
-                    <input type="number" id="servings" name="servings" min="1" max="20" 
+                    <input type="number" id="serving_size" name="serving_size" min="1" max="20" 
                         class="form-control" placeholder="Servings" required>
                 </div>
             </div>
-            <!-- Prep Time -->
+        <!-- Prep Time -->
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-clock py-2"></i></span>
-                    <input type="number" id="prep-time" name="prep-time" min="1" max="20" 
+                    <input type="number" id="prep_time" name="prep_time" min="1" max="60" 
                         class="form-control" placeholder="Prep Time" required>
                 </div>
             </div>
-            <!-- Cooking Time -->
+        <!-- Cooking Time -->
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-stopwatch py-2"></i></span>
-                    <input type="number" id="cooking-time" name="cooking-time" min="1" max="20" 
+                    <input type="number" id="cooking_time" name="cooking_time" min="1" max="60" 
                         class="form-control" placeholder="Cooking Time" required>
                 </div>
             </div>
         </div>
         <div class="row mb-3">
-            <!-- Dietary Restrictions -->
+        <!-- Dietary Restrictions -->
             <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-leaf"></i></span>
@@ -109,7 +108,7 @@
                     </select>
                 </div>
             </div>
-            <!-- Meal Type -->
+        <!-- Meal Type -->
             <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-bowl-food py-2"></i></span>
@@ -122,10 +121,12 @@
                 </div>
             </div>
         </div>
+        <!-- Submit Button -->
         <div class="row mb-3">
             <div class="col-sm-6 offset-sm-3 text-center">
-                <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-success">
+                    Submit <i class="fas fa-plus-square right"></i>
+                </button>
             </div>
         </div>
     </form>

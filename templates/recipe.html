@@ -15,7 +15,7 @@
 
                 <p> Prep Time: {{ recipe.prep_time }}</p>
 
-                <p> Cook Time: {{ recipe.cook_time }}</p>
+                <p> Cook Time: {{ recipe.cooking_time }}</p>
 
                 <h3>Method</h3>
                 <ol>
@@ -24,7 +24,9 @@
                     {% endfor %}<br>
                 </ol>
 
-                <p> <b>Snack Type:</b> {{ recipe.food_type }}</p>
+                <p> <b>Meal Type:</b> {{ recipe.meal_type }}</p>
+
+                <p><em>by: {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
                 
             {% endfor %}
 

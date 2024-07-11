@@ -4,6 +4,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
@@ -111,8 +112,27 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add_recipe")
+@app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
+    if request.method == "POST":
+        recipe = {
+            "recipe_name": request.form.get("recipe_name"),
+            "category_name": request.form.get("category_name"),
+            "recipe_description": request.form.get("recipe_description"),
+            "serving_size": request.form.get("serving_size"),
+            "prep_time": request.form.get("prep_time"),
+            "cooking_time": request.form.get("cooking_time"),
+            "dietary": request.form.get("dietary"),
+            "meal_type": request.form.get("meal_type"),
+            "main_ingredients": request.form.getlist("main_ingredients"),
+            "recipe_method": request.form.getlist("recipe_method"),
+            "created_by": session["user"],
+            "created_at": datetime.now().strftime("%d-%m-%Y at %H:%M")
+        }
+        mongo.db.recipes.insert_one(recipe)
+        flash("Recipe added successfully")
+        return redirect(url_for("get_recipes"))
+
     categories = mongo.db.categories.find().sort("category_name", 1)
     meals = mongo.db.meal_type.find().sort("meal_type", 1)
     dietaries = mongo.db.dietary_requirements.find().sort("dietary_name", 1)

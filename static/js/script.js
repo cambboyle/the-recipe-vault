@@ -14,8 +14,8 @@ function addIngredient() {
     newField.className = 'ingredient-input mb-2';
     newField.innerHTML = `
         <div class="input-group">
-            <input type="text" class="form-control" name="ingredients[]" placeholder="Add Ingredient" required>
-            <button class="btn btn-outline-secondary remove-ingredient" type="button">Remove</button>
+            <input type="text" class="form-control" name="main_ingredients" placeholder="Add Ingredient" required>
+            <button class="btn btn-danger  remove_ingredient" type="button">Remove</button>
         </div>
     `;
     container.appendChild(newField);
@@ -31,21 +31,21 @@ function addStep() {
     newField.innerHTML = `
         <div class="input-group">
             <span class="input-group-text">Step ${stepCount}</span>
-            <textarea class="form-control" name="steps[]" rows="2" placeholder="Describe this step" required></textarea>
-            <button class="btn btn-outline-secondary remove-step" type="button">Remove</button>
+            <textarea class="form-control" name="recipe_method" rows="2" placeholder="Describe this step" required></textarea>
+            <button class="btn btn-danger remove_step" type="button">Remove</button>
         </div>
     `;
     container.appendChild(newField);
 }
 
 function removeIngredient(event) {
-    if (event.target.classList.contains('remove-ingredient')) {
+    if (event.target.classList.contains('remove_ingredient')) {
         event.target.closest('.ingredient-input').remove();
     }
 }
 
 function removeStep(event) {
-    if (event.target.classList.contains('remove-step')) {
+    if (event.target.classList.contains('remove_step')) {
         event.target.closest('.step-input').remove();
         updateStepNumbers();
     }
@@ -60,8 +60,8 @@ function updateStepNumbers() {
 }
 
 function initializeRecipeForm() {
-    const addIngredientButton = document.getElementById('add-ingredient');
-    const addStepButton = document.getElementById('add-step');
+    const addIngredientButton = document.getElementById('add_ingredient');
+    const addStepButton = document.getElementById('add_step');
     const ingredientsContainer = document.getElementById('ingredients-container');
     const stepsContainer = document.getElementById('steps-container');
     
