@@ -12,9 +12,15 @@
 
             <!-- prep time-->
                 <div class="card-text">
-                    <span class="col-sm-6">Prep Time: {{ recipe.prep_time }}</span>
-                    <span class="col-sm-6 right">Serving Size: {{ recipe.serving_size }}</span>
-                    <span class="col-sm-6 right">Cooking Time: {{ recipe.cooking_time }}</span>
+                    <span class="col-sm-12">Prep Time: {{ recipe.prep_time }} Minutes</span>
+                    <span class="col-sm-12 text-center">Serving Size: {{ recipe.serving_size }}</span>
+                    <span class="col-sm-12 text-right">Cooking Time:
+                        {% if recipe.cooking_time == 0 %}
+                            <span>0 Minutes</span>
+                        {% else %}
+                            <span>{{ recipe.cooking_time }} Minutes</span>
+                        {% endif %}
+                    </span>
                 </div>
             <!-- card image -->
                 <div class="card-image">
