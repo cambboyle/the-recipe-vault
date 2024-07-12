@@ -6,6 +6,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
 if os.path.exists("env.py"):
     import env
 
@@ -22,7 +23,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
-    recipes = mongo.db.recipes.find()
+    recipes = list(mongo.db.recipes.find())
     return render_template("recipes.html", recipes=recipes)
 
 
@@ -86,6 +87,10 @@ def login():
             # Incorrect username
             flash("Incorrect username or password")
             return redirect(url_for("login"))
+        
+        if login_successful:
+            next_page = request.args.get('next')
+            return redirect(next_page or url_for('get_recipes'))
 
     return render_template("login.html")
 
@@ -98,7 +103,9 @@ def profile(username):
         {"username": session["user"]})["username"]
 
     if session["user"]:
-        return render_template("profile.html", username=username)
+        # Fetch user's recipes
+        user_recipes = list(mongo.db.recipes.find({"created_by": username}))
+        return render_template("profile.html", username=username, recipes=user_recipes)
 
     return redirect(url_for("login"))
 
@@ -137,6 +144,30 @@ def add_recipe():
     meals = mongo.db.meal_type.find().sort("meal_type", 1)
     dietaries = mongo.db.dietary_requirements.find().sort("dietary_name", 1)
     return render_template("add_recipe.html", categories=categories, meals=meals, dietaries=dietaries)
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "user" not in session:
+            flash("Please log in to access this page")
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+@app.route("/recipe/<recipe_id>")
+def view_recipe(recipe_id):
+    if "user" not in session:
+        flash("You must be logged in to view recipes")
+        return redirect(url_for("login"))
+        
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if recipe:
+        return render_template("recipe.html", recipe=recipe)
+    else:
+        flash("Recipe not found")
+        return redirect(url_for("get_recipes"))
 
 
 if __name__ == "__main__":

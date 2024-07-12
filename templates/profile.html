@@ -9,7 +9,13 @@
                         {{username}}'s Profile
                     </h3>
                     <div class="pb-3 px-3">
-                        
+                        {% for recipe in recipes %}
+                            <div class="card recipe">
+                                <h2><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">{{ recipe.recipe_name }}</a></h2>
+                                <p>{{ recipe.recipe_description }}</p>
+                                <p>Created by: {{ recipe.created_by }} on {{ recipe.created_at }}</p>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

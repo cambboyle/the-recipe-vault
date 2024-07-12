@@ -36,3 +36,12 @@ body {
   transform: translateY(-50%);
   pointer-events: none;
 }
+
+/* recipe image */
+img {
+  display: block;
+  max-width:400px;
+  max-height:400px;
+  width: auto;
+  height: auto;
+}
