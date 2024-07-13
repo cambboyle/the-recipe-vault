@@ -170,6 +170,48 @@ def view_recipe(recipe_id):
         return redirect(url_for("get_recipes"))
 
 
+@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    if "user" not in session:
+        flash("Please log in to edit recipes")
+        return redirect(url_for("login"))
+
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
+    if not recipe:
+        flash("Recipe not found")
+        return redirect(url_for("get_recipes"))
+
+    if session["user"] != recipe["created_by"]:
+        flash("You can only edit your own recipes")
+        return redirect(url_for("view_recipe", recipe_id=recipe_id))
+
+    
+    if request.method == "POST":
+        updated_recipe = {
+            "recipe_name": request.form.get("recipe_name"),
+            "category_name": request.form.get("category_name"),
+            "recipe_description": request.form.get("recipe_description"),
+            "serving_size": request.form.get("serving_size"),
+            "prep_time": request.form.get("prep_time"),
+            "cooking_time": request.form.get("cooking_time"),
+            "dietary": request.form.get("dietary"),
+            "meal_type": request.form.get("meal_type"),
+            "main_ingredients": request.form.getlist("main_ingredients"),
+            "recipe_method": request.form.getlist("recipe_method"),
+            "created_by": session["user"],
+            "created_at": datetime.now().strftime("%d-%m-%Y at %H:%M")
+        }
+        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": updated_recipe})
+        flash("Recipe Upda Successfully")
+        return redirect(url_for("get_recipes"))
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    meals = mongo.db.meal_type.find().sort("meal_type", 1)
+    dietaries = mongo.db.dietary_requirements.find().sort("dietary_name", 1)
+    return render_template("edit_recipe.html", recipe=recipe, categories=categories, meals=meals, dietaries=dietaries)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

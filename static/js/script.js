@@ -3,8 +3,25 @@
 
 // initMDB({ Modal, Button, Ripple });
 
-
 // Recipe Form
+
+// Populate existing ingredients and steps
+function populateExistingFields() {
+    const ingredientsContainer = document.getElementById('ingredients-container');
+    const stepsContainer = document.getElementById('steps-container');
+
+    // Clear existing fields
+    ingredientsContainer.innerHTML = '';
+    stepsContainer.innerHTML = '';
+
+    // Populate ingredients
+    const ingredients = Array.from(document.getElementsByName('main_ingredients')).map(input => input.value);
+    ingredients.forEach(ingredient => addIngredient(ingredient));
+
+    // Populate steps
+    const steps = Array.from(document.getElementsByName('recipe_method')).map(textarea => textarea.value);
+    steps.forEach((step, index) => addStep(step, index + 1));
+}
 
 function addIngredient() {
     const container = document.getElementById('ingredients-container');
@@ -21,11 +38,11 @@ function addIngredient() {
     container.appendChild(newField);
 }
 
-function addStep() {
+function addStep(content='', stepNumber=null) {
     const container = document.getElementById('steps-container');
     if (!container) return;
 
-    const stepCount = container.children.length + 1;
+    const stepCount =  stepNumber || container.children.length + 1;
     const newField = document.createElement('div');
     newField.className = 'step-input mb-2';
     newField.innerHTML = `
@@ -74,7 +91,23 @@ function initializeRecipeForm() {
         addStepButton.addEventListener('click', addStep);
         stepsContainer.addEventListener('click', removeStep);
     }
+
+    populateExistingFields();
 }
 
-// Call initializeRecipeForm when the DOM is loaded
-document.addEventListener('DOMContentLoaded', initializeRecipeForm);
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded");
+    
+    document.getElementById('add_ingredient')?.addEventListener('click', function() {
+        console.log("Add ingredient clicked");
+        addIngredient();
+    });
+
+    document.getElementById('add_step')?.addEventListener('click', function() {
+        console.log("Add step clicked");
+        addStep();
+    });
+
+    document.getElementById('ingredients-container')?.addEventListener('click', removeIngredient);
+    document.getElementById('steps-container')?.addEventListener('click', removeStep);
+});

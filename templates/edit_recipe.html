@@ -1,0 +1,181 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="text-center mx-auto py-5">Edit Recipe</h3>
+
+<div class="row">
+    <form id="edit-recipe-form" class="col-sm-12" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" method="POST" >
+        <!-- Recipe Name -->
+        <div class="row mb-3">
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                    <input type="text" id="recipe_name" name="recipe_name" minlength="5" maxlength="50" 
+                        value="{{ recipe.recipe_name }}" class="form-control" placeholder="Recipe Name" required>
+                </div>
+            </div>
+        <!-- Cuisine -->
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-earth-americas"></i></span>
+                    <select class="form-control" id="category_name" name="category_name" required>
+                        <option value="" disabled>Select Cuisine</option>
+                        {% for category in categories %}
+                            {% if category.category_name == recipe.category_name %}
+                                <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                            {% else %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                  </div>
+            </div>
+        </div>
+        <!-- Recipe Description-->
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-pencil"></i></span>
+                    <textarea id="recipe_description" name="recipe_description" minlength="5" 
+                        maxlength="300" class="form-control" placeholder="Recipe Description" required>
+                        {{- recipe.recipe_description -}}
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <!-- Ingredients Section -->
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <h5>Ingredients</h5>
+                <em style="font-size: smaller;">(Include measurements/quantities if necessary)</em>
+                <div id="ingredients-container">
+                    {% for ingredient in recipe.main_ingredients %}
+                    <div class="ingredient-input mb-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="main_ingredients" 
+                                value="{{ ingredient }}" placeholder="Add Ingredient" required>
+                            <button class="btn btn-danger remove_ingredient" type="button">Remove</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="btn btn-secondary mt-2" id="add_ingredient">Add Ingredient</button>
+            </div>
+        </div>
+        <!-- Recipe Method -->
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <h5>Method</h5>
+                <div id="steps-container">
+                    {% for step in recipe.recipe_method %}
+                    <div class="step-input mb-2">
+                        <div class="input-group">
+                            <span class="input-group-text">Step {{ loop.index }}</span>
+                            <textarea class="form-control" name="recipe_method" rows="2" placeholder="Describe this step" required>{{ step }}</textarea>
+                            <button class="btn btn-danger remove_step" type="button">Remove</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="btn btn-secondary mt-2" id="add_step">Add Step</button>
+            </div>
+        </div>
+        <div class="row mb-3">
+        <!-- Servings -->
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-utensils py-2"></i></span>
+                    <input type="number" id="serving_size" name="serving_size" min="1" max="20" 
+                        value="{{ recipe.serving_size }}" class="form-control" placeholder="Servings" required>
+                </div>
+            </div>
+        <!-- Prep Time -->
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-clock py-2"></i></span>
+                    <input type="number" id="prep_time" name="prep_time" min="1" max="60" 
+                        value="{{ recipe.prep_time }}" class="form-control" placeholder="Prep Time (Minutes)" required>
+                </div>
+            </div>
+        <!-- Cooking Time -->
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-stopwatch py-2"></i></span>
+                    <input type="number" id="cooking_time" name="cooking_time" min="0" max="60" 
+                        value="{{ recipe.cooking_time }}" class="form-control" placeholder="Cooking Time (Minutes)" required>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+        <!-- Dietary Restrictions -->
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-leaf"></i></span>
+                    <select class="form-control" id="dietary" name="dietary" required>
+                        <option value="" disabled>Select dietary restriction</option>
+                        {% for dietary in dietaries %}
+                            {% if dietary.dietary_name == recipe.dietary_restrictions %}
+                                <option value="{{ dietary.dietary_name }}" selected>{{ dietary.dietary_name }}</option>
+                            {% else %}
+                                <option value="{{ dietary.dietary_name }}">{{ dietary.dietary_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        <!-- Meal Type -->
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-bowl-food py-2"></i></span>
+                    <select class="form-control" id="meal_type" name="meal_type" required>
+                        <option value="" disabled>Select meal type</option>
+                        {% for meal in meals %}
+                            {% if meal.meal_type == recipe.meal_type %}
+                                <option value="{{ meal.meal_type }}" selected>{{ meal.meal_type }}</option>
+                            {% else %}
+                                <option value="{{ meal.meal_type }}">{{ meal.meal_type }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Buttons -->
+        <div class="row mb-3">
+            <div class="col-sm-6 offset-sm-3 text-center">
+                <!-- Cancel Button -->
+                    <a href="{{ url_for('get_recipes') }}" class="btn btn-outline-secondary">
+                        Cancel <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                <!-- Save Button-->
+                <button type="submit" class="btn btn-success">
+                    Save changes <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Ensure the form is initialized after the page-specific content is loaded
+    document.addEventListener('DOMContentLoaded', initializeRecipeForm);
+</script>
+{% endblock %}
+
+{% block extra_js_inline %}
+<script>
+    console.log("Inline script executed");
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOM content loaded (inline script)");
+        if (typeof initializeRecipeForm === 'function') {
+            initializeRecipeForm();
+        } else {
+            console.error("initializeRecipeForm is not defined");
+        }
+    });
+</script>
+{% endblock %}
