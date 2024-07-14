@@ -2,8 +2,22 @@
 {% block content %}
 
 <h3 class="text-center py-5">All Recipes</h3>
-<hr>
+<div class="row justify-content-center">
+    <div class="col-sm-10">
+        <form action="{{ url_for('search_recipes') }}" method="GET">
+            <div class="input-group">
+                <input type="text" class="form-control" id="search" name="search" minlength="3" 
+                maxlength="50" placeholder="Search for a recipe..." value="{{ search }}" required>
+                <div class="input-group-append">
+                    <a href="{{ url_for('get_recipes')}}" class="btn btn-outline-secondary" type="submit">Search</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<hr class="my-5">
 
+{% if recipes|length > 0 %}
 <div class="row">
     {% for recipe in recipes %}
     <!-- card content-->
@@ -45,4 +59,7 @@
     </div>
     {% endfor %}
 </div>
+{% else %}
+<h3 class="text-center py-5">No recipes found</h3>
+{% endif %}
 {% endblock %}

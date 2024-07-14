@@ -244,6 +244,7 @@ def add_category():
     return render_template("add_category.html")
 
 
+# Edit Category
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
     if request.method == "POST":
@@ -258,11 +259,20 @@ def edit_category(category_id):
     return render_template("edit_category.html", category=category)
 
 
+# Delete Category
 @app.route("/delete_category/<category_id>")
 def delete_category(category_id):
     mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
     flash("Category deleted successfully")
     return redirect(url_for("get_categories"))
+
+
+# Search Recipes
+@app.route("/search_recipes")
+def search_recipes():
+    search = request.args.get("search")
+    recipes = list(mongo.db.recipes.find({"$text": {"$search": search}}))
+    return render_template("recipes.html", recipes=recipes, search=search)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
