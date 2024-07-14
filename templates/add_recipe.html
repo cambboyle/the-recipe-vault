@@ -4,134 +4,137 @@
 
 <h3 class="text-center mx-auto py-5">Add Recipe</h3>
 
-<div class="row">
-    <form class="col-sm-12" action="{{ url_for('add_recipe') }}" method="POST">
-        <!-- Recipe Name -->
-        <div class="row mb-3">
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-tags"></i></span>
-                    <input type="text" id="recipe_name" name="recipe_name" minlength="5" maxlength="50" 
-                        class="form-control" placeholder="Recipe Name" required>
+<div class="col-sm-8 offset-sm-2">
+    <div class="row">
+        <form class="col-sm-12" action="{{ url_for('add_recipe') }}" method="POST">
+            <!-- Recipe Name -->
+            <div class="row mb-3">
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                        <input type="text" id="recipe_name" name="recipe_name" minlength="5" maxlength="50"
+                            class="form-control" placeholder="Recipe Name" required>
+                    </div>
                 </div>
-            </div>
-        <!-- Cuisine -->
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fa-solid fa-earth-americas"></i></span>
-                    <select class="form-control" id="category_name" name="category_name" required>
-                        <option value="" disabled selected>Select Cuisine</option>
-                        {% for category in categories %}
+                <!-- Cuisine -->
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-earth-americas"></i></span>
+                        <select class="form-control" id="category_name" name="category_name" required>
+                            <option value="" disabled selected>Select Cuisine</option>
+                            {% for category in categories %}
                             <option value="{{ category.category_name }}">{{ category.category_name }}</option>
-                        {% endfor %}
-                    </select>
-                  </div>
-            </div>
-        </div>
-        <!-- Recipe Description-->
-        <div class="row mb-3">
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fa-solid fa-pencil"></i></span>
-                    <textarea id="recipe_description" name="recipe_description" minlength="5" 
-                        maxlength="300" class="form-control" placeholder="Recipe Description" required></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- Ingredients Section -->
-        <div class="row mb-3">
-            <div class="col-sm-12">
-                <h5>Ingredients</h5>
-                <em style="font-size: smaller;">(Include measurements/quantities if necessary)</em>
-                <div id="ingredients-container">
-                    <div class="ingredient-input mb-2">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="main_ingredients" placeholder="Add Ingredient" required>
-                        </div>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary mt-2" id="add_ingredient">Add Ingredient</button>
             </div>
-        </div>
-        <!-- Recipe Steps -->
-        <div class="row mb-3">
-            <div class="col-sm-12">
-                <h5>Method</h5>
-                <div id="steps-container">
-                    <div class="step-input mb-2">
-                        <div class="input-group">
-                            <span class="input-group-text">Step 1</span>
-                            <textarea class="form-control" name="recipe_method" rows="2" placeholder="Describe this step" required></textarea>
-                        </div>
+            <!-- Recipe Description-->
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-pencil"></i></span>
+                        <textarea id="recipe_description" name="recipe_description" minlength="5" maxlength="300"
+                            class="form-control" placeholder="Recipe Description" required></textarea>
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary mt-2" id="add_step">Add Step</button>
             </div>
-        </div>
-        
-        <div class="row mb-3">
-        <!-- Servings -->
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fa-solid fa-utensils py-2"></i></span>
-                    <input type="number" id="serving_size" name="serving_size" min="1" max="20" 
-                        class="form-control" placeholder="Servings" required>
+            <!-- Ingredients Section -->
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <h5>Ingredients</h5>
+                    <em style="font-size: smaller;">(Include measurements/quantities if necessary)</em>
+                    <div id="ingredients-container">
+                        <div class="ingredient-input mb-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="main_ingredients"
+                                    placeholder="Add Ingredient" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary mt-2" id="add_ingredient">Add Ingredient</button>
                 </div>
             </div>
-        <!-- Prep Time -->
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fa-solid fa-clock py-2"></i></span>
-                    <input type="number" id="prep_time" name="prep_time" min="1" max="60" 
-                        class="form-control" placeholder="Prep Time (Minutes)" required>
+            <!-- Recipe Steps -->
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <h5>Method</h5>
+                    <div id="steps-container">
+                        <div class="step-input mb-2">
+                            <div class="input-group">
+                                <span class="input-group-text">Step 1</span>
+                                <textarea class="form-control" name="recipe_method" rows="2"
+                                    placeholder="Describe this step" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary mt-2" id="add_step">Add Step</button>
                 </div>
             </div>
-        <!-- Cooking Time -->
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fa-solid fa-stopwatch py-2"></i></span>
-                    <input type="number" id="cooking_time" name="cooking_time" min="0" max="60" 
-                        class="form-control" placeholder="Cooking Time (Minutes)" required>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-3">
-        <!-- Dietary Restrictions -->
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fa-solid fa-leaf"></i></span>
-                    <select class="form-control" id="dietary" name="dietary" required>
-                        <option value="" disabled selected>Select dietary restriction</option>
-                        {% for dietary in dietaries %}
-                            <option value="{{ dietary.dietary_name }}">{{ dietary.dietary_name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        <!-- Meal Type -->
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fa-solid fa-bowl-food py-2"></i></span>
-                    <select class="form-control" id="meal_type" name="meal_type" required>
-                        <option value="" disabled selected>Select meal type</option>
-                        {% for meal in meals %}
-                            <option value="{{ meal.meal_type }}">{{ meal.meal_type }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-        <!-- Submit Button -->
-        <div class="row mb-3">
-            <div class="col-sm-6 offset-sm-3 text-center">
-                <button type="submit" class="btn btn-success">
-                    Submit <i class="fas fa-plus-square right"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
 
+            <div class="row mb-3">
+                <!-- Servings -->
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-utensils py-2"></i></span>
+                        <input type="number" id="serving_size" name="serving_size" min="1" max="20" class="form-control"
+                            placeholder="Servings" required>
+                    </div>
+                </div>
+                <!-- Prep Time -->
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-clock py-2"></i></span>
+                        <input type="number" id="prep_time" name="prep_time" min="1" max="60" class="form-control"
+                            placeholder="Prep Time (Minutes)" required>
+                    </div>
+                </div>
+                <!-- Cooking Time -->
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-stopwatch py-2"></i></span>
+                        <input type="number" id="cooking_time" name="cooking_time" min="0" max="60" class="form-control"
+                            placeholder="Cooking Time (Minutes)" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <!-- Dietary Restrictions -->
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-leaf"></i></span>
+                        <select class="form-control" id="dietary" name="dietary" required>
+                            <option value="" disabled selected>Select dietary restriction</option>
+                            {% for dietary in dietaries %}
+                            <option value="{{ dietary.dietary_name }}">{{ dietary.dietary_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <!-- Meal Type -->
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-bowl-food py-2"></i></span>
+                        <select class="form-control" id="meal_type" name="meal_type" required>
+                            <option value="" disabled selected>Select meal type</option>
+                            {% for meal in meals %}
+                            <option value="{{ meal.meal_type }}">{{ meal.meal_type }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="row mb-3">
+                <div class="col-sm-6 offset-sm-3 text-center">
+                    <button type="submit" class="btn btn-success">
+                        Submit <i class="fas fa-plus-square right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
