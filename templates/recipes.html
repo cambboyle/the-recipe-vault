@@ -1,6 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- Hero -->
+<header class="masthead text-light d-flex align-items-center justify-content-center">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-auto text-center">
+                    <h1 class="brand-heading text-center">Unlock your <strong>Kitchen</strong> Creativity</h1>
+                    <p class="intro-text text-center">Discover, share and save your favorite recipes.</p>
+                    <a class="btn btn-outline-light btn-lg btn-floating" 
+                        role="button" 
+                        href="#">
+                        <i class="fa fa-angle-double-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- search bar -->
 <h3 class="text-center py-5">All Recipes</h3>
 <div class="row justify-content-center">
     <div class="col-sm-10">
@@ -17,13 +38,13 @@
 </div>
 <hr class="my-5">
 
+<!-- recipe cards -->
 {% if recipes|length > 0 %}
 <div class="row">
     {% for recipe in recipes %}
     <!-- card content-->
-        <div class="col-sm-4">
+        <div class="col-sm-4 mb-3">
             <div class="card"> 
-
             <!-- prep time-->
                 <div class="row card-text justify-content-between">
                     <span class="col-sm-6">Prep Time: {{ recipe.prep_time }} Minutes</span>
@@ -62,4 +83,5 @@
 {% else %}
 <h3 class="text-center py-5">No recipes found</h3>
 {% endif %}
+
 {% endblock %}

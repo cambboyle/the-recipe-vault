@@ -41,11 +41,12 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-md fixed-top px-5 shadow-0">
         <div class="container-fluid outfit-heading">
-          <a class="navbar-brand" href="{{ url_for('get_recipes') }}" style="font-weight: 700;">
-            <img src="{{ url_for('static', filename='images/site_logo.png') }}" alt="logo" 
-            class="navbar-brand ps-4" style="font-weight: 600;">
+          <a class="navbar-brand main-logo" 
+            href="{{ url_for('get_recipes') }}" 
+            style="font-weight: 700;">
+            The Recipe Vault
           </a>
           <button
             data-mdb-collapse-init
@@ -58,38 +59,38 @@
           >
             <i class="fas fa-bars"></i>
           </button>
+          <!-- navbar links -->
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
               {% if session.user %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
+                  <a class="nav-link text-light" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('add_recipe') }}">Add Recipe</a>
+                  <a class="nav-link text-light" href="{{ url_for('add_recipe') }}">Add Recipe</a>
                 </li>
                 {% if session.user|lower == "admin"|lower %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('get_categories') }}">Categories</a>
+                    <a class="nav-link text-light" href="{{ url_for('get_categories') }}">Categories</a>
                   </li>
                 {% endif %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+                  <a class="nav-link text-light" href="{{ url_for('logout') }}">Log Out</a>
                 </li>
               {% else%}
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
+                  <a class="nav-link text-light" href="{{ url_for('login') }}">Log In</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                  <a class="nav-link text-light" href="{{ url_for('register') }}">Register</a>
                 </li>
               {% endif %}
             </ul>
           </div>
         </div>
     </nav>
-    
+    <!-- flash messages -->
     <section>
-      <!-- Flash messages -->
       {% with messages = get_flashed_messages() %}
         {% if messages %}
           {% for message in messages %}
@@ -101,7 +102,7 @@
       {% endwith %}  
     </section>
 
-    <main class="container">
+    <main class="container-fluid">
       {% block content %}
       {% endblock %}
     </main>
@@ -109,6 +110,8 @@
     <footer class="text-center">
         <p> &copy; 2024 The Recipe Vault</p>
     </footer>
+
+
     <!-- MDB -->
     <script
     type="text/javascript"

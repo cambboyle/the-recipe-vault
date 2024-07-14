@@ -1,8 +1,15 @@
+/* CSS reset */
+html {
+    scroll-behavior: smooth;
+    color: #22333B
+}
+
 body {
-    background-color: #f5f7fa;
+    background-color: #E3DAC9;
     font-family: "Josefin Sans", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+    width: 100%;
 }
 
 /* Fonts */
@@ -44,4 +51,21 @@ img {
   max-height:400px;
   width: auto;
   height: auto;
+}
+
+/* Hero */
+.masthead {
+  background-image: url(/static/images/HERO.jpg);
+  background-size: cover;
+  background-position: left; 
+  background-repeat: no-repeat;
+  height: 100dvh;
+  width: 100%;
+}
+
+/* Main logo */
+.main-logo {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #f1f1f1;
 }
