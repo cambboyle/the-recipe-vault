@@ -163,23 +163,9 @@
 
 {% endblock %}
 
-{% block extra_js %}
-<script>
-    // Ensure the form is initialized after the page-specific content is loaded
-    document.addEventListener('DOMContentLoaded', initializeRecipeForm);
-</script>
-{% endblock %}
-
 {% block extra_js_inline %}
 <script>
-    console.log("Inline script executed");
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log("DOM content loaded (inline script)");
-        if (typeof initializeRecipeForm === 'function') {
-            initializeRecipeForm();
-        } else {
-            console.error("initializeRecipeForm is not defined");
-        }
-    });
+    // Ensure the form is initialized after the page-specific content is loaded
+        document.addEventListener('DOMContentLoaded', initializeRecipeForm);
 </script>
 {% endblock %}

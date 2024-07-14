@@ -95,6 +95,7 @@ function initializeRecipeForm() {
     populateExistingFields();
 }
 
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM fully loaded");
     

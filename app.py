@@ -20,6 +20,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+# Get Recipes
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
@@ -119,6 +120,7 @@ def logout():
     return redirect(url_for("login"))
 
 
+# Add Recipe
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":
@@ -156,6 +158,7 @@ def login_required(f):
     return decorated_function
 
 
+# View Recipe
 @app.route("/recipe/<recipe_id>")
 def view_recipe(recipe_id):
     if "user" not in session:
@@ -170,6 +173,7 @@ def view_recipe(recipe_id):
         return redirect(url_for("get_recipes"))
 
 
+# Edit Recipe
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if "user" not in session:
@@ -212,6 +216,7 @@ def edit_recipe(recipe_id):
     return render_template("edit_recipe.html", recipe=recipe, categories=categories, meals=meals, dietaries=dietaries)
 
 
+# Delete Recipe
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
@@ -219,6 +224,45 @@ def delete_recipe(recipe_id):
     return redirect(url_for("get_recipes"))
 
 
+# Get Categories
+@app.route("/get_categories")
+def get_categories():
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("categories.html", categories=categories)
+
+# Add Category
+@app.route("/add_category", methods=["GET", "POST"])
+def add_category():
+    if request.method == "POST":
+        category = {
+            "category_name": request.form.get("category_name")
+        }
+        mongo.db.categories.insert_one(category)
+        flash("Category added successfully")
+        return redirect(url_for("get_categories"))
+
+    return render_template("add_category.html")
+
+
+@app.route("/edit_category/<category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    if request.method == "POST":
+        submitted_category = {
+            "category_name": request.form.get("category_name")
+        }
+        mongo.db.categories.update_one({"_id": ObjectId(category_id)}, ( {"$set": submitted_category}))
+        flash("Category updated successfully")
+        return redirect(url_for("get_categories"))
+
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    return render_template("edit_category.html", category=category)
+
+
+@app.route("/delete_category/<category_id>")
+def delete_category(category_id):
+    mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
+    flash("Category deleted successfully")
+    return redirect(url_for("get_categories"))
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
