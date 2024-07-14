@@ -203,13 +203,21 @@ def edit_recipe(recipe_id):
             "created_at": datetime.now().strftime("%d-%m-%Y at %H:%M")
         }
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": updated_recipe})
-        flash("Recipe Upda Successfully")
+        flash("Recipe Updated Successfully")
         return redirect(url_for("get_recipes"))
 
     categories = mongo.db.categories.find().sort("category_name", 1)
     meals = mongo.db.meal_type.find().sort("meal_type", 1)
     dietaries = mongo.db.dietary_requirements.find().sort("dietary_name", 1)
     return render_template("edit_recipe.html", recipe=recipe, categories=categories, meals=meals, dietaries=dietaries)
+
+
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+    flash("Recipe deleted successfully")
+    return redirect(url_for("get_recipes"))
+
 
 
 if __name__ == "__main__":
