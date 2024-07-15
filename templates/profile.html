@@ -8,18 +8,61 @@
                     <h3 class="text-center text-uppercase py-3">
                         {{username}}'s Profile
                     </h3>
-                    <div class="pb-3 px-3">
-                        {% for recipe in recipes %}
-                            <div class="card recipe">
-                                <h2><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">{{ recipe.recipe_name }}</a></h2>
-                                <p>{{ recipe.recipe_description }}</p>
-                                <p>Created by: {{ recipe.created_by }} on {{ recipe.created_at }}</p>
-                            </div>
-                        {% endfor %}
-                    </div>
                 </div>
             </div>
         </section>
+        <div class="row"><!-- recipe cards -->
+            <div class="col-sm-8 offset-sm-2" id="recipes">
+                {% if recipes|length > 0 %}
+                <div class="row">
+                    {% for recipe in recipes %}
+                    <!-- card content-->
+                    <div class="col-sm-4 mb-3">
+                        <div class="card card-style">
+                            <!-- prep time-->
+                            <div class="row card-text justify-content-between">
+                                <span class="col-sm-6">Prep Time: {{ recipe.prep_time }} Minutes</span>
+                                <span class="col-sm-6">Cooking Time:
+                                    {% if recipe.cooking_time == 0 %}
+                                    <span>0 Minutes</span>
+                                    {% else %}
+                                    <span>{{ recipe.cooking_time }} Minutes</span>
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <!-- card image -->
+                            <div class="card-image">
+                                <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
+                                    class="card-img-top object-fit-sm-contain rounded mx-auto d-block">
+                            </div>
+
+                            <!-- recipe title -->
+                            <div class="card-body row">
+                                <span class="card-title">
+                                    <h2><a
+                                            href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">{{ recipe.recipe_name }}</a>
+                                    </h2>
+                                </span>
+                                <div class="col-sm-6">
+                                    <strong>{{ recipe.category_name }}</strong>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p>{{ recipe.meal_type }}</p>
+                                </div>
+                                <hr>
+                                <p><em>by: {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <h3 class="text-center py-5">No recipes found</h3>
+                {% endif %}
+            </div>
+        </div>
     </div>
+
+    
 
 {% endblock %}

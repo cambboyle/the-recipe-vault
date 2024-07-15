@@ -6,16 +6,14 @@
     <div class="intro-body">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-8 mx-auto text-center">
-                    <h1 class="brand-heading text-center">Unlock your <strong>Kitchen</strong> Creativity</h1>
+                <div class="col-12 col-lg-8 mx-auto text-center hero-text">
+                    <h1 class="brand-heading text-center ">Unlock your <strong>Kitchen</strong> Creativity</h1>
                     <p class="intro-text text-center">Discover, share and save your favorite recipes.</p>
                     <div>
-                        <a class="btn btn-outline-light btn-lg btn-floating" 
-                        role="button" 
-                        href="#recipes"
-                        style="position: absolute; bottom: 10px">
-                        <i class="fa fa-angle-double-down"></i>
-                    </a>
+                        <a class="btn btn-outline-light btn-lg btn-floating" role="button" href="#recipes"
+                            style="position: absolute; bottom: 10px">
+                            <i class="fa fa-angle-double-down"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -25,13 +23,13 @@
 
 
 <!-- search bar -->
-<h3 class="text-center py-5">All Recipes</h3>
+<h3 class="text-center py-5 other-header-text" id="recipes">All Recipes</h3>
 <div class="row justify-content-center">
     <div class="col-sm-10">
         <form action="{{ url_for('search_recipes') }}" method="GET">
             <div class="input-group">
-                <input type="text" class="form-control" id="search" name="search" minlength="3" 
-                maxlength="50" placeholder="Search for a recipe..." value="{{ search }}" required>
+                <input type="text" class="form-control" id="search" name="search" minlength="3" maxlength="50"
+                    placeholder="Search for a recipe..." value="{{ search }}" required>
                 <div class="input-group-append">
                     <a href="{{ url_for('get_recipes')}}" class="btn btn-outline-secondary" type="submit">Search</a>
                 </div>
@@ -42,7 +40,7 @@
 <hr class="my-5">
 
 <!-- recipe cards -->
-<div class="col-sm-8 offset-sm-2" id="recipes">
+<div class="col-sm-8 offset-sm-2" id="">
     {% if recipes|length > 0 %}
     <div class="row">
         {% for recipe in recipes %}
@@ -88,6 +86,33 @@
     {% else %}
     <h3 class="text-center py-5">No recipes found</h3>
     {% endif %}
+    <!-- how it works scroll button -->
+</div>
+
+<div class="row">
+    <h3 class="col-sm-12 text-center py-5" id="how-it-works">
+        How it works
+    </h3>
+    <div class="col-sm-10 offset-sm-1 text-center py-5">
+        <div class="row">
+            <div class="col-sm-3">
+                <h5><strong>Sign Up</strong></h5>
+                <p style="font-size:medium">Create an account and join <br> our community.</p>
+            </div>
+            <div class="col-sm-3">
+                <h5><strong>Share Recipes</strong></h5>
+                <p style="font-size:medium">Add your favourite recipes <br> and share them with others.</p>
+            </div>
+            <div class="col-sm-3">
+                <h5><strong>Save Recipes</strong></h5>
+                <p style="font-size:medium">Keep track of your <br> favourite recipes and <br>access them anytime.</p>
+            </div>
+            <div class="col-sm-3">
+                <h5><strong>Enjoy Cooking!</strong></h5>
+                <p style="font-size:medium">Get inspired and cook <br> delicious meals with ease.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

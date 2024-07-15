@@ -5,7 +5,8 @@ html {
 }
 
 body {
-    background-color: #E3DAC9;
+    background-color: #AE937E;
+    /* background-color: #E3DAC9; */
     font-family: "Josefin Sans", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -55,7 +56,7 @@ img {
 
 /* Hero */
 .masthead {
-  background-image: url(/static/images/HERO.jpg);
+  background-image: url(/static/images/final-hero.jpg);
   background-size: cover;
   background-position: left; 
   background-repeat: no-repeat;
@@ -66,6 +67,27 @@ img {
 /* Main logo */
 .main-logo {
   font-size: 3rem;
+  font-weight: 600;
+  color: #f1f1f1;
+}
+
+/* Navbar Text */
+.navbar-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f1f1f1;
+}
+
+/*  Hero Image Text */
+.hero-text {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #f1f1f1;
+}
+
+/* Other Header Text */
+.other-header-text {
+  font-size: 2rem;
   font-weight: 600;
   color: #f1f1f1;
 }
