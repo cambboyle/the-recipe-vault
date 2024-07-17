@@ -145,7 +145,6 @@ function confirmDeleteCategory(categoryId, categoryName) {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM fully loaded");
     

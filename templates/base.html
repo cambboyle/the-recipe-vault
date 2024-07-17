@@ -40,7 +40,22 @@
     <title>The Recipe Vault</title>
 </head>
 <body>
-
+    <!-- flash messages -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 offset-sm-4 text-center">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+    </div>
     <nav class="navbar navbar-expand-md fixed-top px-5 shadow-0">
         <div class="container-fluid outfit-heading">
           <a class="navbar-brand main-logo" 
@@ -89,21 +104,6 @@
           </div>
         </div>
     </nav>
-    <!-- flash messages -->
-     <div class="container">
-      <section>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-              <div class="row flashes">
-                <h4 class="text-center" style="color: limegreen;">{{ message }}</h4>
-              </div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}  
-      </section>
-     </div>
-    
 
     <main class="container-fluid">
       <div class="row">

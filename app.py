@@ -222,28 +222,24 @@ def delete_recipe(recipe_id):
     try:
         # Check if the user is logged in
         if "user" not in session:
+            flash("Please log in to delete recipes")
+            return redirect(url_for("login"))
             return jsonify({"error": "User not logged in"}), 401
-
         # Find the recipe
         recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-
         # Check if the recipe exists
         if not recipe:
             return jsonify({"error": "Recipe not found"}), 404
-
         # Check if the logged-in user is the creator of the recipe
         if session["user"] != recipe["created_by"]:
             return jsonify({"error": "You can only delete your own recipes"}), 403
-
         # Delete the recipe
         result = mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-
         if result.deleted_count == 1:
             flash("Recipe deleted successfully")
             return jsonify({"success": True, "redirect": url_for("get_recipes")})
         else:
             return jsonify({"error": "Failed to delete recipe"}), 500
-
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -257,6 +253,10 @@ def get_categories():
 # Add Category
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
+    # Check if category exists
+    if mongo.db.categories.find_one({"category_name": request.form.get("category_name")}):
+        flash("Category already exists")
+        return redirect(url_for("get_categories"))  
     if request.method == "POST":
         category = {
             "category_name": request.form.get("category_name")
@@ -283,17 +283,21 @@ def edit_category(category_id):
     return render_template("edit_category.html", category=category)
 
 
-# Helper function to check if the user is an admin
-def is_admin():
-    return session.get("user") == "admin"
-
 # Delete Category
-@app.route("/delete_category/<category_id>", methods=["POST"])
+@app.route("/delete_category/<category_id>", methods=["GET","POST"])
 def delete_category(category_id):
-    if not is_admin():
-        return jsonify({"error": "Only admin can delete categories"}), 403
-
     try:
+        # Check if the user is logged in
+        if "user" not in session:
+            flash("Please log in to delete categories")
+            return redirect(url_for("login"))
+            return jsonify({"error": "User not logged in"}), 401
+        # Find the category
+        category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+        # Check if the category exists
+        if not category:
+            return jsonify({"error": "Category not found"}), 404
+        # Delete the category
         result = mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
         if result.deleted_count == 1:
             flash("Category deleted successfully")
