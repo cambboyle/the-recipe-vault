@@ -69,7 +69,7 @@
                 <li class="nav-item">
                   <a class="nav-link navbar-text" href="{{ url_for('add_recipe') }}">Add Recipe</a>
                 </li>
-                {% if session.user.admin|lower == true %}
+                {% if session.user == "admin" %}
                   <li class="nav-item">
                     <a class="nav-link navbar-text" href="{{ url_for('get_categories') }}">Categories</a>
                   </li>
@@ -90,17 +90,20 @@
         </div>
     </nav>
     <!-- flash messages -->
-    <section>
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-            <div class="row flashes">
-              <h4 class="text-center" style="color: limegreen;">{{ message }}</h4>
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}  
-    </section>
+     <div class="container">
+      <section>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="row flashes">
+                <h4 class="text-center" style="color: limegreen;">{{ message }}</h4>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}  
+      </section>
+     </div>
+    
 
     <main class="container-fluid">
       <div class="row">

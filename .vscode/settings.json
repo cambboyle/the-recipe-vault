@@ -13,6 +13,6 @@
       "**/CVS": true
    },
    "files.autoSave": "off",
-   "workbench.colorTheme": "Catppuccin Frappé",
+   "workbench.colorTheme": "Catppuccin Mocha",
    "terminal.integrated.gpuAcceleration": "canvas",
 }

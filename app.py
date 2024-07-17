@@ -1,7 +1,7 @@
 import os
 from flask import (
     Flask, flash, render_template, 
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, jsonify)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -136,7 +136,7 @@ def add_recipe():
             "main_ingredients": request.form.getlist("main_ingredients"),
             "recipe_method": request.form.getlist("recipe_method"),
             "created_by": session["user"],
-            "created_at": datetime.now().strftime("%d-%m-%Y at %H:%M")
+            "created_at": datetime.now().strftime("%d/%m/%Y")
         }
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe added successfully")
@@ -204,7 +204,7 @@ def edit_recipe(recipe_id):
             "main_ingredients": request.form.getlist("main_ingredients"),
             "recipe_method": request.form.getlist("recipe_method"),
             "created_by": session["user"],
-            "created_at": datetime.now().strftime("%d-%m-%Y at %H:%M")
+            "created_at": datetime.now().strftime("%d/%m/%Y")
         }
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": updated_recipe})
         flash("Recipe Updated Successfully")
@@ -217,11 +217,35 @@ def edit_recipe(recipe_id):
 
 
 # Delete Recipe
-@app.route("/delete_recipe/<recipe_id>")
+@app.route("/delete_recipe/<recipe_id>", methods=["GET","POST"])
 def delete_recipe(recipe_id):
-    mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-    flash("Recipe deleted successfully")
-    return redirect(url_for("get_recipes"))
+    try:
+        # Check if the user is logged in
+        if "user" not in session:
+            return jsonify({"error": "User not logged in"}), 401
+
+        # Find the recipe
+        recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
+        # Check if the recipe exists
+        if not recipe:
+            return jsonify({"error": "Recipe not found"}), 404
+
+        # Check if the logged-in user is the creator of the recipe
+        if session["user"] != recipe["created_by"]:
+            return jsonify({"error": "You can only delete your own recipes"}), 403
+
+        # Delete the recipe
+        result = mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+
+        if result.deleted_count == 1:
+            flash("Recipe deleted successfully")
+            return jsonify({"success": True, "redirect": url_for("get_recipes")})
+        else:
+            return jsonify({"error": "Failed to delete recipe"}), 500
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # Get Categories
@@ -259,12 +283,25 @@ def edit_category(category_id):
     return render_template("edit_category.html", category=category)
 
 
+# Helper function to check if the user is an admin
+def is_admin():
+    return session.get("user") == "admin"
+
 # Delete Category
-@app.route("/delete_category/<category_id>")
+@app.route("/delete_category/<category_id>", methods=["POST"])
 def delete_category(category_id):
-    mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
-    flash("Category deleted successfully")
-    return redirect(url_for("get_categories"))
+    if not is_admin():
+        return jsonify({"error": "Only admin can delete categories"}), 403
+
+    try:
+        result = mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
+        if result.deleted_count == 1:
+            flash("Category deleted successfully")
+            return jsonify({"success": True, "redirect": url_for("get_categories")})
+        else:
+            return jsonify({"error": "Failed to delete category"}), 500
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # Search Recipes

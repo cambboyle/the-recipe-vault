@@ -6,9 +6,14 @@
     <div class="intro-body">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-8 mx-auto text-center hero-text">
-                    <h1 class="brand-heading text-center ">Unlock your <strong>Kitchen</strong> Creativity</h1>
-                    <p class="intro-text text-center">Discover, share and save your favorite recipes.</p>
+                <div class="col-12 col-lg-8 mx-auto text-center">
+                    <h1 class="brand-heading hero-text text-center"
+                        style="color: #f1f1f1">
+                        Unlock your <strong>Kitchen</strong> Creativity</h1>
+                    <p class="intro-text text-center"
+                        style="color: #f1f1f1">
+                        Discover, share and save your favorite recipes.
+                    </p>
                     <div>
                         <a class="btn btn-outline-light btn-lg btn-floating" role="button" href="#recipes"
                             style="position: absolute; bottom: 10px">
@@ -31,7 +36,7 @@
                 <input type="text" class="form-control" id="search" name="search" minlength="3" maxlength="50"
                     placeholder="Search for a recipe..." value="{{ search }}" required>
                 <div class="input-group-append">
-                    <a href="{{ url_for('get_recipes')}}" class="btn btn-outline-secondary" type="submit">Search</a>
+                    <a href="{{ url_for('get_recipes')}}" class="btn" type="submit">Search</a>
                 </div>
             </div>
         </form>
@@ -46,49 +51,54 @@
         {% for recipe in recipes %}
         <!-- card content-->
         <div class="col-sm-4 mb-3">
-            <div class="card card-style">
-                <!-- prep time-->
-                <div class="row card-text justify-content-between">
-                    <span class="col-sm-6">Prep Time: {{ recipe.prep_time }} Minutes</span>
-                    <span class="col-sm-6">Cooking Time:
-                        {% if recipe.cooking_time == 0 %}
-                        <span>0 Minutes</span>
-                        {% else %}
-                        <span>{{ recipe.cooking_time }} Minutes</span>
-                        {% endif %}
-                    </span>
-                </div>
-                <!-- card image -->
-                <div class="card-image">
-                    <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
-                        class="card-img-top object-fit-sm-contain rounded mx-auto d-block">
-                </div>
-
-                <!-- recipe title -->
-                <div class="card-body row">
-                    <span class="card-title">
-                        <h2><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">{{ recipe.recipe_name }}</a>
-                        </h2>
-                    </span>
-                    <div class="col-sm-6">
-                        <strong>{{ recipe.category_name }}</strong>
+            <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+                <div class="card card-style h-100">
+                    <!-- card image -->
+                    <div class="card-image">
+                        <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
+                            class=" mx-auto d-block"
+                            style="height: 400px; width: 100%;">
+                        <span class="col-sm-5 top-left-image text-start ms-2">
+                            Prep: {{ recipe.prep_time }} Minutes
+                        </span>
+                        <span class="col-sm-5 top-right-image text-end me-2">Cook:
+                            {% if recipe.cooking_time == 0 %}
+                                <span>0 Minutes</span>
+                            {% else %}
+                                <span>{{ recipe.cooking_time }} Minutes</span>
+                            {% endif %}
+                        </span>
                     </div>
-                    <div class="col-sm-6">
-                        <p>{{ recipe.meal_type }}</p>
+                    <!-- recipe title -->
+                    <div class="card-body row">
+                        <div class="col-sm-6">
+                            <strong>{{ recipe.category_name }}</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="text-end">{{ recipe.meal_type }}</p>
+                        </div>
+                        <span class="card-title">
+                            <h4 class="text-start">
+                                {{ recipe.recipe_name }}
+                            </h4>
+                        </span>
+                        <div class="col-sm-12">
+                            <p class="text-start">{{ recipe.recipe_description }}</p>
+                        </div>
+                        <hr>
+                        <p class="text-start"><em>by: {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
                     </div>
-                    <hr>
-                    <p><em>by: {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
                 </div>
-            </div>
+            </a>
         </div>
         {% endfor %}
     </div>
     {% else %}
     <h3 class="text-center py-5">No recipes found</h3>
     {% endif %}
-    <!-- how it works scroll button -->
 </div>
 
+<!-- how it works -->
 <div class="row">
     <h3 class="col-sm-12 text-center py-5" id="how-it-works">
         How it works

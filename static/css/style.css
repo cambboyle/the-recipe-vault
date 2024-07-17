@@ -54,6 +54,16 @@ img {
   height: auto;
 }
 
+/* bg image */
+.bg-image {
+  background-image: url(/static/images/final-hero.jpg);
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
 /* Hero */
 .masthead {
   background-image: url(/static/images/final-hero.jpg);
@@ -97,4 +107,23 @@ img {
   background-color: #f1f1f1;
   border-radius: 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Image Text */
+.top-left-image {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #f1f1f1;
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.top-right-image {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #f1f1f1;
+  position: absolute;
+  top: 8px;
+  right: 16px;
 }

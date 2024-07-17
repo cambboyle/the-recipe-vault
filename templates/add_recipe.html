@@ -48,7 +48,7 @@
                         <div class="ingredient-input mb-2">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="main_ingredients"
-                                    placeholder="Add Ingredient" required>
+                                    placeholder="Add Ingredient" minlength="5" maxlength="50" required>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">Step 1</span>
                                 <textarea class="form-control" name="recipe_method" rows="2"
-                                    placeholder="Describe this step" required></textarea>
+                                    placeholder="Describe this step" minlength="5" maxlength="50" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-utensils py-2"></i></span>
                         <input type="number" id="serving_size" name="serving_size" min="1" max="20" class="form-control"
-                            placeholder="Servings" required>
+                            placeholder="Servings" minlength="5" maxlength="50" required>
                     </div>
                 </div>
                 <!-- Prep Time -->
@@ -86,7 +86,7 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-clock py-2"></i></span>
                         <input type="number" id="prep_time" name="prep_time" min="1" max="60" class="form-control"
-                            placeholder="Prep Time (Minutes)" required>
+                            placeholder="Prep Time (Minutes)" minlength="5" maxlength="50" required>
                     </div>
                 </div>
                 <!-- Cooking Time -->
@@ -94,7 +94,7 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-stopwatch py-2"></i></span>
                         <input type="number" id="cooking_time" name="cooking_time" min="0" max="60" class="form-control"
-                            placeholder="Cooking Time (Minutes)" required>
+                            placeholder="Cooking Time (Minutes)"minlength="5" maxlength="50" required>
                     </div>
                 </div>
             </div>
