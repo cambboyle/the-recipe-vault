@@ -104,6 +104,11 @@ def profile(username):
         {"username": session["user"]})["username"]
 
     if session["user"]:
+        if request.method == "POST":
+            # Update Bio
+            new_bio = request.form.get("bio")
+            mongo.db.users.update_one({"username": username}, {"$set": {"bio": new_bio}})
+            flash("Bio updated successfully")
         # Fetch user's recipes
         user_recipes = list(mongo.db.recipes.find({"created_by": username}))
         return render_template("profile.html", username=username, recipes=user_recipes)
@@ -314,6 +319,7 @@ def search_recipes():
     search = request.args.get("search")
     recipes = list(mongo.db.recipes.find({"$text": {"$search": search}}))
     return render_template("recipes.html", recipes=recipes, search=search)
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

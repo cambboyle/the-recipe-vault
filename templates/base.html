@@ -45,17 +45,19 @@
       <div class="row">
         <div class="col-sm-4 offset-sm-4 text-center">
           {% with messages = get_flashed_messages() %}
-            {% if messages %}
-              {% for message in messages %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif %}
+          {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+          </div>
+          {% endfor %}
+          {% endif %}
           {% endwith %}
         </div>
       </div>
     </div>
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-md fixed-top px-5 shadow-0">
         <div class="container-fluid outfit-heading">
           <a class="navbar-brand main-logo" 
@@ -105,6 +107,7 @@
         </div>
     </nav>
 
+    <!-- Page Content -->
     <main class="container-fluid">
       <div class="row">
         {% block content %}
@@ -112,6 +115,7 @@
       </div>
     </main>
     
+    <!-- Footer -->
     <div class="container">
       <footer class="py-5 text-center">
         <div class="row">
@@ -120,7 +124,9 @@
             <ul class="nav flex-column">
               <li class="nav-item mb-2"></li>
               <li class="nav-item mb-2">
-                <a class="nav-link" href="#">Recipes</a>
+                <a href="{{ url_for('get_recipes') + '#recipes' }}">
+                  Recipes
+                </a>
               </li>
               <li class="nav-item mb-2">
                 <a href="{{ url_for('profile', username=session['user']) }}">
@@ -171,9 +177,6 @@
 
     </script>
     <!-- custom JS -->
-    <script>
-      
-    </script>
     <script 
     src="{{ url_for('static', filename='js/script.js') }}"
     ></script>

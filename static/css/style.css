@@ -127,19 +127,3 @@ img {
   top: 8px;
   right: 16px;
 }
-
-/* PopUps */
-.popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  z-index: 1000;
-}
-
-.popup.info { background-color: #007bff; }
-.popup.success { background-color: #28a745; }
-.popup.error { background-color: #dc3545; }
