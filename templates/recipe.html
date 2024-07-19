@@ -29,7 +29,21 @@
                     <div class="card-body row">
                     <!-- recipe title -->
                         <span class="card-title">
+                            <!-- Like Button -->
+                            <span class="d-flex flex-row-reverse">
+                                <span class="me-2">
+                                    <button class="like-button text-end" data-recipe-id="{{ recipe._id }}">Like</button>
+                                </span>
+                                <span class="ms-2 me-3 mt-1">
+                                    <i id="like-container" class="fa-solid fa-heart"></i>
+                                    <span id="likes_count" class="text-end">
+                                        {{ recipe.likes }}
+                                    </span>
+                                </span>
+                            </span>
+                            <!-- Recipe Title -->
                             <h2>{{ recipe.recipe_name }}</h2>
+                            </span>
                             <hr>
                             <p><em>by: {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
                         </span>
@@ -82,4 +96,37 @@
         </div>
     </div>
     {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.querySelector('.like-button').addEventListener('click', function() {
+        const recipeId = this.getAttribute('data-recipe-id');
+        const likeCountElement = document.getElementById('likes_count');
+        const heartIcon = document.querySelector('#like-container .fa-heart');
+        
+        fetch(`/like_recipe/${recipeId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update the likes count
+                likeCountElement.textContent = data.likes;
+                
+                // Toggle the 'liked' class on the heart icon
+                heartIcon.classList.toggle('liked');
+                
+                // Update button text
+                this.textContent = heartIcon.classList.contains('liked') ? 'Unlike' : 'Like';
+            } else {
+                console.error('Error:', data.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
 {% endblock %}

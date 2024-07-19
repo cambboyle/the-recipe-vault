@@ -140,6 +140,7 @@ def add_recipe():
             "meal_type": request.form.get("meal_type"),
             "main_ingredients": request.form.getlist("main_ingredients"),
             "recipe_method": request.form.getlist("recipe_method"),
+            "likes": 0,
             "created_by": session["user"],
             "created_at": datetime.now().strftime("%d/%m/%Y")
         }
@@ -169,14 +170,13 @@ def view_recipe(recipe_id):
     if "user" not in session:
         flash("You must be logged in to view recipes")
         return redirect(url_for("login"))
-        
+    
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     if recipe:
         return render_template("recipe.html", recipe=recipe)
     else:
         flash("Recipe not found")
         return redirect(url_for("get_recipes"))
-
 
 # Edit Recipe
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
@@ -320,6 +320,37 @@ def search_recipes():
     recipes = list(mongo.db.recipes.find({"$text": {"$search": search}}))
     return render_template("recipes.html", recipes=recipes, search=search)
 
+
+# Like Recipe
+@app.route("/like_recipe/<recipe_id>", methods=["POST"])
+@login_required
+def like_recipe(recipe_id):
+    user = session["user"]
+    
+    # Check if the recipe exists
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if not recipe:
+        return jsonify({"error": "Recipe not found"}), 404
+    
+    if user in recipe.get("liked_by", []):
+        # User has already liked the recipe, so remove their like
+        mongo.db.recipes.update_one(
+            {"_id": ObjectId(recipe_id)},
+            {"$pull": {"liked_by": user}, "$inc": {"likes": -1}}
+        )
+        action = "removed"
+    else:
+        # User has not liked the recipe yet, so add their like
+        mongo.db.recipes.update_one(
+            {"_id": ObjectId(recipe_id)},
+            {"$addToSet": {"liked_by": user}, "$inc": {"likes": 1}}
+        )
+        action = "added"
+    
+    # Fetch the updated like count
+    updated_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    
+    return jsonify({"success": True, "action": action, "likes": updated_recipe["likes"]})
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
