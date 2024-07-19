@@ -63,7 +63,7 @@
           <a class="navbar-brand main-logo" 
             href="{{ url_for('get_recipes') }}" 
             style="font-weight: 700;">
-            The Recipe Vault
+            The Recipe  <span style="color: #307351">Vault</span>
           </a>
           <button
             data-mdb-collapse-init
@@ -78,7 +78,7 @@
           </button>
           <!-- navbar links -->
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto" >
               {% if session.user %}
                 <li class="nav-item">
                   <a class="nav-link navbar-text" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
