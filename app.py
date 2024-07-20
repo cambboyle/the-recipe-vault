@@ -111,7 +111,20 @@ def profile(username):
             flash("Bio updated successfully")
         # Fetch user's recipes
         user_recipes = list(mongo.db.recipes.find({"created_by": username}))
-        return render_template("profile.html", username=username, recipes=user_recipes)
+
+        # Fetch user's saved recipes
+        saved_recipes = list(mongo.db.saved_recipes.aggregate([
+            {"$match": {"user": username}},
+            {"$lookup": {
+                "from": "recipes",
+                "localField": "recipe_id",
+                "foreignField": "_id",
+                "as": "recipe"
+            }},
+            {"$unwind": "$recipe"}
+        ]))
+
+        return render_template("profile.html", username=username, recipes=user_recipes, saved_recipes=saved_recipes)
 
     return redirect(url_for("login"))
 
@@ -173,7 +186,13 @@ def view_recipe(recipe_id):
     
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     if recipe:
-        return render_template("recipe.html", recipe=recipe)
+        # Check if the user has saved the recipe
+        is_saved = mongo.db.saved_recipes.find_one({
+            "user": session["user"], 
+            "_id": ObjectId(recipe_id)
+        }) is not None
+
+        return render_template("recipe.html", recipe=recipe, is_saved=is_saved)
     else:
         flash("Recipe not found")
         return redirect(url_for("get_recipes"))
@@ -351,6 +370,41 @@ def like_recipe(recipe_id):
     updated_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     
     return jsonify({"success": True, "action": action, "likes": updated_recipe["likes"]})
+
+
+# Save Recipe
+@app.route("/save_recipe/<recipe_id>", methods=["POST"])
+@login_required
+def save_recipe(recipe_id):
+    if "user" not in session:
+        return jsonify({"error": "User not logged in"}), 401
+
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if not recipe:
+        return jsonify({"error": "Recipe not found"}), 404
+
+    # Check if the recipe has been saved by the user
+    saved_recipe = mongo.db.saved_recipes.find_one({
+        "user": session["user"],
+        "recipe_id": ObjectId(recipe_id)
+    })
+
+    if saved_recipe:
+        # If saved_recipe exists, remove it
+        mongo.db.saved_recipes.delete_one({"_id": saved_recipe["_id"]})
+        action = "unsaved"
+    else:
+        # If not saved, save it
+        save = {
+            "user": session["user"],
+            "recipe_id": ObjectId(recipe_id),
+            "saved_at": datetime.now().strftime("%d/%m/%Y")
+        }
+        mongo.db.saved_recipes.insert_one(save)
+        action = "saved"
+
+    return jsonify({"success": True, "action": action})
+        
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

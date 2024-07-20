@@ -32,12 +32,31 @@
                             <!-- Like Button -->
                             <span class="d-flex flex-row-reverse">
                                 <span class="me-2">
-                                    <button class="like-button text-end" data-recipe-id="{{ recipe._id }}">Like</button>
+                                    <button class="like-button text-end" data-recipe-id="{{ recipe._id }}">Bite</button>
                                 </span>
                                 <span class="ms-2 me-3 mt-1">
-                                    <i id="like-container" class="fa-solid fa-heart"></i>
+                                    <i id="like-container" class="fa-solid fa-cookie-bite" style="color: #F7B65A"></i>
                                     <span id="likes_count" class="text-end">
                                         {{ recipe.likes }}
+                                    </span>
+                                </span>
+                            </span>
+                            <!-- Save Button -->
+                            <span class="d-flex flex-row-reverse">
+                                <span class="me-2">
+                                    <button class="save-button text-end" data-recipe-id="{{ recipe._id }}">Save</button>
+                                </span>
+                                <span class="ms-2 me-3 mt-1">
+                                    <i id="save-container" 
+                                        class="fa-bookmark 
+                                            {% if is_saved %}
+                                                fas
+                                            {% else %}
+                                                far
+                                            {% endif %}">
+                                    </i>
+                                    <span id="saves_count" class="text-end">
+                                        {{ recipe.saves }}
                                     </span>
                                 </span>
                             </span>
@@ -100,33 +119,64 @@
 
 {% block scripts %}
 <script>
-    document.querySelector('.like-button').addEventListener('click', function() {
+    document.querySelector('.like-button').addEventListener('click', function () {
         const recipeId = this.getAttribute('data-recipe-id');
         const likeCountElement = document.getElementById('likes_count');
         const heartIcon = document.querySelector('#like-container .fa-heart');
-        
+
         fetch(`/like_recipe/${recipeId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Update the likes count
-                likeCountElement.textContent = data.likes;
-                
-                // Toggle the 'liked' class on the heart icon
-                heartIcon.classList.toggle('liked');
-                
-                // Update button text
-                this.textContent = heartIcon.classList.contains('liked') ? 'Unlike' : 'Like';
-            } else {
-                console.error('Error:', data.error);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the likes count
+                    likeCountElement.textContent = data.likes;
+
+                    // Toggle the 'liked' class on the heart icon
+                    heartIcon.classList.toggle('liked');
+
+                    // Update button text
+                    this.textContent = heartIcon.classList.contains('liked') ? 'Unlike' : 'Like';
+                } else {
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const saveButton = document.querySelector('.save-button');
+        if (saveButton) {
+            saveButton.addEventListener('click', function () {
+                const recipeId = this.getAttribute('data-recipe-id');
+                const saveIcon = document.querySelector('#save-container');
+
+                fetch(`/save_recipe/${recipeId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Toggle between solid and hollow icons
+                            saveIcon.classList.toggle('fas');
+                            saveIcon.classList.toggle('far');
+
+                            // Update button text
+                            this.textContent = data.action === 'saved' ? 'Unsave' : 'Save';
+                        } else {
+                            console.error('Save Error:', data.error);
+                        }
+                    })
+                    .catch(error => console.error('Save Error:', error));
+            });
+        }
     });
 </script>
 {% endblock %}
