@@ -63,7 +63,7 @@
           <a class="navbar-brand main-logo" 
             href="{{ url_for('get_recipes') }}" 
             style="font-weight: 700;">
-            The Recipe  <span style="color: #307351">Vault</span>
+            The Recipe Vault
           </a>
           <button
             data-mdb-collapse-init
@@ -137,6 +137,12 @@
                 <a href="{{ url_for('add_recipe') }}">
                   Add Recipe
                 </a>
+              </li>
+              <li class="nav-item mb-2">
+                <a href="{{ url_for('get_recipes') }}#how-it-works">
+                  How it Works
+                </a>
+              </li>
             </ul>
           </div>
         </div>

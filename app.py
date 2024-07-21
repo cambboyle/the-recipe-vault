@@ -336,7 +336,30 @@ def delete_category(category_id):
 @app.route("/search_recipes")
 def search_recipes():
     search = request.args.get("search")
-    recipes = list(mongo.db.recipes.find({"$text": {"$search": search}}))
+    if search:
+        pipeline = [
+            {
+                "$search": {
+                    "index": "default",  # Use the name of your search index
+                    "text": {
+                        "query": search,
+                        "path": [
+                            "recipe_name", 
+                            "recipe_description", 
+                            "main_ingredients",
+                            "category_name",
+                            "dietary"]
+                    }
+                }
+            },
+            {
+                "$limit": 10  # Limit the number of results
+            }
+        ]
+        recipes = list(mongo.db.recipes.aggregate(pipeline))
+    else:
+        recipes = list(mongo.db.recipes.find())
+    
     return render_template("recipes.html", recipes=recipes, search=search)
 
 

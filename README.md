@@ -87,6 +87,22 @@ For help with responsive design and optimal practice, I created wireframes for d
 
 ### Future Features
 
+- Recipe ratings and reviews: Allow users to rate recipes and leave reviews.
+- Meal planning: Implement a feature that lets users plan their meals for the week using saved recipes.
+- Grocery list generator: Create a tool that generates a shopping list based on selected recipes.
+- Nutritional information: Add calorie counts and nutritional facts for each recipe.
+- Recipe scaling: Allow users to adjust serving sizes and automatically recalculate ingredient quantities.
+- Cooking timer: Integrate a timer feature for each step of the recipe.
+- Recipe collections or cookbooks: Let users create and share collections of recipes.
+- Social sharing: Add buttons to share recipes on social media platforms.
+- Ingredient substitutions: Provide suggestions for ingredient substitutions for dietary restrictions or preferences.
+- Video tutorials: Include short video clips demonstrating cooking techniques or complex steps.
+- Seasonal recipe recommendations: Highlight recipes based on seasonal ingredients or holidays.
+- User-generated content: Allow users to submit their own recipes for review and publication.
+- Recipe print functionality: Create a printer-friendly version of recipes.
+- Advanced search filters: Implement more detailed search options like cooking time, difficulty level, or dietary restrictions.
+- Recipe version control: Allow users to create personal variations of recipes and track changes.
+
 ## Technologies
 
 ## Database Schema
@@ -110,6 +126,8 @@ For help with responsive design and optimal practice, I created wireframes for d
 ### Images
 
 ### Content
+
+Tab Structure on Profile Page from <a href="https://mdbootstrap.com/docs/standard/navigation/tabs/">MDB </a>
 
 ### Acknowledgements
 

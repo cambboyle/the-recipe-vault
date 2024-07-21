@@ -1,56 +1,100 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div class="container">
-        <section class="mx-auto my-5" style="max-width: 23rem;">
-            <div class="card card-form mt-2 mb-4">
-                <div class="card-body rounded-top">
-                    <h3 class="text-center text-uppercase py-3">
-                        {{username}}'s Profile
-                    </h3>
+<div class="container-fluid">
+    <section class="mx-auto my-5" style="max-width: 23rem;">
+        <div class="card card-form mt-2 mb-4">
+            <div class="card-body rounded-top">
+                <h3 class="text-center text-uppercase py-3">
+                    {{username}}'s Profile
+                </h3>
+            </div>
+        </div>
+    </section>
+    <!-- Tab Structure from MDB -->
+    <!-- Tabs-->
+    <div class="col-sm-12 mb-3 text-center">
+        <ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a data-mdb-tab-init class="nav-link active" id="ex-with-icons-tab-1" href="#ex-with-icons-tabs-1"
+                    role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i
+                        class="fas me-2"></i>My Recipes
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a data-mdb-tab-init class="nav-link" id="ex-with-icons-tab-2" href="#ex-with-icons-tabs-2" role="tab"
+                    aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i
+                        class="fas me-2"></i>Saved Recipes
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- Tab Content -->
+    <div class="tab-content" id="ex-with-icons-content">
+        <div class="tab-pane fade show active" id="ex-with-icons-tabs-1" role="tabpanel"
+            aria-labelledby="ex-with-icons-tab-1">
+            <!-- User Recipes Title -->
+            <div class="row justify-content-center">
+                <div class="col-sm-10">
+                    <h3 class="text-center py-5">My Recipes</h3>
                 </div>
             </div>
-        </section>
-        <div class="row"><!-- recipe cards -->
-            <div class="col-sm-8 offset-sm-2" id="recipes">
+            <!-- User Recipes -->
+            <div class="col-sm-8 offset-sm-2">
                 {% if recipes|length > 0 %}
-                <div class="row">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                     {% for recipe in recipes %}
                     <!-- card content-->
-                    <div class="col-sm-4 mb-3">
-                        <div class="card card-style">
-                            <!-- prep time-->
-                            <div class="row card-text justify-content-between">
-                                <span class="col-sm-6">Prep Time: {{ recipe.prep_time }} Minutes</span>
-                                <span class="col-sm-6">Cooking Time:
+                    <div class="col">
+                        <div class="card card-style h-100 recipe-card rounded">
+                            <!-- card image -->
+                            <div class="card-image rounded position-relative">
+                                <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
+                                    class=" mx-auto d-block" style="height: 400px; width: 100%;">
+                                <span class="badge recipe-badge top-left-image text-center ms-0" style="
+                    color: var(--text-two);
+                    background-color: #E8DFC9;">
+                                    Prep: {{ recipe.prep_time }} Minutes
+                                </span>
+                                <span class="badge recipe-badge top-right-image text-center me-0" style="
+                    color: var(--text-two);
+                    background-color: #E8DFC9;">
+                                    Cook:
                                     {% if recipe.cooking_time == 0 %}
                                     <span>0 Minutes</span>
                                     {% else %}
                                     <span>{{ recipe.cooking_time }} Minutes</span>
                                     {% endif %}
                                 </span>
-                            </div>
-                            <!-- card image -->
-                            <div class="card-image">
-                                <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
-                                    class="card-img-top object-fit-sm-contain rounded mx-auto d-block">
-                            </div>
-
-                            <!-- recipe title -->
-                            <div class="card-body row">
-                                <span class="card-title">
-                                    <h2><a
-                                            href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">{{ recipe.recipe_name }}</a>
-                                    </h2>
+                                <span class="col-sm-5 bottom-right-image text-end me-2">
+                                    <i id="like-container" class="fa-solid fa-cookie-bite p-1"
+                                        style="color: #F7B65A"></i>
+                                    <span id="likes_count" class="text-end">
+                                        {{ recipe.likes }}
+                                    </span>
                                 </span>
-                                <div class="col-sm-6">
-                                    <strong>{{ recipe.category_name }}</strong>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <div class="badge-container d-flex justify-content-between mb-2">
+                                    <span class="badge recipe-badge text-truncate">
+                                        {{ recipe.category_name }}
+                                    </span>
+                                    <span class="badge recipe-badge text-truncate">
+                                        {{ recipe.meal_type }}
+                                    </span>
                                 </div>
-                                <div class="col-sm-6">
-                                    <p>{{ recipe.meal_type }}</p>
+                                <span class="card-title">
+                                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
+                                        class="text-start recipe-card-title">
+                                        {{ recipe.recipe_name }}
+                                    </a>
+                                </span>
+                                <div class="col-sm-12">
+                                    <p class="text-start">{{ recipe.recipe_description }}</p>
                                 </div>
-                                <hr>
-                                <p><em>by: {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
+                                <p class="pb-1 mt-auto recipe-footer">
+                                    <em>
+                                        {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
                             </div>
                         </div>
                     </div>
@@ -61,33 +105,81 @@
                 {% endif %}
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-sm-10">
-                <h3 class="text-center py-5">Saved Recipes</h3>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            {% for save in saved_recipes %}
-            <div class="col-sm-4 mb-3">
-                <div class="card card-style">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                {{ save.recipe.recipe_name }}
-                            </h5>
-                            <p class="card-text">
-                                {{ save.recipe.recipe_description[:100] }} ...
-                            </p>
-                            <a href="{{ url_for('view_recipe', recipe_id=save.recipe._id) }}"
-                                class="btn btn-primary">View Recipe</a>
-                        </div>
-                    </div>
+        <div class="tab-pane fade" id="ex-with-icons-tabs-2" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
+            <!-- Saved Recipes Title -->
+            <div class="row justify-content-center">
+                <div class="col-sm-10">
+                    <h3 class="text-center py-5">Saved Recipes</h3>
                 </div>
             </div>
-            {% endfor %}
+            <!-- Saved Recipes -->
+            <div class="col-sm-8 offset-sm-2">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                    {% for save in saved_recipes %}
+                    <!-- card content-->
+                    <div class="col">
+                        <div class="card card-style h-100 recipe-card rounded">
+                            <!-- card image -->
+                            <div class="card-image rounded position-relative">
+                                <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
+                                    class=" mx-auto d-block" style="height: 400px; width: 100%;">
+                                <span class="badge recipe-badge top-left-image text-center ms-0" style="
+                color: var(--text-two);
+                background-color: #E8DFC9;">
+                                    Prep: {{ save.recipe.prep_time }} Minutes
+                                </span>
+                                <span class="badge recipe-badge top-right-image text-center me-0" style="
+                color: var(--text-two);
+                background-color: #E8DFC9;">
+                                    Cook:
+                                    {% if save.recipe.cooking_time == 0 %}
+                                    <span>0 Minutes</span>
+                                    {% else %}
+                                    <span>{{ save.recipe.cooking_time }} Minutes</span>
+                                    {% endif %}
+                                </span>
+                                <span class="col-sm-5 bottom-right-image text-end me-2">
+                                    <i id="like-container" class="fa-solid fa-cookie-bite p-1"
+                                        style="color: #F7B65A"></i>
+                                    <span id="likes_count" class="text-end">
+                                        {{ save.recipe.likes }}
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <div class="badge-container d-flex justify-content-between mb-2">
+                                    <span class="badge recipe-badge text-truncate">
+                                        {{ save.recipe.category_name }}
+                                    </span>
+                                    <span class="badge recipe-badge text-truncate">
+                                        {{ save.recipe.meal_type }}
+                                    </span>
+                                </div>
+                                <span class="card-title">
+                                    <a href="{{ url_for('view_recipe', recipe_id=save.recipe._id) }}"
+                                        class="text-start recipe-card-title">
+                                        {{ save.recipe.recipe_name }}
+                                    </a>
+                                </span>
+                                <div class="col-sm-12">
+                                    <p class="text-start">
+                                        {{ save.recipe.recipe_description[:100] }} ...
+                                    </p>
+                                </div>
+                                <p class="pb-1 mt-auto recipe-footer">
+                                    <em>
+                                        {{ save.recipe.created_by }} on {{ save.recipe.created_at }}</em></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
     </div>
 
-    
 
-{% endblock %}
+
+
+    {% endblock %}
