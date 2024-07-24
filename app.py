@@ -3,6 +3,7 @@ from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for, jsonify)
 from flask_pymongo import PyMongo
+from pymongo import DESCENDING
 from bson.objectid import ObjectId
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -24,9 +25,15 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
-    recipes = list(mongo.db.recipes.find())
+    recipes = list(mongo.db.recipes.find().sort("created_at", DESCENDING).limit(6))
     return render_template("recipes.html", recipes=recipes)
 
+
+# All Recipes
+@app.route("/all_recipes")
+def all_recipes():
+    recipes = list(mongo.db.recipes.find().sort("created_at", DESCENDING))
+    return render_template("all_recipes.html", recipes=recipes)
 
 # Register
 @app.route("/register", methods=["GET", "POST"])

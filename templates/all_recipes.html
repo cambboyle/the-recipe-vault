@@ -1,33 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-
-<!-- Hero -->
-<header class="masthead d-flex align-items-center justify-content-center" id="hero">
-    <div class="intro-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-8 mx-auto text-center" >
-                    <h1 class="brand-heading hero-text hero-style-lg text-center" style="background-color: rgba(89, 61, 43, 0.5); padding: 3px;">
-                        Unlock <strong>Your</strong> Kitchen <span class="underline">Creativity</span></h1>
-                    <p class="intro-text text-center hero-style-sm">
-                        Discover, share and save your favorite recipes.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 text-center anchor-wrapper">
-        <a class="btn btn-outline-light btn-lg btn-floating" role="button" href="#recipes"
-            style="color: var(--text-one)">
-            <i class="fa fa-angle-double-down"></i>
-        </a>
-    </div>
-</header>
-
 <section id="recipes">
     <!-- search bar -->
     <div class="container">
-        <h3 class="text-center py-5 mt-2 other-header-text">Recent Recipes</h3>
+        <h3 class="text-center py-5 mt-2 other-header-text">All Recipes</h3>
         <div class="row justify-content-center">
             <div class="col-sm-8 col-lg-6">
                 <form action="{{ url_for('search_recipes') }}#recipes" method="GET">
@@ -48,12 +24,6 @@
                     <button type="submit" class="show-all-button">Show All Recipes</button>
                 </form>
             </div>
-            <div class="col-md-6 show-all-container">
-                <form action="{{ url_for('get_recipes') + '#recipes' }}" method="GET"
-                    class="mt-2 search-button justify-content-center">
-                    <button type="submit" class="show-all-button">Reset Search</button>
-                </form>
-            </div>
         </div>
     </div>
     <hr class="my-5">
@@ -72,23 +42,21 @@
     <!-- recipe cards -->
     <div class="col-sm-8 offset-sm-2">
         {% if recipes|length > 0 %}
-        <div class="row g-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
             {% for recipe in recipes %}
             <!-- card content-->
             <div class="col">
                 <div class="card card-style h-100 recipe-card rounded">
                     <!-- card image -->
                     <div class="card-image rounded position-relative">
-                        <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
-                            <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
+                        <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
                             class=" mx-auto d-block" style="height: 400px; width: 100%;">
-                        </a>
-                        <span class="badge recipe-badge top-left-image text-center ms-0 hide-on-small" style="
+                        <span class="badge recipe-badge top-left-image text-center ms-0" style="
                             color: var(--text-two);
                             background-color: #E8DFC9;">
                             Prep: {{ recipe.prep_time }} Minutes
                         </span>
-                        <span class="badge recipe-badge top-right-image text-center me-0 hide-on-small" style="
+                        <span class="badge recipe-badge top-right-image text-center me-0" style="
                             color: var(--text-two);
                             background-color: #E8DFC9;">
                             Cook:
@@ -98,13 +66,13 @@
                             <span>{{ recipe.cooking_time }} Minutes</span>
                             {% endif %}
                         </span>
-                    </div>
-                    <span class="col-sm-12 bottom-right-image text-end me-2 p-1">
-                        <i id="like-container" class="fa-solid fa-cookie-bite p-1" style="color: #F7B65A"></i>
-                        <span id="likes_count" class="text-end">
-                            {{ recipe.likes }}
+                        <span class="col-sm-5 bottom-right-image text-end me-2">
+                            <i id="like-container" class="fa-solid fa-cookie-bite p-1" style="color: #F7B65A"></i>
+                            <span id="likes_count" class="text-end">
+                                {{ recipe.likes }}
+                            </span>
                         </span>
-                    </span>
+                    </div>
                     <div class="card-body d-flex flex-column">
                         <div class="badge-container d-flex justify-content-between mb-2">
                             <span class="badge recipe-badge text-truncate">
@@ -120,10 +88,10 @@
                                 {{ recipe.recipe_name }}
                             </a>
                         </span>
-                        <div class="col-sm-12  hide-on-small">
+                        <div class="col-sm-12">
                             <p class="text-start">{{ recipe.recipe_description }}</p>
                         </div>
-                        <p class="pb-1 mt-auto recipe-footer hide-on-small">
+                        <p class="pb-1 mt-auto recipe-footer">
                             <em>
                                 {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
                     </div>
@@ -137,34 +105,6 @@
     </div>
     <hr class="my-5">
 </section>
-
-<!-- how it works -->
-<section id="how-it-works">
-    <div class="container">
-        <h3 class="text-center py-5 other-header-text" id="how-it-works">
-            How it works
-        </h3>
-        <div class="how-it-works-container">
-                <div class="step-circle">
-                    <h5><strong>Sign Up</strong></h5>
-                    <p style="font-size:medium">Create an account and join <br> our community.</p>
-                </div>
-                <div class="step-circle">
-                    <h5><strong>Share Recipes</strong></h5>
-                    <p style="font-size:medium">Add your favourite recipes <br> and share them with others.</p>
-                </div>
-                <div class="step-circle">
-                    <h5><strong>Save Recipes</strong></h5>
-                    <p style="font-size:medium">Keep track of your <br> favourite recipes and <br>access them anytime.</p>
-                </div>
-                <div class="step-circle">
-                    <h5><strong>Enjoy Cooking!</strong></h5>
-                    <p style="font-size:medium">Get inspired and cook <br> delicious meals with ease.</p>
-                </div>
-        </div>
-    </div>
-</section>
-
 {% endblock %}
 
 {% block scripts %}

@@ -1,4 +1,3 @@
-// Initialization for ES Users
 import { Modal, Button, Ripple, initMDB, Tab } from "mdb-ui-kit";
 
 initMDB({ Modal, Button, Ripple, Tab });
@@ -145,6 +144,17 @@ function confirmDeleteCategory(categoryId, categoryName) {
     }
 }
 
+window.addEventListener('scroll', function() {
+    var navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('navbar-scrolled');
+    } else {
+      navbar.classList.remove('navbar-scrolled');
+    }
+  });
+
+
+// check if DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM fully loaded");
     
