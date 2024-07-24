@@ -55,6 +55,9 @@ img {
   width: auto;
 }
 
+h3, h5 {
+  color: var(--text-colour);
+}
 
 /* || Typography */
 
@@ -444,6 +447,71 @@ footer .fa-brands {
   transform: translateY(-50%);
   pointer-events: none;
 }
+
+.form-control, .input-group-text {
+  border-radius: 0;
+}
+
+.input-group-text {
+  background-color: var(--text-one);
+  color: var(--text-two);
+  border: 1px solid var(--text-colour);
+}
+
+.form-control {
+  border: 1px solid var(--text-colour);
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(89, 61, 43, 0.25);
+  border: 1px solid var(--text-colour);
+}
+
+textarea.form-control {
+  min-height: 100px;
+}
+
+.btn-secondary {
+  background-color: var(--hover-colour);
+  border-color: var(--hover-colour);
+  color: var(--text-one);
+}
+
+.btn-secondary:hover {
+  background-color: var(--text-colour);
+  border-color: var(--text-colour);
+}
+
+.btn-success {
+  background-color: var(--hover-colour);
+  border-color: var(--hover-colour);
+  color: var(--text-one);
+}
+
+.btn-success:hover {
+  background-color: var(--text-colour);
+  border-color: var(--text-colour);
+}
+
+/* Add ingredient/step container */
+#ingredients-container, #steps-container {
+  margin-bottom: 15px;
+}
+
+.ingredient-input, .step-input {
+  margin-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.input-group {
+  width: 100%;
+}
+
+
+
 
 /* || Profile */
 

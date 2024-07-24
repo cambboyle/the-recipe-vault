@@ -2,29 +2,30 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3 class="text-center mx-auto py-5">Add Category</h3>
+<div class="container">
+    <h3 class="text-center mx-auto py-5">Add Category</h3>
 
-<div class="row">
-    <form class="col-sm-12" action="{{ url_for('add_category') }}" method="POST">
-        <!-- Category Name -->
-        <div class="row mb-3">
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-tags"></i></span>
-                    <input type="text" id="categoy_name" name="category_name" minlength="3" maxlength="25" 
-                        class="form-control" placeholder="Category Name" required>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="{{ url_for('add_category') }}" method="POST">
+                <!-- Category Name -->
+                <div class="form-group mb-4">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                        <input type="text" id="categoy_name" name="category_name" minlength="3" maxlength="25" 
+                                class="form-control" placeholder="Category Name" required>
+                    </div>
+                </div>        
+                <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">
+                            Add Category <i class="fas fa-plus-square right"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </div>        
-        <!-- Submit Button -->
-        <div class="row mb-3">
-            <div class="col-sm-6 offset-sm-3 text-center">
-                <button type="submit" class="btn btn-success">
-                    Add Category <i class="fas fa-plus-square right"></i>
-                </button>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 {% endblock %}

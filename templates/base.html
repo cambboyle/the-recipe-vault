@@ -115,7 +115,7 @@
               <h5>The Recipe Vault</h5>
               <ul class="nav flex-column">
                   <li class="nav-item mb-2">
-                      <a href="{{ url_for('get_recipes') + '#recipes' }}">Recipes</a>
+                      <a href="{{ url_for('all_recipes') }}">Recipes</a>
                   </li>
                   <li class="nav-item mb-2">
                       <a href="{{ url_for('profile', username=session['user']) }}">Profile</a>
