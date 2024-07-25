@@ -119,31 +119,6 @@ function confirmDelete(recipeId, recipeName) {
     }
 }
 
-// Delete category function (admin only)
-function confirmDeleteCategory(categoryId, categoryName) {
-    if (confirm(`Are you sure you want to delete the category "${categoryName}"?`)) {
-        fetch(`/delete_category/${categoryId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("Category deleted successfully");
-                window.location.href = data.redirect;  // Redirect to the categories page
-            } else {
-                alert(data.error || "An error occurred while deleting the category");
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('An error occurred while deleting the category');
-        });
-    }
-}
-
 window.addEventListener('scroll', function() {
     var navbar = document.querySelector('.navbar');
     if (window.scrollY > 50) {

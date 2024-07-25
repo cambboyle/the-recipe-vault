@@ -1,12 +1,13 @@
 import os
 from flask import (
     Flask, flash, render_template, 
-    redirect, request, session, url_for, jsonify)
+    redirect, request, session, url_for, jsonify, current_app)
 from flask_pymongo import PyMongo
 from pymongo import DESCENDING
 from bson.objectid import ObjectId
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from functools import wraps
 if os.path.exists("env.py"):
     import env
@@ -16,10 +17,21 @@ app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.config["UPLOAD_FOLDER"] = os.path.join('static', 'uploads', 'profile_pictures')
+app.config["ALLOWED_EXTENSIONS"] = {'png', 'jpg', 'jpeg'}
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "user" not in session:
+            flash("Please log in to access this page")
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
 # Get Recipes
 @app.route("/")
@@ -106,34 +118,115 @@ def login():
 # Profile
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    # grab the username from the session
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
+    # Check if the user is in session
+    if "user" not in session:
+        flash("Please log in to view your profile")
+        return redirect(url_for("login"))
 
-    if session["user"]:
-        if request.method == "POST":
-            # Update Bio
-            new_bio = request.form.get("bio")
-            mongo.db.users.update_one({"username": username}, {"$set": {"bio": new_bio}})
-            flash("Bio updated successfully")
-        # Fetch user's recipes
-        user_recipes = list(mongo.db.recipes.find({"created_by": username}))
+    # Fetch the user from the database
+    user = mongo.db.users.find_one({"username": session["user"]})
+    if not user:
+        flash("User not found")
+        return redirect(url_for("login"))
 
-        # Fetch user's saved recipes
-        saved_recipes = list(mongo.db.saved_recipes.aggregate([
-            {"$match": {"user": username}},
-            {"$lookup": {
-                "from": "recipes",
-                "localField": "recipe_id",
-                "foreignField": "_id",
-                "as": "recipe"
-            }},
-            {"$unwind": "$recipe"}
-        ]))
+    if request.method == "POST":
+        # Update Bio
+        new_bio = request.form.get("bio")
+        mongo.db.users.update_one({"username": user["username"]}, {"$set": {"bio": new_bio}})
+        flash("Bio updated successfully")
+        # Refresh user data after update
+        user = mongo.db.users.find_one({"username": session["user"]})
 
-        return render_template("profile.html", username=username, recipes=user_recipes, saved_recipes=saved_recipes)
+    # Fetch user's recipes
+    user_recipes = list(mongo.db.recipes.find({"created_by": user["username"]}))
+
+    # Fetch user's saved recipes
+    saved_recipes = list(mongo.db.saved_recipes.aggregate([
+        {"$match": {"user": user["username"]}},
+        {"$lookup": {
+            "from": "recipes",
+            "localField": "recipe_id",
+            "foreignField": "_id",
+            "as": "recipe"
+        }},
+        {"$unwind": "$recipe"}
+    ]))
+
+    # Get the profile picture URL
+    profile_picture = user.get("profile_picture")
+    if profile_picture:
+        profile_picture = url_for('static', filename=profile_picture.replace('static/', '', 1))
+    else:
+        profile_picture = url_for('static', filename='images/default_profile.jpg')
+
+    return render_template("profile.html", 
+                           username=user["username"], 
+                           recipes=user_recipes, 
+                           saved_recipes=saved_recipes, 
+                           profile_picture=profile_picture, 
+                           user_bio=user.get("bio", ""))
 
     return redirect(url_for("login"))
+
+
+# Update Bio
+@app.route("/update_bio", methods=["POST"])
+@login_required
+def update_bio():
+    username = session["user"]
+    new_bio = request.form.get("bio")
+    mongo.db.users.update_one({"username": username}, {"$set": {"bio": new_bio}})
+    flash("Bio updated successfully")
+    return redirect(url_for("profile", username=username))
+
+
+# Allowed file extensions
+def allowed_file(filename):
+    return '.' in filename and \
+            filename.rsplit('.', 1)[1].lower() in current_app.config["ALLOWED_EXTENSIONS"]
+
+# Profile Picture
+@app.route("/upload_profile_picture", methods=["POST"])
+@login_required
+def upload_profile_picture():
+    if 'profile_picture' not in request.files:
+        flash("No file part")
+        return redirect(url_for("profile", username=session["user"]))
+
+    file = request.files['profile_picture']
+
+    if file.filename == '':
+        flash("No selected file")
+        return redirect(url_for("profile", username=session["user"]))
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        username = session["user"]
+
+        # Create a unique filename for the profile picture
+        _, file_extension = os.path.splitext(filename)
+        new_filename = f"{username}_profile{file_extension}"
+
+        # Make sure folder exists
+        upload_folder = os.path.join('static', 'uploads', 'profile_pictures')
+        os.makedirs(upload_folder, exist_ok=True)
+
+        file_path = os.path.join(upload_folder, new_filename)
+        file.save(file_path)
+        
+        # Update the user's profile picture
+        db_file_path = os.path.join('uploads', 'profile_pictures', new_filename)
+        mongo.db.users.update_one(
+            {"username": username}, 
+            {"$set": {"profile_picture": db_file_path}}
+        )
+
+        flash("Profile picture updated successfully")
+    else:
+        flash("Invalid file type. Please upload a .png, .jpg, or .jpeg file.")
+
+    return redirect(url_for("profile", username=session["user"]))
+
 
 
 # Logout
@@ -173,15 +266,6 @@ def add_recipe():
     dietaries = mongo.db.dietary_requirements.find().sort("dietary_name", 1)
     return render_template("add_recipe.html", categories=categories, meals=meals, dietaries=dietaries)
 
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if "user" not in session:
-            flash("Please log in to access this page")
-            return redirect(url_for('login', next=request.url))
-        return f(*args, **kwargs)
-    return decorated_function
 
 
 # View Recipe

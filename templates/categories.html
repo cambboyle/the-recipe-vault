@@ -1,35 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="text-center mx-auto py-5">Categories</h3>
+<div class="container">
+    <h3 class="text-center py-5">Categories</h3>
 
-    <div class="row text-center py-4">
-        <div class="col-sm-12">
-            <a href="{{ url_for('add_category') }}" class="btn btn-primary">Add Category</a>
+    <div class="row justify-content-center mb-4">
+        <div class="col-sm-12 text-center">
+            <a href="{{ url_for('add_category') }}" class="btn btn-primary add-category-btn">Add Category</a>
         </div>
     </div>
 
-    <div class="row row-cols-2 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for category in categories %}
-            <div class="col-sm-4 py-2">
-                <div class="card">
+            <div class="col">
+                <div class="card category-card h-100">
                     <div class="card-header">
-                        <h5 class="card-title">{{ category.category_name }}</h5>
+                        <h5 class="card-title mb-0">{{ category.category_name }}</h5>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">{{ category.category_description }}</p>
-                    </div>
-                    <div class="card-action text-center py-2">
-                        <a href="{{ url_for('get_recipes', category_name=category.category_name) }}" 
-                            class="btn btn-primary">View Recipes</a>
+                    <div class="card-footer text-center">
                         <a href="{{ url_for('edit_category', category_id=category._id) }}"
-                            class="btn btn-primary">Edit</a>
+                            class="btn btn-primary btn-sm">Edit</a>
                         <button onclick="confirmDeleteCategory('{{ category._id }}', '{{ category.category_name }}')" 
-                            class="btn btn-danger">Delete</button>
+                            class="btn btn-danger btn-sm">Delete</button>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
+</div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Delete category function (admin only)
+    function confirmDeleteCategory(categoryId, categoryName) {
+        if (confirm(`Are you sure you want to delete the category "${categoryName}"?`)) {
+            fetch(`/delete_category/${categoryId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Category deleted successfully");
+                        window.location.href = data.redirect; // Redirect to the categories page
+                    } else {
+                        alert(data.error || "An error occurred while deleting the category");
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the category');
+                });
+        }
+    }
+</script>
 {% endblock %}
