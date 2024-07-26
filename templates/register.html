@@ -1,21 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div class="container">
-        <section class="mx-auto my-5" style="max-width: 23rem;">
-            <div class="card card-form mt-2 mb-4">
-                <div class="card-body rounded-top">
+<div class="container-fluid bg-image vh-100 vh-100 d-flex align-items-center">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-6 col-lg-4">
+            <div class="card card-form mt-2 mb-4 shadow">
+                <div class="card-body rounded-top bg-light">
                     <h3 class="text-center text-uppercase py-3">Register</h3>
                     <!-- Form -->
-                    <form class="pb-3 px-3" method="POST" action="{{ url_for('register') }}">
+                    <form class="pb-3 px-3" method="POST" action="{{ url_for('login') }}">
                         <!-- Username -->
-                        <div class="col-sm-12 d-flex justify-content-center align-items-center mb-4">
+                        <div class="col-sm-12 d-flex justify-content-center align-items-center pb-3">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <i class="fas fa-user-circle fa-2x me-3"></i>
                                     <input type="text" name="username" id="username" minlength="5"
-                                        maxlength="20" pattern="^[a-zA-Z0-9]{5,20}*$" class="form-control" required>
-                                    <label class="form-label" for="username">Username</label>
+                                        maxlength="20" pattern="^[a-zA-Z0-9]{5,20}*$" class="form-control border-0 border-bottom" required>
+                                    <label class="form-label text-muted" for="username">Username</label>
                                 </div>
                             </div>
                         </div>
@@ -25,8 +26,8 @@
                                 <div class="col-sm-12">
                                     <i class="fa-solid fa-envelope fa-2x me-3"></i>
                                     <input type="email" name="email" id="email" 
-                                        pattern="^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}*$" class="form-control" required>
-                                    <label class="form-label" for="email">Email</label>
+                                        pattern="^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}*$" class="form-control border-0 border-bottom" required>
+                                    <label class="form-label text-muted" for="email">Email</label>
                                 </div>
                             </div>
                         </div>
@@ -36,32 +37,33 @@
                                 <div class="col-sm-12">
                                     <i class="fas fa-user-lock fa-2x me-3"></i>
                                     <input type="password" name="password" id="password" minlength="5" 
-                                        maxlength="20" pattern="^[a-zA-Z0-9]{5,20}*$" class="form-control" required>
-                                    <label class="form-label" for="password">Password</label>
+                                        maxlength="20" pattern="^[a-zA-Z0-9]{5,20}*$" class="form-control border-0 border-bottom" required>
+                                    <label class="form-label text-muted" for="password">Password</label>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Register Button-->
+                        <!-- login Button-->
                         <div class="row">
-                            <button type="submit" class="col-sm-12 btn-lrg text-shadow">
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase">
                                 Register
-                                <i class="fas fa-sign-in-alt"></i>
+                                <i class="fas fa-sign-in-alt ms-2"></i>
                             </button>
                         </div>
                     </form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-center mt-3">
+                                <span class="text-muted">Already have an account?</span>
+                                <a href="{{ url_for('register') }}" class="text-primary fw-bold">Login</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <p class="text-center text-muted">
-                Already have an account?
-                <a href="{{ url_for('login') }}">Log In</a>
-            </p>
         </div>
     </div>
+</div>
+
+    
 
 {% endblock %}

@@ -3,6 +3,7 @@ from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for, jsonify, current_app)
 from flask_pymongo import PyMongo
+from flask_mail import Mail, Message
 from pymongo import DESCENDING
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -21,6 +22,20 @@ app.config["UPLOAD_FOLDER"] = os.path.join('static', 'uploads', 'profile_picture
 app.config["ALLOWED_EXTENSIONS"] = {'png', 'jpg', 'jpeg'}
 app.secret_key = os.environ.get("SECRET_KEY")
 
+# Mail Config
+app.config["MAIL_SERVER"] = 'smtp.gmail.com'
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
+app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
+
+
+print("MAIL_USERNAME", os.environ.get("MAIL_USERNAME"))
+print("MAIL_PASSWORD", os.environ.get("MAIL_PASSWORD"))
+
+
+mail = Mail(app)
 mongo = PyMongo(app)
 
 
@@ -518,6 +533,32 @@ def save_recipe(recipe_id):
         action = "saved"
 
     return jsonify({"success": True, "action": action})
+
+
+# Contact Form
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        subject = request.form.get("subject")
+        message = request.form.get("message")
+
+        msg= Message(subject=f'New Contact Form Submission: {subject}',
+                    sender=app.config["MAIL_USERNAME"],
+                    recipients=["cambboyle@gmail.com"])
+        msg.body = f'From: {name} <{email}>\n\n{message}'
+
+        try:
+            mail.send(msg)
+            flash("Message sent successfully, We will get back to you soon", "success")
+        except Exception as e:
+            flash("Message could not be sent. Please try again later", "danger")
+            print(e)
+
+        return redirect(url_for("contact"))
+
+    return render_template("contact-form.html")
         
 
 if __name__ == "__main__":

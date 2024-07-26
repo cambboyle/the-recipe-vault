@@ -508,6 +508,7 @@ footer .fa-brands {
 
 .form-control {
   border: 1px solid var(--text-colour);
+  background-color: transparent;
 }
 
 .form-control:focus {
@@ -737,6 +738,12 @@ textarea.form-control {
 
 body.profile-page {
   background-color: var(--primary-colour);
+}
+
+/* || Login/Register */
+
+.card-form {
+  background-color: rbga(255, 255, 255, 0.9);
 }
 
 /* || Media Queries */

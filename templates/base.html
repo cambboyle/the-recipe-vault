@@ -27,7 +27,7 @@
 
 <body class="{% block body_class %}{% endblock %}">
   <!-- flash messages -->
-  <div class="container">
+  <div class="container" style="background-color: transparent;">
     <div class="row">
       <div class="col-sm-4 offset-sm-4 text-center">
         {% with messages = get_flashed_messages() %}
@@ -75,6 +75,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link navbar-text" href="{{ url_for('add_recipe') }}">Add Recipe</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link navbar-text" href="{{ url_for('contact') }}">Contact</a>
             </li>
             {% if session.user == "admin" %}
             <li class="nav-item">

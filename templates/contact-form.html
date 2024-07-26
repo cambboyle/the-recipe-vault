@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid bg-image vh-100 d-flex align-items-center">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-8 col-lg-6">
+            <div class="card card-form mt-2 mb-4 shadow">
+                <div class="card-body rounded-top bg-light">
+                    <h3 class="text-center text-uppercase py-3">Contact Us</h3>
+                    <form class="pb-3 px-3" method="POST" action="{{ url_for('contact') }}">
+                        <!-- Name -->
+                        <div class="form-group mb-4">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group mb-4">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <!-- Subject -->
+                        <div class="form-group mb-4">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-heading"></i></span>
+                                <input type="text" name="subject" id="subject" class="form-control" placeholder="Subject" required>
+                            </div>
+                        </div>
+                        <!-- Message -->
+                        <div class="form-group mb-4">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-comment"></i></span>
+                                <textarea name="message" id="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase">
+                                Send Message
+                                <i class="fas fa-paper-plane ms-2"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
