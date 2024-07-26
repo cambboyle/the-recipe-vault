@@ -129,6 +129,8 @@ For help with responsive design and optimal practice, I created wireframes for d
 
 Tab Structure on Profile Page from <a href="https://mdbootstrap.com/docs/standard/navigation/tabs/">MDB </a>
 
+Flask-Mail Documentation <a href="https://pypi.org/project/Flask-Mail/">Flask-Mail</a>
+
 ### Acknowledgements
 
 Example of recipe (used in recipe cards by default) by <a href="https://unsplash.com/@duanemendes?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Duane Mendes</a> on <a href="https://unsplash.com/photos/person-holding-stainless-steel-spoon-JrRoJlGyZwk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>

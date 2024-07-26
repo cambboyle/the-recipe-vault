@@ -487,6 +487,26 @@ footer .fa-brands {
     font-size: 1.5rem;
 }
 
+footer .bottom-left, 
+footer .bottom-center, 
+footer .bottom-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .bottom-left {
+  justify-content: flex-start;
+}
+
+footer .bottom-center {
+  justify-content: center;
+}
+
+footer .bottom-right {
+  justify-content: flex-end;
+}
+
 /* || Forms */
 
 .form-outline i {
