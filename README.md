@@ -127,27 +127,47 @@ Here are some of the features that I implemented in the application, took out an
 
 | Feature | Description | Image |
 | --- | --- | --- |
-| Site Logo |
-| Navigation Bar |
-| Hero |
-| Search Bar |
-| Recently Added Recipes |
-| How it Works |
-| Footer |
-| Sign Up |
-| Login |
-| Profile |
-| Bio |
-| Profile Picture |
-| User Recipes |
-| Saved Recipes |
-| Add Recipe |
-| Recipe Dropdown |
-
+| Site Logo | The site is logo is just the site name, The Recipe Vault. | |
+| Site Logo (Small) | This logo is shortened to just TRV on small screens.| |
+| Navigation Bar | The navigation bar is located at the top of the page and contains links to the main sections of the site. | |
+| Navigation Bar (Small) | This navigation bar is compressed to a collapsed state on small screens. | |
+| Hero | The hero section contains the the tagline, an image, and a button to navigate to the recipes page. | |
+| To-Recipes Button | This button smooth-scrolls to the recipes page. | |
+| Recently Added Recipes | This section displays the most recently added recipes. | |
+| Search Recipes | This section allows the user to search for recipes by name, description, ingredients, cuisine, and dietary restrictions. | |
+| Show All Recipes | This button directs the user to the all recipes page. | |
+| Reset Search | This button resets the search input field. | |
+| Recipe Cards | The recipe cards are displayed in a grid format and contain the recipe name, description, ingredients, cuisine, and dietary restrictions. And can be clicked to view the rest of the recipe details. | |
+| View Recipe | This page displays the whole recipe, here, the user can like and save the recipe | |
+| Like Recipes | This button allows the user to like the recipe, which will increase the likes count by one. | |
+| Save Recipes | This button allows the user to save the recipe, which will add the recipe to their saved recipes on their profile. | |
+| How it Works | This section of the landing page descrbies how to utilize the site. | |
+| Footer | The footer contains a navigation bar, a copyright notice, and social media links. | |
+| Register | This page allows the user to create an account on the site. | |
+| Login | This page allows the user to log in to their account if they have an account. | |
+| Profile | This page displays the user's profile, which includes their username, recipes, saved recipes, and bio. | |
+| Edit Bio | This button enables the user to edit their bio. | |
+| Edit Profile Picture | This button enables the user to edit their profile picture. | |
+| User Recipes | This tab displays the user's recipes. | |
+| Saved Recipes | This tab displays the user's saved recipes. | |
+| Add Recipe | This page allows the user to create a new recipe, which includes the recipe name, category, recipe description, serving size, prep time, cooking time, dietary restrictions, meal type, main ingredients, and recipe method. | |
+| Recipe Dropdowns (Categories, Meal Types, Dietary Restrictions) | These dropdowns allow the user to select pre-defined categories, meal types, and dietary restrictions. | |
+| Edit Recipe | This page is opened via the View Recipe page, which allows the user to edit the recipe details. | |
+| Delete Recipe | This button prompts the user to confirm the deletion of the recipe. | |
+| Contact Form | This page allows the user to contact the site administrator. | |
+| Flash Messages | Flash messages are displayed to the user when certain actions are performed, such as successfully logging in, successfully registering, or successfully editing a recipe. | |
+| ADMIN ONLY | ADMIN ONLY | ADMIN ONLY |
+| Categories | This page displays the list of categories that the site administrator has created. | |
+| Add Category | This page allows the site administrator to create a new category. | |
+| Edit Category | This page allows the site administrator to edit a category. | |
+| Delete Category | Clicking the delete button prompts the user to confirm the deletion of the category. | |
 
 </details>
 
 ### Future Features
+
+<details>
+<summary>Future features</summary>
 
 - Recipe Images: Allow users to upload their own recipe images.
 - Recipe ratings and reviews: Allow users to rate recipes and leave reviews.
@@ -166,39 +186,207 @@ Here are some of the features that I implemented in the application, took out an
 - Advanced search filters: Implement more detailed search options such as cooking time, difficulty level, or dietary restrictions.
 - Recipe version control: Allow users to create personal variations of recipes and track changes.
 
+</details>
+
 ## Technologies
+
+### Frontend
+
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [Bootstrap 5](https://getbootstrap.com/)
+- [MDB](https://mdbootstrap.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [JQuery](https://jquery.com/)
+
+### Backend
+
+- [Python](https://www.python.org/)
+- [Flask](https://flask.palletsprojects.com/en/2.3.x/)
+- [Flask-Mail](https://pythonhosted.org/Flask-Mail/)
+- [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/2.4/)
+- [Flask-Script](https://flask-script.readthedocs.io/en/latest/)
+- [Heroku](https://www.heroku.com/)
+
+### Database
+
+- [MongoDB](https://www.mongodb.com/)
+- [MongoDB Atlas](https://www.mongodb.com/atlas)
 
 ## Database Schema
 
 ## Testing
 
+Please see the [TESTING.md](documentation/TESTING.md) file for more information.
+
 ## Deployment
+
+The live version of the site is hosted on Heroku, here: [LIVE SITE](https://flask-cookbook-app-a80af878055f.herokuapp.com/).
 
 ### Heroku
 
+The project is hosted on Heroku.
+
+Folow the steps below to deploy the project to Heroku:
+
+1. Select "New" from the Heroku dashboard, and choose "Create new app".
+2. Choose a name for your app, and select the region you want to deploy to, then click on "Create app".
+3. From the settings tab in the app, click on "Reveal Config Vars" to set the environment variables.
+
+| Key | Value |
+| --- | --- |
+| DATABASE_URL | The URL of your MongoDB database. |
+| IP | 0.0.0.0 |
+| MONGO_DBNAME | The name of your MongoDB database. |
+| MONGO_URI | The URI of your MongoDB database. |
+| PORT | 5000 |
+| SECRET_KEY | A secret key for your Flask app. |
+
+Now you must create two files that Heroku needs to deploy the project properly:
+
+- A Procfile file that tells Heroku what commands to run when the app is deployed.
+- A requirements.txt file that lists the Python packages that your app depends on.
+
+You can create these files by running the following commands:
+
+```bash
+touch Procfile # Make sure there is no extension and the file is capitalized
+touch requirements.txt
+```
+
+Once you have created these files, you can add the following lines to the Procfile file:
+
+```bash
+web: python3 app.py
+```
+
+And use this command to write the requirements.txt file:
+
+```bash
+pip3 freeze --local > requirements.txt
+```
+
+Now you can deploy the project to Heroku by either:
+
+- running the following commandsin your terminal:
+
+```terminal
+heroku login -i
+```
+
+Then set the remote to Heroku:
+
+```terminal
+heroku  git:remote -a <your-app-name>
+```
+
+Finally, push the code to Heroku after you have made any changes:
+
+```terminal
+git push heroku main
+```
+
+- or by clicking on the automic deploy button in the Heroku dashboard.
+
+You should now be able to access the site at the URL provided by Heroku.
+
 ### MongoDB Atlas
+
+The project uses MongoDB Atlas, which is a cloud-based database service used to handle my non-relational data.
+
+To create a MongoDB Atlas Database, follow these steps:
+
+1. Go to the [MongoDB Atlas website](https://www.mongodb.com/atlas/database) and sign up for a free account.
+2. Once you have created an account, go to the [Databases](https://www.mongodb.com/atlas/database/overview) page and click on the "Create Cluster" button.
+3. Choose a cluster name and region, and click on the "Create Cluster" button.
+4. Once the cluster is created, click on the collections tab.
+5. Click "Create Database" and choose a database name.
+6. Now click on create collection and choose a collection name.
+7. Inside the collection, you can write your data.
+8. Once you have written out some data, go to the overview tab and click on the connect button.
+9. In the connect modal, click on the View full instructions button.
+10. On this page, follow the instructions to connect to the database.
 
 ### Local
 
+The project can be run locally by following the steps below:
+
+For either option, you will need to install the packages found in the requirements.txt file.
+
+In your terminal, run the following command to install the packages:
+
+```terminal
+pip3 install -r requirements.txt
+```
+
+At root level of your project, you will need to create an env.py file that contains the following:
+
+```python
+import os
+
+os.environ,setdefault("IP", "0.0.0.0")
+os.environ.setdefault("MONGO_DBNAME", "<your-database-name>")
+os.environ.setdefault("MONGO_URI", "<your-database-uri>")
+os.environ.setdefault("PORT", "5000")
+os.environ.setdefault("SECRET_KEY", "<your-secret-key>")
+```
+
+This file will not be tracked by git, so you can add it to your .gitignore file.
+
 #### Cloning the Repo
 
+To clone The Recipe Vault, follwo the steps below:
+
+1. Go to the [GitHub repository](https://github.com/cambboyle/the-recipe-vault) and click on the "Code" button.
+2. Select your preferred method of cloning the repository and copy the URL.
+3. Open your terminal and navigate to the directory where you want to clone the repository.
+4. In your terminal, run the following command to clone the repository: `git clone https://github.com/cambboyle/the-recipe-vault.git`
+5. Once the repository is cloned, navigate to the cloned directory: `cd the-recipe-vault`
+6. From here you can run the commands from the Local section.
+7. To run the project locally, run the following command: `python3 app.py`
+
 #### Forking the Repo
+
+To fork the repository, follow the steps below:
+
+1. Go to the [GitHub repository](https://github.com/cambboyle/the-recipe-vault) and click on the "Fork" button.
+2. Once the repo is forked, you should now have a copy of the repository on your own GitHub account where you can make changes and submit pull requests without affecting the original repository.
 
 ## Credits
 
 ### Images
-
-### Content
-
-Tab Structure on Profile Page from <a href="https://mdbootstrap.com/docs/standard/navigation/tabs/">MDB </a>
-
-Flask-Mail Documentation <a href="https://pypi.org/project/Flask-Mail/">Flask-Mail</a>
-
-### Acknowledgements
 
 Example of recipe (used in recipe cards by default) by <a href="https://unsplash.com/@duanemendes?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Duane Mendes</a> on <a href="https://unsplash.com/photos/person-holding-stainless-steel-spoon-JrRoJlGyZwk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
   
 Testing hero image by <a href="https://unsplash.com/@fsuarez?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Francisco Suarez</a> on <a href="https://unsplash.com/photos/stainless-steel-cooking-pots-on-stove-0EkWTSFXwCc?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
   
 Hero Image by <a href="https://unsplash.com/@alexkurchev?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Oleksandr Kurchev</a> on <a href="https://unsplash.com/photos/kitchen-filled-with-cooking-pans-and-kitchen-utensils-9gtiGV76NnM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-  
+
+### Content
+
+Tab Structure on Profile Page from <a href="https://mdbootstrap.com/docs/standard/navigation/tabs/">MDB </a>
+
+<a href="https://mdbootstrap.com/docs/standard/">MDB</a> Documentation
+
+<a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5</a> Documentation
+
+<a href="https://www.mongodb.com/atlas/database/overview">MongoDB Atlas</a> Documentation
+
+<a href="https://devcenter.heroku.com/articles/getting-started-with-python">Heroku</a> Documentation
+
+<a href="https://flask.palletsprojects.com/en/2.3.x/">Flask</a> Documentation
+
+<a href="https://flask-pymongo.readthedocs.io/en/2.4/">Flask-PyMongo</a> Documentation
+
+<a href="https://pythonhosted.org/Flask-Mail/">Flask-Mail</a> Documentation
+
+<a href="https://stackoverflow.com/">StackOverflow</a> for countless hours of help and guidance.
+
+Perplexity AI for help with AJAX and Flask Mail.
+
+### Acknowledgements
+
+Mitko (My Mentor) for giving crucial feedback and guidance throughout the project.
+
+Mica (My partner) for keeping me motivated and pushing me to complete the project.
