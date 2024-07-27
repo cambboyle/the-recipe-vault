@@ -37,54 +37,43 @@
             </form>
         </div>
     </div>
-    <!-- Tab Structure from MDB -->
-    <!-- Tabs-->
+    
+    <!-- Tabs -->
     <div class="col-sm-12 mb-3 text-center">
-        <ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
+        <ul class="nav nav-tabs" id="ex-with-icons" role="tablist">
             <li class="nav-item" role="presentation">
-                <a data-mdb-tab-init class="nav-link active" id="ex-with-icons-tab-1" href="#ex-with-icons-tabs-1"
-                    role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i
-                        class="fas me-2"></i>My Recipes
-                </a>
+                <button class="nav-link active" id="ex-with-icons-tab-1" data-mdb-toggle="tab" data-mdb-target="#ex-with-icons-tabs-1" type="button"
+                    role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true">My Recipes</button>
             </li>
             <li class="nav-item" role="presentation">
-                <a data-mdb-tab-init class="nav-link" id="ex-with-icons-tab-2" href="#ex-with-icons-tabs-2" role="tab"
-                    aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i
-                        class="fas me-2"></i>Saved Recipes
-                </a>
+                <button class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" data-mdb-target="#ex-with-icons-tabs-2" type="button"
+                    role="tab" aria-controls="ex-with-icons-tabs-2" aria-selected="false">Saved Recipes</button>
             </li>
         </ul>
     </div>
+
     <!-- Tab Content -->
     <div class="tab-content" id="ex-with-icons-content">
-        <div class="tab-pane fade show active" id="ex-with-icons-tabs-1" role="tabpanel"
-            aria-labelledby="ex-with-icons-tab-1">
-            <!-- User Recipes Title -->
+        <div class="tab-pane fade show active" id="ex-with-icons-tabs-1" role="tabpanel" aria-labelledby="ex-with-icons-tab-1">
+            <!-- User Recipes -->
             <div class="row justify-content-center">
                 <div class="col-sm-10">
                     <h3 class="text-center py-5">My Recipes</h3>
                 </div>
             </div>
-            <!-- User Recipes -->
             <div class="col-sm-8 offset-sm-2">
                 {% if recipes|length > 0 %}
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                     {% for recipe in recipes %}
-                    <!-- card content-->
                     <div class="col">
                         <div class="card card-style h-100 recipe-card rounded">
-                            <!-- card image -->
                             <div class="position-relative">
                                 <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
                                     class="card-img" style="height: 400px; width: 100%;">
-                                <span class="badge recipe-badge top-left-image text-center ms-0" style="
-                    color: var(--text-two);
-                    background-color: #E8DFC9;">
+                                <span class="badge recipe-badge top-left-image text-center ms-0" style="color: var(--text-two); background-color: #E8DFC9;">
                                     Prep: {{ recipe.prep_time }} Minutes
                                 </span>
-                                <span class="badge recipe-badge top-right-image text-center me-0" style="
-                    color: var(--text-two);
-                    background-color: #E8DFC9;">
+                                <span class="badge recipe-badge top-right-image text-center me-0" style="color: var(--text-two); background-color: #E8DFC9;">
                                     Cook:
                                     {% if recipe.cooking_time == 0 %}
                                     <span>0 Minutes</span>
@@ -93,25 +82,17 @@
                                     {% endif %}
                                 </span>
                                 <span class="col-sm-5 bottom-right-image text-end me-2">
-                                    <i id="like-container" class="fa-solid fa-cookie-bite p-1"
-                                        style="color: #F7B65A"></i>
-                                    <span id="likes_count" class="text-end">
-                                        {{ recipe.likes }}
-                                    </span>
+                                    <i id="like-container" class="fa-solid fa-cookie-bite p-1" style="color: #F7B65A"></i>
+                                    <span id="likes_count" class="text-end">{{ recipe.likes }}</span>
                                 </span>
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <div class="badge-container d-flex justify-content-between mb-2">
-                                    <span class="badge recipe-badge text-truncate">
-                                        {{ recipe.category_name }}
-                                    </span>
-                                    <span class="badge recipe-badge text-truncate">
-                                        {{ recipe.meal_type }}
-                                    </span>
+                                    <span class="badge recipe-badge text-truncate">{{ recipe.category_name }}</span>
+                                    <span class="badge recipe-badge text-truncate">{{ recipe.meal_type }}</span>
                                 </div>
                                 <span class="card-title">
-                                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
-                                        class="text-start recipe-card-title">
+                                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" class="text-start recipe-card-title">
                                         {{ recipe.recipe_name }}
                                     </a>
                                 </span>
@@ -119,8 +100,7 @@
                                     <p class="text-start">{{ recipe.recipe_description }}</p>
                                 </div>
                                 <p class="pb-1 mt-auto recipe-footer">
-                                    <em>
-                                        {{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
+                                    <em>{{ recipe.created_by }} on {{ recipe.created_at }}</em></p>
                             </div>
                         </div>
                     </div>
@@ -132,31 +112,24 @@
             </div>
         </div>
         <div class="tab-pane fade" id="ex-with-icons-tabs-2" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
-            <!-- Saved Recipes Title -->
+            <!-- Saved Recipes -->
             <div class="row justify-content-center">
                 <div class="col-sm-10">
                     <h3 class="text-center py-5">Saved Recipes</h3>
                 </div>
             </div>
-            <!-- Saved Recipes -->
             <div class="col-sm-8 offset-sm-2">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                     {% for save in saved_recipes %}
-                    <!-- card content-->
                     <div class="col">
                         <div class="card card-style h-100 recipe-card rounded">
-                            <!-- card image -->
                             <div class="position-relative">
                                 <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
                                     class="card-img" style="height: 400px; width: 100%;">
-                                <span class="badge recipe-badge top-left-image text-center ms-0" style="
-                color: var(--text-two);
-                background-color: #E8DFC9;">
+                                <span class="badge recipe-badge top-left-image text-center ms-0" style="color: var(--text-two); background-color: #E8DFC9;">
                                     Prep: {{ save.recipe.prep_time }} Minutes
                                 </span>
-                                <span class="badge recipe-badge top-right-image text-center me-0" style="
-                color: var(--text-two);
-                background-color: #E8DFC9;">
+                                <span class="badge recipe-badge top-right-image text-center me-0" style="color: var(--text-two); background-color: #E8DFC9;">
                                     Cook:
                                     {% if save.recipe.cooking_time == 0 %}
                                     <span>0 Minutes</span>
@@ -165,83 +138,56 @@
                                     {% endif %}
                                 </span>
                                 <span class="col-sm-5 bottom-right-image text-end me-2">
-                                    <i id="like-container" class="fa-solid fa-cookie-bite p-1"
-                                        style="color: #F7B65A"></i>
-                                    <span id="likes_count" class="text-end">
-                                        {{ save.recipe.likes }}
-                                    </span>
+                                    <i id="like-container" class="fa-solid fa-cookie-bite p-1" style="color: #F7B65A"></i>
+                                    <span id="likes_count" class="text-end">{{ save.recipe.likes }}</span>
                                 </span>
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <div class="badge-container d-flex justify-content-between mb-2">
-                                    <span class="badge recipe-badge text-truncate">
-                                        {{ save.recipe.category_name }}
-                                    </span>
-                                    <span class="badge recipe-badge text-truncate">
-                                        {{ save.recipe.meal_type }}
-                                    </span>
+                                    <span class="badge recipe-badge text-truncate">{{ save.recipe.category_name }}</span>
+                                    <span class="badge recipe-badge text-truncate">{{ save.recipe.meal_type }}</span>
                                 </div>
                                 <span class="card-title">
-                                    <a href="{{ url_for('view_recipe', recipe_id=save.recipe._id) }}"
-                                        class="text-start recipe-card-title">
+                                    <a href="{{ url_for('view_recipe', recipe_id=save.recipe._id) }}" class="text-start recipe-card-title">
                                         {{ save.recipe.recipe_name }}
                                     </a>
                                 </span>
                                 <div class="col-sm-12">
-                                    <p class="text-start">
-                                        {{ save.recipe.recipe_description[:100] }} ...
-                                    </p>
+                                    <p class="text-start">{{ save.recipe.recipe_description[:100] }} ...</p>
                                 </div>
                                 <p class="pb-1 mt-auto recipe-footer">
-                                    <em>
-                                        {{ save.recipe.created_by }} on {{ save.recipe.created_at }}</em></p>
+                                    <em>{{ save.recipe.created_by }} on {{ save.recipe.created_at }}</em></p>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
-
         </div>
     </div>
+</div>
 
-    {% endblock %}
+{% endblock %}
 
-    {% block scripts %}
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const editPictureBtn = document.getElementById('edit-picture-btn');
-        const pictureForm = document.getElementById('picture-form');
-        const editBioBtn = document.getElementById('edit-bio-btn');
-        const bioDisplay = document.getElementById('bio-display');
-        const bioForm = document.getElementById('bio-form');
-    
-        editPictureBtn.addEventListener('click', function() {
-            pictureForm.style.display = pictureForm.style.display === 'none' ? 'block' : 'none';
-            const icon = editPictureBtn.querySelector('i');
-            const text = editPictureBtn.querySelector('span');
-            if (pictureForm.style.display === 'none') {
-                icon.className = 'fas fa-edit';
-                text.textContent = ' Edit';
-            } else {
-                icon.className = 'fas fa-times';
-                text.textContent = ' Cancel';
-            }
-        });
-    
-        editBioBtn.addEventListener('click', function() {
-            bioForm.style.display = bioForm.style.display === 'none' ? 'block' : 'none';
-            bioDisplay.style.display = bioDisplay.style.display === 'none' ? 'block' : 'none';
-            const icon = editBioBtn.querySelector('i');
-            const text = editBioBtn.querySelector('span');
-            if (bioForm.style.display === 'none') {
-                icon.className = 'fas fa-edit';
-                text.textContent = ' Edit Bio';
-            } else {
-                icon.className = 'fas fa-times';
-                text.textContent = ' Cancel';
-            }
-        });
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Edit picture toggle
+    const editPictureBtn = document.getElementById('edit-picture-btn');
+    const pictureForm = document.getElementById('picture-form');
+    editPictureBtn.addEventListener('click', function() {
+        pictureForm.style.display = pictureForm.style.display === 'none' ? 'block' : 'none';
     });
-    </script>
-    {% endblock %}
+
+    // Edit bio toggle
+    const editBioBtn = document.getElementById('edit-bio-btn');
+    const bioDisplay = document.getElementById('bio-display');
+    const bioForm = document.getElementById('bio-form');
+    editBioBtn.addEventListener('click', function() {
+        bioForm.style.display = bioForm.style.display === 'none' ? 'block' : 'none';
+        bioDisplay.style.display = bioDisplay.style.display === 'none' ? 'block' : 'none';
+    });
+
+});
+</script>
+{% endblock %}
