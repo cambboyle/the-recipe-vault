@@ -87,6 +87,7 @@ For help with responsive design and optimal practice, I created wireframes for d
 
 ### Future Features
 
+- Recipe Images: Allow users to upload their own recipe images.
 - Recipe ratings and reviews: Allow users to rate recipes and leave reviews.
 - Meal planning: Implement a feature that lets users plan their meals for the week using saved recipes.
 - Grocery list generator: Create a tool that generates a shopping list based on selected recipes.
@@ -100,7 +101,7 @@ For help with responsive design and optimal practice, I created wireframes for d
 - Seasonal recipe recommendations: Highlight recipes based on seasonal ingredients or holidays.
 - User-generated content: Allow users to submit their own recipes for review and publication.
 - Recipe print functionality: Create a printer-friendly version of recipes.
-- Advanced search filters: Implement more detailed search options like cooking time, difficulty level, or dietary restrictions.
+- Advanced search filters: Implement more detailed search options such as cooking time, difficulty level, or dietary restrictions.
 - Recipe version control: Allow users to create personal variations of recipes and track changes.
 
 ## Technologies

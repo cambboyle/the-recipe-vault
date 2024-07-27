@@ -78,10 +78,10 @@
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                 <div class="card card-style h-100 recipe-card rounded">
                     <!-- card image -->
-                    <div class="card-image rounded position-relative">
+                    <div class="position-relative">
                         <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
                             <img src="{{ url_for('static', filename='images/default.jpg') }}" alt=""
-                            class=" mx-auto d-block" style="height: 400px; width: 100%;">
+                            class="card-img">
                         </a>
                         <span class="badge recipe-badge top-left-image text-center ms-0 hide-on-small" style="
                             color: var(--text-two);
