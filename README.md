@@ -8,11 +8,59 @@
 
 ## Mockup
 
+| Mockup |
+| This is a mockup of the Recipe Vault application, showcased using Am I Responsive? |
+| --- |
+| ![Mockup](documentation/other_images/AmIResponsiveRecipeVault.png) |
+
 ## User Experience
 
 ### Colour Scheme
 
+| Colour Scheme |
+| --- |
+| - #D2C0A7 - 'Warm Beige' Used as the primary colour |
+| - #F7B65A - 'Muted Copper' Used as the main hover colour |
+| - #593D2B - 'Rich Brown' Used as the secondary colour |
+| - #F3EAD6 - 'Soft Cream' Used as primary text colour |
+| - #36454F - 'Deep Charcoal' Used as secondary text colour |
+| - I also used variations of these colours to darken/lighten some elements |
+
+[coolor.co](https://coolors.co/palette/d2c0a7-f7b65a-593d2b-36454f-f3ead6) was used to generate the colour palette.
+
+I swapped the fancier names for colours with more neutral names to make the colour palette more accessible.
+
+```css
+:root {
+  /* Colours */
+  --primary-colour: #D2C0A7; /* Warm Beige */
+  --text-colour: #593D2B; /* Rich Brown */
+  --hover-colour: #B87333; /* Muted Copper */
+  --text-one: #F3EAD6;  /* Soft Cream */
+  --text-two: #36454F; /* Deep Charcoal */
+
+}
+```
+
+This was my first time using CSS variables, and I'm happy with how they work.
+
 ### Typography
+
+I used [Google Fonts](https://fonts.google.com/) to generate the typography for the application.
+
+I used the following font families:
+
+- [Josefin Sans](https://fonts.google.com/specimen/Josefin+Sans) was used as the body font.
+- [Outfit](https://fonts.google.com/specimen/Outfit) was used as the heading font.
+- [Font Awesome](https://fontawesome.com/) was used for icons.
+
+```html
+<link
+    href="https://fonts.googleapis.com/css2?
+        family=Josefin+Sans:ital,wght@0,100..700;1,100..700
+        &family=Outfit:wght@100..900&display=swap"
+    rel="stylesheet">
+```
 
 ### User Stories
 
@@ -39,17 +87,13 @@
 - As an admin, I want to be able to edit recipes so that I can maintain the quality of the application.
 - As an admin, I want to be able to add/delete categories upon user requests.
 
-### User Flows
-
-- ADD FLOW DIAGRAMS
-
 ### User Feedback
 
 - ADD FEEDBACK
 
 ## Wireframes
 
-For help with responsive design and optimal practice, I created wireframes for desktop, tablet, and mobile devices.
+For help with responsive design and optimal practice, I created wireframes for desktop, tablet, and mobile devices using [Balsamiq](https://balsamiq.com/).
 
 <details>
 <summary>Click for wireframes</summary>
@@ -72,9 +116,9 @@ For help with responsive design and optimal practice, I created wireframes for d
 
 </details>
 
-## Design
-
 ## Features
+
+Here are some of the features that I implemented in the application, took out and planned for future features.
 
 ### Existing Features
 
@@ -82,6 +126,24 @@ For help with responsive design and optimal practice, I created wireframes for d
 <summary>Existing features</summary>
 
 | Feature | Description | Image |
+| --- | --- | --- |
+| Site Logo |
+| Navigation Bar |
+| Hero |
+| Search Bar |
+| Recently Added Recipes |
+| How it Works |
+| Footer |
+| Sign Up |
+| Login |
+| Profile |
+| Bio |
+| Profile Picture |
+| User Recipes |
+| Saved Recipes |
+| Add Recipe |
+| Recipe Dropdown |
+
 
 </details>
 

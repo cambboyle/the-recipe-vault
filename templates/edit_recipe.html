@@ -1,11 +1,10 @@
-
 {% extends "base.html" %}
 {% block content %}
 
 <h3 class="text-center mx-auto py-5">Edit Recipe</h3>
 
 <div class="row">
-    <form id="edit-recipe-form" class="col-sm-12" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" method="POST" >
+    <form id="edit-recipe-form" class="col-sm-12" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" method="POST">
         <!-- Recipe Name -->
         <div class="row mb-3">
             <div class="col-sm-8">
@@ -15,7 +14,7 @@
                         value="{{ recipe.recipe_name }}" class="form-control" placeholder="Recipe Name" required>
                 </div>
             </div>
-        <!-- Cuisine -->
+            <!-- Cuisine -->
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-earth-americas"></i></span>
@@ -29,7 +28,7 @@
                             {% endif %}
                         {% endfor %}
                     </select>
-                  </div>
+                </div>
             </div>
         </div>
         <!-- Recipe Description-->
@@ -37,10 +36,7 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-pencil"></i></span>
-                    <textarea id="recipe_description" name="recipe_description" minlength="5" 
-                        maxlength="300" class="form-control" placeholder="Recipe Description" required>
-                        {{- recipe.recipe_description -}}
-                    </textarea>
+                    <textarea id="recipe_description" name="recipe_description" minlength="5" maxlength="300" class="form-control" placeholder="Recipe Description" required>{{ recipe.recipe_description }}</textarea>
                 </div>
             </div>
         </div>
@@ -82,7 +78,7 @@
             </div>
         </div>
         <div class="row mb-3">
-        <!-- Servings -->
+            <!-- Servings -->
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-utensils py-2"></i></span>
@@ -90,7 +86,7 @@
                         value="{{ recipe.serving_size }}" class="form-control" placeholder="Servings" required>
                 </div>
             </div>
-        <!-- Prep Time -->
+            <!-- Prep Time -->
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-clock py-2"></i></span>
@@ -98,7 +94,7 @@
                         value="{{ recipe.prep_time }}" class="form-control" placeholder="Prep Time (Minutes)" required>
                 </div>
             </div>
-        <!-- Cooking Time -->
+            <!-- Cooking Time -->
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-stopwatch py-2"></i></span>
@@ -108,7 +104,7 @@
             </div>
         </div>
         <div class="row mb-3">
-        <!-- Dietary Restrictions -->
+            <!-- Dietary Restrictions -->
             <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-leaf"></i></span>
@@ -124,7 +120,7 @@
                     </select>
                 </div>
             </div>
-        <!-- Meal Type -->
+            <!-- Meal Type -->
             <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-bowl-food py-2"></i></span>
@@ -159,9 +155,6 @@
 
 {% endblock %}
 
-{% block extra_js_inline %}
-<script>
-    // Ensure the form is initialized after the page-specific content is loaded
-        document.addEventListener('DOMContentLoaded', initializeRecipeForm);
-</script>
+{% block extra_js %}
+<script type="module" src="{{ url_for('static', filename='js/script.js') }}"></script>
 {% endblock %}

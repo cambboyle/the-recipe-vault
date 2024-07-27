@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% block content %}
 
@@ -7,44 +6,13 @@
 <div class="col-sm-8 offset-sm-2">
     <div class="row">
         <form class="col-sm-12" action="{{ url_for('add_recipe') }}" method="POST">
-            <!-- Recipe Name -->
-            <div class="row mb-3">
-                <div class="col-sm-8">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-tags"></i></span>
-                        <input type="text" id="recipe_name" name="recipe_name" minlength="5" maxlength="50"
-                            class="form-control" placeholder="Recipe Name" required>
-                    </div>
-                </div>
-                <!-- Cuisine -->
-                <div class="col-sm-4">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-earth-americas"></i></span>
-                        <select class="form-control" id="category_name" name="category_name" required>
-                            <option value="" disabled selected>Select Cuisine</option>
-                            {% for category in categories %}
-                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!-- Recipe Description-->
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-pencil"></i></span>
-                        <textarea id="recipe_description" name="recipe_description" minlength="5" maxlength="300"
-                            class="form-control" placeholder="Recipe Description" required></textarea>
-                    </div>
-                </div>
-            </div>
             <!-- Ingredients Section -->
             <div class="row mb-3">
                 <div class="col-sm-12">
                     <h5>Ingredients</h5>
                     <em style="font-size: smaller;">(Include measurements/quantities if necessary)</em>
                     <div id="ingredients-container">
+                        <!-- Ingredient fields added here-->
                         <div class="ingredient-input mb-2">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="main_ingredients"
@@ -55,11 +23,13 @@
                     <button type="button" class="btn btn-secondary mt-2" id="add_ingredient">Add Ingredient</button>
                 </div>
             </div>
+
             <!-- Recipe Steps -->
             <div class="row mb-3">
                 <div class="col-sm-12">
                     <h5>Method</h5>
                     <div id="steps-container">
+                        <!-- Step fields added here-->
                         <div class="step-input mb-2">
                             <div class="input-group">
                                 <span class="input-group-text">Step 1</span>
@@ -72,74 +42,121 @@
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <!-- Servings -->
-                <div class="col-sm-4">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-utensils py-2"></i></span>
-                        <input type="number" id="serving_size" name="serving_size" min="1" max="20" class="form-control"
-                            placeholder="Servings" minlength="5" maxlength="50" required>
-                    </div>
-                </div>
-                <!-- Prep Time -->
-                <div class="col-sm-4">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-clock py-2"></i></span>
-                        <input type="number" id="prep_time" name="prep_time" min="1" max="60" class="form-control"
-                            placeholder="Prep Time (Minutes)" minlength="5" maxlength="50" required>
-                    </div>
-                </div>
-                <!-- Cooking Time -->
-                <div class="col-sm-4">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-stopwatch py-2"></i></span>
-                        <input type="number" id="cooking_time" name="cooking_time" min="0" max="60" class="form-control"
-                            placeholder="Cooking Time (Minutes)"minlength="5" maxlength="50" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <!-- Dietary Restrictions -->
-                <div class="col-sm-6">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-leaf"></i></span>
-                        <select class="form-control" id="dietary" name="dietary" required>
-                            <option value="" disabled selected>Select dietary restriction</option>
-                            {% for dietary in dietaries %}
-                            <option value="{{ dietary.dietary_name }}">{{ dietary.dietary_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <!-- Meal Type -->
-                <div class="col-sm-6">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-bowl-food py-2"></i></span>
-                        <select class="form-control" id="meal_type" name="meal_type" required>
-                            <option value="" disabled selected>Select meal type</option>
-                            {% for meal in meals %}
-                            <option value="{{ meal.meal_type }}">{{ meal.meal_type }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!-- Submit Button -->
-            <div class="row mb-3">
-                <div class="col-sm-6 offset-sm-3 text-center">
-                    <button type="submit" class="btn btn-success">
-                        Submit <i class="fas fa-plus-square right"></i>
-                    </button>
-                </div>
-            </div>
+            <!-- Additional parts of the form -->
+
         </form>
     </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    // Ensure the form is initialized after the page-specific content is loaded
-    document.addEventListener('DOMContentLoaded', initializeRecipeForm);
+<script type="module">
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded');
+    initializeRecipeForm();
+});
+
+function initializeRecipeForm() {
+    const addIngredientButton = document.getElementById('add_ingredient');
+    const addStepButton = document.getElementById('add_step');
+    const ingredientsContainer = document.getElementById('ingredients-container');
+    const stepsContainer = document.getElementById('steps-container');
+
+    console.log('addIngredientButton:', addIngredientButton);
+    console.log('addStepButton:', addStepButton);
+    console.log('ingredientsContainer:', ingredientsContainer);
+    console.log('stepsContainer:', stepsContainer);
+
+    if (addIngredientButton && ingredientsContainer) {
+        addIngredientButton.addEventListener('click', addIngredient);
+        ingredientsContainer.addEventListener('click', removeIngredient);
+    }
+
+    if (addStepButton && stepsContainer) {
+        addStepButton.addEventListener('click', addStep);
+        stepsContainer.addEventListener('click', removeStep);
+    }
+
+    populateExistingFields();
+}
+
+function populateExistingFields() {
+    const ingredientsContainer = document.getElementById('ingredients-container');
+    const stepsContainer = document.getElementById('steps-container');
+
+    console.log('ingredientsContainer:', ingredientsContainer);
+    console.log('stepsContainer:', stepsContainer);
+
+    if (!ingredientsContainer || !stepsContainer) {
+        console.error('Required container elements are not found in the DOM.');
+        return; // Exit the function if any container is not found
+    }
+
+    // Clear existing fields
+    ingredientsContainer.innerHTML = '';
+    stepsContainer.innerHTML = '';
+
+    // Populate ingredients
+    const ingredients = Array.from(document.getElementsByName('main_ingredients')).map(input => input.value);
+    ingredients.forEach(ingredient => addIngredient(ingredient));
+
+    // Populate steps
+    const steps = Array.from(document.getElementsByName('recipe_method')).map(textarea => textarea.value);
+    steps.forEach((step, index) => addStep(step, index + 1));
+}
+
+function addIngredient() {
+    const container = document.getElementById('ingredients-container');
+    if (!container) return;
+
+    const newField = document.createElement('div');
+    newField.className = 'ingredient-input mb-2';
+    newField.innerHTML = `
+        <div class="input-group">
+            <input type="text" class="form-control" name="main_ingredients" placeholder="Add Ingredient" required>
+            <button class="btn btn-danger remove_ingredient" type="button">Remove</button>
+        </div>
+    `;
+    container.appendChild(newField);
+}
+
+function addStep(content = '') {
+    const container = document.getElementById('steps-container');
+    if (!container) return;
+
+    const stepCount = container.children.length + 1;
+    const newField = document.createElement('div');
+    newField.className = 'step-input mb-2';
+    newField.innerHTML = `
+        <div class="input-group">
+            <span class="input-group-text">Step ${stepCount}</span>
+            <textarea class="form-control" name="recipe_method" rows="2"
+                placeholder="Describe this step" required></textarea>
+            <button class="btn btn-danger remove_step" type="button">Remove</button>
+        </div>
+    `;
+    container.appendChild(newField);
+}
+
+function removeIngredient(event) {
+    if (event.target.classList.contains('remove_ingredient')) {
+        event.target.closest('.ingredient-input').remove();
+    }
+}
+
+function removeStep(event) {
+    if (event.target.classList.contains('remove_step')) {
+        event.target.closest('.step-input').remove();
+        updateStepNumbers();
+    }
+}
+
+function updateStepNumbers() {
+    const steps = document.querySelectorAll('#steps-container .step-input');
+    steps.forEach((step, index) => {
+        const stepLabel = step.querySelector('.input-group-text');
+        stepLabel.textContent = `Step ${index + 1}`;
+    });
+}
 </script>
 {% endblock %}
