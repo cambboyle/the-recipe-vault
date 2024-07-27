@@ -8,7 +8,7 @@
                 <div class="card-body rounded-top bg-light">
                     <h3 class="text-center text-uppercase py-3">Register</h3>
                     <!-- Form -->
-                    <form class="pb-3 px-3" method="POST" action="{{ url_for('login') }}">
+                    <form class="pb-3 px-3" method="POST" action="{{ url_for('register') }}">
                         <!-- Username -->
                         <div class="col-sm-12 d-flex justify-content-center align-items-center pb-3">
                             <div class="row">
@@ -54,7 +54,7 @@
                         <div class="col-sm-12">
                             <p class="text-center mt-3">
                                 <span class="text-muted">Already have an account?</span>
-                                <a href="{{ url_for('register') }}" class="text-primary fw-bold">Login</a>
+                                <a href="{{ url_for('login') }}" class="text-primary fw-bold">Login</a>
                             </p>
                         </div>
                     </div>
