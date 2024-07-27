@@ -73,6 +73,19 @@ function initializeRecipeForm() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    
+    navbarToggler.addEventListener('click', () => {
+      if(navbarCollapse.classList.contains('show')) {
+        navbarCollapse.classList.remove('show');
+      } else {
+        navbarCollapse.classList.add('show');
+      }
+    });
+  });
+
 // Ensure the script runs after the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded');

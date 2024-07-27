@@ -79,6 +79,20 @@ button {
   line-height: 1.5;
 }
 
+.btn-outline-light.btn-floating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.btn-outline-light.btn-floating .fa {
+  margin: 0;
+  font-size: 24px;
+}
+
 /* || General styles */
 
 html {
@@ -505,6 +519,23 @@ h3, h5 {
   bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#scroll-to-recipes-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+#scroll-to-recipes-button .fa {
+  margin: 0;
+  font-size: 24px;
 }
 
 /* || Footer */
@@ -846,6 +877,57 @@ body.profile-page {
   .how-it-works-container::before {
       display: none;
   }
+
+  /* Ensure correct alignment and positioning */
+  .navbar {
+    flex-wrap: nowrap;
+  }
+
+  .navbar .container-fluid {
+    flex-wrap: wrap;
+    justify-content: flex-end; /* Ensure elements are aligned to the right */
+  }
+
+  .navbar-brand {
+    display: none; /* Hide the full navbar brand to save space */
+  }
+
+  .navbar-toggler {
+    z-index: 1050;
+  }
+
+  .navbar-collapse {
+    position: fixed;
+    top: 30px;
+    right: 10px;
+    border: none;
+    z-index: 1050;
+    overflow: auto;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .navbar-collapse.show {
+    display: flex;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .nav-item {
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .full-title {
+    display: none;
+  }
+
+  .short-title {
+    display: inline;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -879,7 +961,7 @@ body.profile-page {
   }
 
   .navbar-toggler {
-    order: 2
+    z-index: 1050;
   }
 
   .collapse.nav-collapse {
@@ -890,22 +972,31 @@ body.profile-page {
  
   .navbar-collapse {
     position: absolute;
-    top: 100%;
+    top: 56px;
     left: 0;
     right: 0;
-    padding: 1rem;
-    z-index: 1000;
+    margin: auto;
+    border-top: 1px solid rgba(221, 221, 221, 0.8);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-top: 2px solid var(--hover-colour);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    z-index: 1050;
+    width: 300px;
+    max-height: 100vh;
+    overflow: auto; 
+    flex-direction: column;
+    background-color: rgba(210, 192, 167, 0.3);
+  }
+
+  .navbar-collapse-enter-active, .navbar-collapse-leave-active {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .navbar-collapse-enter, .navbar-collapse-leave-active {
+    transform: translateY(-100%) !important;
   }
 
   .navbar-collapse.show {
-    max-height: 300px; /* Adjust based on your content */
+    transform: translateY(0);
   }
-
 
   .navbar-nav {
     flex-direction: column;
@@ -921,8 +1012,6 @@ body.profile-page {
     padding-top: 1rem;
   }
   
-  
-
   .navbar-toggler[aria-expanded="true"] {
     transform: rotate(90deg);
   }

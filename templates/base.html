@@ -5,15 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Outfit:wght@100..900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- MDB -->
@@ -23,6 +19,11 @@
   {% block styles %}
   {% endblock %}
   <title>The Recipe Vault</title>
+  <style>
+    .navbar-toggler {
+      z-index: 1050;
+    }
+  </style>
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
@@ -44,59 +45,47 @@
   </div>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-md fixed-top px-5 shadow-0">
+  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top px-5 shadow-0">
     <div class="container-fluid">
-      <div class="outfit-heading d-flex justify-content-between w-100 align-items-center">
-        <a class="navbar-brand main-logo d-flex align-items-center" href="{{ url_for('get_recipes') }}"
-          style="font-weight: 700;">
-          <span class="full-title underline">The Recipe Vault</span>
-          <span class="short-title">TRV</span>
-        </a>
-        <button 
-          data-mdb-collapse-init 
-          class="navbar-toggler" 
-          type="button" 
-          data-mdb-target="#navbarNav"
-          aria-controls="navbarNav" 
-          aria-expanded="false" 
-          aria-label="Toggle navigation"
-        >
-          <i class="fas fa-bars" style="color: var(--text-one)"></i>
-        </button>
-        <!-- navbar links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            {% if session.user %}
-            <li class="nav-item">
-              <a class="nav-link navbar-text" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link navbar-text" href="{{ url_for('all_recipes') }}">All Recipes</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link navbar-text" href="{{ url_for('add_recipe') }}">Add Recipe</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link navbar-text" href="{{ url_for('contact') }}">Contact</a>
-            </li>
-            {% if session.user == "admin" %}
-            <li class="nav-item">
-              <a class="nav-link navbar-text" href="{{ url_for('get_categories') }}">Categories</a>
-            </li>
-            {% endif %}
-            <li class="nav-item">
-              <a class="nav-link navbar-text" href="{{ url_for('logout') }}">Log Out</a>
-            </li>
-            {% else%}
-            <li class="nav-item">
-              <a class="nav-link navbar-text" href="{{ url_for('login') }}">Log In</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link navbar-text" href="{{ url_for('register') }}">Register</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
+      <a class="navbar-brand main-logo d-flex align-items-center" href="{{ url_for('get_recipes') }}" style="font-weight: 700;">
+        <span class="full-title underline">The Recipe Vault</span>
+        <span class="short-title">TRV</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars" style="color: var(--text-one)"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          {% if session.user %}
+          <li class="nav-item">
+            <a class="nav-link navbar-text" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link navbar-text" href="{{ url_for('all_recipes') }}">All Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link navbar-text" href="{{ url_for('add_recipe') }}">Add Recipe</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link navbar-text" href="{{ url_for('contact') }}">Contact</a>
+          </li>
+          {% if session.user == "admin" %}
+          <li class="nav-item">
+            <a class="nav-link navbar-text" href="{{ url_for('get_categories') }}">Categories</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link navbar-text" href="{{ url_for('logout') }}">Log Out</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link navbar-text" href="{{ url_for('login') }}">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link navbar-text" href="{{ url_for('register') }}">Register</a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
     </div>
   </nav>
@@ -112,83 +101,71 @@
   <!-- Footer -->
   <footer class="py-5">
     <div class="container text-center">
-        <div class="row justify-content-center pb-5">
-            <div class="col-md-6">
-                <h5>The Recipe Vault</h5>
-                <ul class="nav flex-column">
-                  {% if session.user %}
-                  <li class="nav-item">
-                    <a href="{{ url_for('profile', username=session['user']) }}">Profile</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ url_for('all_recipes') }}">All Recipes</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ url_for('add_recipe') }}">Add Recipe</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ url_for('contact') }}">Contact</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ url_for('logout') }}">Log Out</a>
-                  </li>
-                  {% else%}
-                  <li class="nav-item">
-                    <a href="{{ url_for('login') }}">Log In</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ url_for('register') }}">Register</a>
-                  </li>
-                  {% endif %}
-                </ul>
-            </div>
+      <div class="row justify-content-center pb-5">
+        <div class="col-md-6">
+          <h5>The Recipe Vault</h5>
+          <ul class="nav flex-column">
+            {% if session.user %}
+            <li class="nav-item">
+              <a href="{{ url_for('profile', username=session['user']) }}">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url_for('all_recipes') }}">All Recipes</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url_for('add_recipe') }}">Add Recipe</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url_for('contact') }}">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url_for('logout') }}">Log Out</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="{{ url_for('login') }}">Log In</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url_for('register') }}">Register</a>
+            </li>
+            {% endif %}
+          </ul>
         </div>
-        <div class="row justify-content-between mt-4">
-            <div class="col-md-4 bottom-left">
-                <p>&copy; 2024 The Recipe Vault</p>
-            </div>
-            <div class="col-md-4 bottom-center">
-                <p>Made by <a href="https://github.com/cambboyle">Cameron Boyle</a></p>
-            </div>
-            <div class="col-md-4 bottom-right">
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item">
-                        <a class="text-muted" href="https://github.com/cambboyle/the-recipe-vault">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="text-muted" href="https://www.linkedin.com/in/cbb00/">
-                            <i class="fa-brands fa-linkedin"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+      </div>
+      <div class="row justify-content-between mt-4">
+        <div class="col-md-4 bottom-left">
+          <p>&copy; 2024 The Recipe Vault</p>
         </div>
+        <div class="col-md-4 bottom-center">
+          <p>Made by <a href="https://github.com/cambboyle">Cameron Boyle</a></p>
+        </div>
+        <div class="col-md-4 bottom-right">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <a class="text-muted" href="https://github.com/cambboyle/the-recipe-vault">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a class="text-muted" href="https://www.linkedin.com/in/cbb00/">
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </footer>
 
   <!-- MDB UI Kit JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
   <!-- JQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <!-- Bootstrap 5 JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Custom JS -->
   <script type="module" src="{{ url_for('static', filename='js/script.js') }}"></script>
   {% block scripts %}
-  <!-- Navbar animation script block -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const navbarToggler = document.querySelector('.navbar-toggler');
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-        navbarToggler.addEventListener('click', function() {
-          navbarCollapse.classList.toggle('show');
-        });
-    });
-  </script>
   {% endblock %}
 </body>
-
 </html>
