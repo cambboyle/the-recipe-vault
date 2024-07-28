@@ -6,6 +6,45 @@
 - The application is designed to veer away from physical cookbooks and instead focus on the concept of recipes.
 - Users must create an account to access the application's full features.
 
+## Table of Contents
+
+- [The Recipe Vault](#the-recipe-vault)
+  - [Introduction](#introduction)
+  - [Table of Contents](#table-of-contents)
+  - [Mockup](#mockup)
+  - [User Experience](#user-experience)
+    - [Colour Scheme](#colour-scheme)
+    - [Typography](#typography)
+    - [User Stories](#user-stories)
+      - [New User](#new-user)
+      - [Returning User](#returning-user)
+      - [Admin](#admin)
+    - [User Feedback](#user-feedback)
+  - [Wireframes](#wireframes)
+    - [Landing Page](#landing-page)
+    - [Recipe Search](#recipe-search)
+    - [Sign Up](#sign-up)
+    - [Profile](#profile)
+  - [Features](#features)
+    - [Existing Features](#existing-features)
+    - [Future Features](#future-features)
+  - [Technologies](#technologies)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+    - [Database](#database)
+  - [Database Schema](#database-schema)
+  - [Testing](#testing)
+  - [Deployment](#deployment)
+    - [Heroku](#heroku)
+    - [MongoDB Atlas](#mongodb-atlas)
+    - [Local](#local)
+      - [Cloning the Repo](#cloning-the-repo)
+      - [Forking the Repo](#forking-the-repo)
+  - [Credits](#credits)
+    - [Images](#images)
+    - [Content](#content)
+    - [Acknowledgements](#acknowledgements)
+
 ## Mockup
 
 | Mockup |
@@ -128,40 +167,41 @@ Here are some of the features that I implemented in the application, took out an
 
 | Feature | Description | Image |
 | --- | --- | --- |
-| Site Logo | The site is logo is just the site name, The Recipe Vault. | |
-| Site Logo (Small) | This logo is shortened to just TRV on small screens.| |
-| Navigation Bar | The navigation bar is located at the top of the page and contains links to the main sections of the site. | |
-| Navigation Bar (Small) | This navigation bar is compressed to a collapsed state on small screens. | |
-| Hero | The hero section contains the the tagline, an image, and a button to navigate to the recipes page. | |
-| To-Recipes Button | This button smooth-scrolls to the recipes page. | |
-| Recently Added Recipes | This section displays the most recently added recipes. | |
-| Search Recipes | This section allows the user to search for recipes by name, description, ingredients, cuisine, and dietary restrictions. | |
-| Show All Recipes | This button directs the user to the all recipes page. | |
-| Reset Search | This button resets the search input field. | |
-| Recipe Cards | The recipe cards are displayed in a grid format and contain the recipe name, description, ingredients, cuisine, and dietary restrictions. And can be clicked to view the rest of the recipe details. | |
-| View Recipe | This page displays the whole recipe, here, the user can like and save the recipe | |
-| Like Recipes | This button allows the user to like the recipe, which will increase the likes count by one. | |
-| Save Recipes | This button allows the user to save the recipe, which will add the recipe to their saved recipes on their profile. | |
-| How it Works | This section of the landing page descrbies how to utilize the site. | |
-| Footer | The footer contains a navigation bar, a copyright notice, and social media links. | |
-| Register | This page allows the user to create an account on the site. | |
-| Login | This page allows the user to log in to their account if they have an account. | |
-| Profile | This page displays the user's profile, which includes their username, recipes, saved recipes, and bio. | |
-| Edit Bio | This button enables the user to edit their bio. | |
-| Edit Profile Picture | This button enables the user to edit their profile picture. | |
-| User Recipes | This tab displays the user's recipes. | |
-| Saved Recipes | This tab displays the user's saved recipes. | |
-| Add Recipe | This page allows the user to create a new recipe, which includes the recipe name, category, recipe description, serving size, prep time, cooking time, dietary restrictions, meal type, main ingredients, and recipe method. | |
-| Recipe Dropdowns (Categories, Meal Types, Dietary Restrictions) | These dropdowns allow the user to select pre-defined categories, meal types, and dietary restrictions. | |
-| Edit Recipe | This page is opened via the View Recipe page, which allows the user to edit the recipe details. | |
-| Delete Recipe | This button prompts the user to confirm the deletion of the recipe. | |
-| Contact Form | This page allows the user to contact the site administrator. | |
-| Flash Messages | Flash messages are displayed to the user when certain actions are performed, such as successfully logging in, successfully registering, or successfully editing a recipe. | |
+| Favicon | The favicon is a small image that represents the website and is displayed in the browser tab. | |
+| Site Logo | The site is logo is just the site name, The Recipe Vault. | ![Site Logo](documentation/feature_images/site_logo.png) |
+| Site Logo (Small) | This logo is shortened to just TRV on small screens.| ![Site Logo (Small)](documentation/feature_images/site_logo_small.png) |
+| Navigation Bar | The navigation bar is located at the top of the page and contains links to the main sections of the site. | ![Navigation Bar](documentation/feature_images/navigation_bar.png) |
+| Navigation Bar (Small) | This navigation bar is compressed to a collapsed state on small screens. | ![Navigation Bar (Small)](documentation/feature_images/navbar_small.png) |
+| Hero | The hero section contains the the tagline, an image, and a button to navigate to the recipes page. | ![Hero](documentation/feature_images/hero.jpg) |
+| To-Recipes Button | This button smooth-scrolls to the recipes page. | ![To-Recipes Button](documentation/feature_images/to_recipes_button.png) |
+| Recently Added Recipes | This section displays the most recently added recipes. | ![Recently Added Recipes](documentation/feature_images/recently_added_recipes.png) |
+| Search Recipes | This section allows the user to search for recipes by name, description, ingredients, cuisine, and dietary restrictions. | ![Search Recipes](documentation/feature_images/search_recipes.png) |
+| Show All Recipes | This button directs the user to the all recipes page. | ![Show All Recipes](documentation/feature_images/show_all_recipes.png) |
+| Reset Search | This button resets the search input field. | ![Reset Search](documentation/feature_images/reset_search.png) |
+| Recipe Cards | The recipe cards are displayed in a grid format and contain the recipe name, description, ingredients, cuisine, and dietary restrictions. And can be clicked to view the rest of the recipe details. | ![Recipe Cards](documentation/feature_images/recipe_cards.png) |
+| View Recipe | This page displays the whole recipe, here, the user can like and save the recipe | ![View Recipe](documentation/feature_images/view_recipe.png) |
+| Like Recipes | This button allows the user to like the recipe, which will increase the likes count by one. | ![Like Recipes](documentation/feature_images/like_recipe.png) |
+| Save Recipes | This button allows the user to save the recipe, which will add the recipe to their saved recipes on their profile. | ![Save Recipes](documentation/feature_images/save_recipe.png) |
+| How it Works | This section of the landing page descrbies how to utilize the site. | ![How it Works](documentation/feature_images/how_it_works.png) |
+| Footer | The footer contains a navigation bar, a copyright notice, and social media links. | ![Footer](documentation/feature_images/footer.png) |
+| Register | This page allows the user to create an account on the site. | ![Register](documentation/feature_images/sign_up.png) |
+| Login | This page allows the user to log in to their account if they have an account. | ![Login](documentation/feature_images/login.png) |
+| Profile | This page displays the user's profile, which includes their username, recipes, saved recipes, and bio. | ![Profile](documentation/feature_images/profile.png) |
+| Edit Bio | This button enables the user to edit their bio. | ![Edit Bio](documentation/feature_images/edit_bio.png) |
+| Edit Profile Picture | This button enables the user to edit their profile picture. | ![Edit Profile Picture](documentation/feature_images/edit_profile_picture.png) |
+| User Recipes | This tab displays the user's recipes. | ![User Recipes](documentation/feature_images/user_recipes.png) |
+| Saved Recipes | This tab displays the user's saved recipes. | ![Saved Recipes](documentation/feature_images/saved_recipes.png) |
+| Add Recipe | This page allows the user to create a new recipe, which includes the recipe name, category, recipe description, serving size, prep time, cooking time, dietary restrictions, meal type, main ingredients, and recipe method. | ![Add Recipe](documentation/feature_images/add_recipe.png) |
+| Recipe Dropdowns (Categories, Meal Types, Dietary Restrictions) | These dropdowns allow the user to select pre-defined categories, meal types, and dietary restrictions. | ![Recipe Dropdowns](documentation/feature_images/recipe_dropdowns.png) |
+| Edit Recipe | This page is opened via the View Recipe page, which allows the user to edit the recipe details. | ![Edit Recipe](documentation/feature_images/edit_recipe.png) |
+| Delete Recipe | This button prompts the user to confirm the deletion of the recipe. | ![Delete Recipe](documentation/feature_images/delete_recipe.png) |
+| Contact Form | This page allows the user to contact the site administrator. | ![Contact Form](documentation/feature_images/contact_form.png) |
+| Flash Messages | Flash messages are displayed to the user when certain actions are performed, such as successfully logging in, successfully registering, or successfully editing a recipe. | ![Flash Messages](documentation/feature_images/flash_messages.png) |
 | ADMIN ONLY | ADMIN ONLY | ADMIN ONLY |
-| Categories | This page displays the list of categories that the site administrator has created. | |
-| Add Category | This page allows the site administrator to create a new category. | |
-| Edit Category | This page allows the site administrator to edit a category. | |
-| Delete Category | Clicking the delete button prompts the user to confirm the deletion of the category. | |
+| Categories | This page displays the list of categories that the site administrator has created. | ![Categories](documentation/feature_images/categories.png) |
+| Add Category | This page allows the site administrator to create a new category. | ![Add Category](documentation/feature_images/add_category.png) |
+| Edit Category | This page allows the site administrator to edit a category. | ![Edit Category](documentation/feature_images/edit_category.png) |
+| Delete Category | Clicking the delete button prompts the user to confirm the deletion of the category. | ![Delete Category](documentation/feature_images/delete_category.png) |
 
 </details>
 
@@ -387,6 +427,8 @@ Tab Structure on Profile Page from <a href="https://mdbootstrap.com/docs/standar
 <a href="https://stackoverflow.com/">StackOverflow</a> for countless hours of help and guidance.
 
 Perplexity AI for help with AJAX and Flask Mail.
+
+<a href="https://codepen.io/Ragnarokkr/pen/DWQPPM">Vignetter</a> added to the Hero Section.
 
 ### Acknowledgements
 

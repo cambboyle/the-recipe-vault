@@ -35,20 +35,20 @@ button {
 
 .btn-primary, .btn-secondary {
   background-color: var(--hover-colour);
-  border-color: var(--hover-colour);
+  border-color: var(--text-colour);
   color: var(--text-one);
   transition: all 0.3s ease;
 }
 
 .btn-primary:hover, .btn-secondary:hover {
   background-color: var(--text-colour);
-  border-color: var(--text-colour);
-  color: var(--text-one);
+  border-color: var(--text-one);
+  color: var(--text-two);
 }
 
 .btn-primary:focus, .btn-secondary:focus {
   background-color: var(--text-colour);
-  border-color: var(--text-colour);
+  border-color: var(--hover-colour);
   color: var(--text-one);
 }
 
@@ -639,24 +639,20 @@ textarea.form-control {
 
 .btn-secondary {
   background-color: var(--hover-colour);
-  border-color: var(--hover-colour);
   color: var(--text-one);
 }
 
 .btn-secondary:hover {
   background-color: var(--text-colour);
-  border-color: var(--text-colour);
 }
 
 .btn-success {
   background-color: var(--hover-colour);
-  border-color: var(--hover-colour);
   color: var(--text-one);
 }
 
 .btn-success:hover {
   background-color: var(--text-colour);
-  border-color: var(--text-colour);
 }
 
 /* Add ingredient/step container */
@@ -680,14 +676,12 @@ textarea.form-control {
 
 .add-category-btn {
   background-color: var(--hover-colour);
-  border-color: var(--hover-colour);
   color: var(--text-one);
   transition: all 0.3s ease;
 }
 
 .add-category-btn:hover {
   background-color: var(--text-colour);
-  border-color: var(--text-colour);
 }
 
 .category-card {
@@ -719,13 +713,11 @@ textarea.form-control {
 
 .category-card .btn-primary {
   background-color: var(--hover-colour);
-  border-color: var(--hover-colour);
   color: var(--text-one);
 }
 
 .category-card .btn-primary:hover {
   background-color: var(--text-colour);
-  border-color: var(--text-colour);
 }
 
 .category-card .btn-danger {
@@ -860,7 +852,7 @@ body.profile-page {
 /* || Login/Register */
 
 .card-form {
-  background-color: rbga(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 /* || Media Queries */
