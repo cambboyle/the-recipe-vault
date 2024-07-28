@@ -487,6 +487,7 @@ h3, h5 {
 /* Hero Image */
 .masthead {
   background-image: url(/static/images/final-hero.jpg);
+  box-shadow: 0 0 200px rgba(0,0,0,0.9) inset;
   background-size: cover;
   background-position: left; 
   background-repeat: no-repeat;
