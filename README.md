@@ -2,9 +2,9 @@
 
 ## Introduction
 
-- The Recipe Vault is a web application that allows users to create, store, and share recipes.
+- The Recipe Vault is a web application that allows users to create, store and share recipes.
 - The application is designed to veer away from physical cookbooks and instead focus on the concept of recipes.
-- Users must create an account to access the applications full features.
+- Users must create an account to access the application's full features.
 
 ## Mockup
 
@@ -68,28 +68,29 @@ I used the following font families:
 
 - As a new user, I want to be able to create an account so that I can access the full features of the application.
 - As a new user, I want to be able to create a recipe so that I can store and share my recipes with others.
-- As a new user, I want to be able to save other users recipes so that I can access them later.
+- As a new user, I want to be able to save other users' recipes so that I can access them later.
 - As a new user, I want to search for recipes by name, description, ingredients, cuisine and dietary restrictions so that I can find the recipe I am looking for.
 
 #### Returning User
 
 - As a returning user, I want to be able to log in so that I can access the full features of the application.
 - As a returning user, I want to be able to create a recipe so that I can store and share my recipes with others.
-- As a returning user, I want to be able to save other users recipes so that I can access them later.
+- As a returning user, I want to be able to save other users' recipes so that I can access them later.
 - As a returning user, I want to search for recipes by name, description, ingredients, cuisine and dietary restrictions so that I can find the recipe I am looking for.
 - As a returning user, I want to be able to edit my profile so that I can update my information.
 - As a returning user, I want to be able to edit my recipes.
 - As a returning user, I want to be able to delete my recipes.
+- As a returning user, I want to be able to contact the site administrator so that I can report bugs or request features.
 
 #### Admin
 
-- As an admin, I want to be able to delete innapropriate recipes so that I can maintain the quality of the application.
+- As an admin, I want to be able to delete inappropriate recipes so that I can maintain the quality of the application.
 - As an admin, I want to be able to edit recipes so that I can maintain the quality of the application.
 - As an admin, I want to be able to add/delete categories upon user requests.
 
 ### User Feedback
 
-- ADD FEEDBACK
+ "**This app is easy to navigate and aesthetically pleasing! I like that I can store all of my recipes on one website as well as browse and learn from others. Being able to personalise my profile with a photo and bio makes it that little bit more sentimental. I would like there to be a feature where I can upload a picture of my recipe to its respective card, so I look forward to that being a future feature.**"- Mica Ali
 
 ## Wireframes
 
@@ -228,7 +229,7 @@ The live version of the site is hosted on Heroku, here: [LIVE SITE](https://flas
 
 The project is hosted on Heroku.
 
-Folow the steps below to deploy the project to Heroku:
+Follow the steps below to deploy the project to Heroku:
 
 1. Select "New" from the Heroku dashboard, and choose "Create new app".
 2. Choose a name for your app, and select the region you want to deploy to, then click on "Create app".
@@ -269,7 +270,7 @@ pip3 freeze --local > requirements.txt
 
 Now you can deploy the project to Heroku by either:
 
-- running the following commandsin your terminal:
+- running the following commands in your terminal:
 
 ```terminal
 heroku login -i
@@ -304,8 +305,8 @@ To create a MongoDB Atlas Database, follow these steps:
 5. Click "Create Database" and choose a database name.
 6. Now click on create collection and choose a collection name.
 7. Inside the collection, you can write your data.
-8. Once you have written out some data, go to the overview tab and click on the connect button.
-9. In the connect modal, click on the View full instructions button.
+8. Once you have written out some data, go to the overview tab and click on the "connect" button.
+9. In the connect modal, click on the "View full instructions" button.
 10. On this page, follow the instructions to connect to the database.
 
 ### Local
@@ -336,7 +337,7 @@ This file will not be tracked by git, so you can add it to your .gitignore file.
 
 #### Cloning the Repo
 
-To clone The Recipe Vault, follwo the steps below:
+To clone The Recipe Vault, follow the steps below:
 
 1. Go to the [GitHub repository](https://github.com/cambboyle/the-recipe-vault) and click on the "Code" button.
 2. Select your preferred method of cloning the repository and copy the URL.
