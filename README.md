@@ -1,4 +1,4 @@
-# [The Recipe Vault](https://flask-cookbook-app-a80af878055f.herokuapp.com)
+# [The Recipe Vault (Click for live version)](https://flask-cookbook-app-a80af878055f.herokuapp.com)
 
 ## Introduction
 
@@ -14,7 +14,7 @@
 
 ## Table of Contents
 
-- [The Recipe Vault](#the-recipe-vault)
+- [The Recipe Vault (Click for live version)](#the-recipe-vault-click-for-live-version)
   - [Introduction](#introduction)
   - [Mockup](#mockup)
   - [Table of Contents](#table-of-contents)
