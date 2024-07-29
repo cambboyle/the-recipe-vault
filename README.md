@@ -259,7 +259,7 @@ Here are some of the features that I implemented in the application, took out an
 
 ## Testing
 
-Please see the [TESTING.md](documentation/TESTING.md) file for more information.
+Please see the [TESTING.md](TESTING.md) file for more information.
 
 ## Deployment
 
