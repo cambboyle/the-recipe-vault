@@ -2,6 +2,12 @@ function addIngredient(value = '') {
     const container = document.getElementById('ingredients-container');
     if (!container) return;
 
+    const ingredientCount = container.children.length;
+    if (ingredientCount >= 25) {
+        alert("You can only add up to 25 ingredients.");
+        return;
+    }
+
     const newField = document.createElement('div');
     newField.className = 'ingredient-input mb-2';
     newField.innerHTML = `
@@ -17,12 +23,17 @@ function addStep(content = '') {
     const container = document.getElementById('steps-container');
     if (!container) return;
 
-    const stepCount = container.children.length + 1;
+    const stepCount = container.children.length;
+    if (stepCount >= 25) {
+        alert("You can only add up to 25 steps.");
+        return;
+    }
+
     const newField = document.createElement('div');
     newField.className = 'step-input mb-2';
     newField.innerHTML = `
         <div class="input-group">
-            <span class="input-group-text">Step ${stepCount}</span>
+            <span class="input-group-text">Step ${stepCount + 1}</span>
             <textarea class="form-control" name="recipe_method" rows="2" placeholder="Describe this step" required>${content}</textarea>
             <button class="btn btn-danger remove_step" type="button">Remove</button>
         </div>
@@ -78,13 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbarCollapse = document.querySelector('.navbar-collapse');
     
     navbarToggler.addEventListener('click', () => {
-      if(navbarCollapse.classList.contains('show')) {
+      if (navbarCollapse.classList.contains('show')) {
         navbarCollapse.classList.remove('show');
       } else {
         navbarCollapse.classList.add('show');
       }
     });
-  });
+});
 
 // Ensure the script runs after the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
