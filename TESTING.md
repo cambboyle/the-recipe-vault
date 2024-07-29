@@ -143,7 +143,9 @@ Defensive Programming was tested manually, and the results were as follows:
 
 ## KNOWN BUGS
 
-No known bugs.
+Encountered a bug where the profile picture was not being stored in the database, I tried fixing this by creating a S3 bucket and using the AWS SDK to upload the file to the bucket, but I was unable to get it to work. As I don't have enough experience with AWS, I decided to leave it as is.
+
+I can upload pictures from my IDE and on localhost, but when I try to upload them from Heroku, they are not uploaded.
 
 ## FIXED BUGS
 
