@@ -114,21 +114,21 @@ Defensive Programming was tested manually, and the results were as follows:
 | | Expected Behavior | Test | Actual Behavior |
 | --- | --- | --- | --- |
 | **Non-logged in users** | | | |
-| Home Button | Expected to redirect to the login page | Tested by clicking the button | Redirected to the login page |
+| Home Button | Expected to redirect to the home page | Tested by clicking the button | Redirected to the home page |
 | Login Button | Expected to redirect to the login page | Tested by clicking the button | Redirected to the login page |
 | Register Button | Expected to redirect to the register page | Tested by clicking the button | Redirected to the register page |
 | Search Function | Expected to search through the user's query | Tested by typing a query in the search bar | Searched through the user's query |
-| Recipe Card | Expected to redirect to the login | Tested by clicking the card | Redirected to the login page |
+| Recipe Card | Expected to redirect to the single recipe page | Tested by clicking the card | Redirected to the single recipe page |
 | **Logged in users** | | | |
-| Home Button | Expected to redirect to the profile page | Tested by clicking the button | Redirected to the profile page |
+| Home Button | Expected to redirect to the home page | Tested by clicking the button | Redirected to the home page |
 | Profile Button | Expected to redirect to the profile page | Tested by clicking the button | Redirected to the profile page |
 | All Recipes Button | Expected to redirect to the all recipes page | Tested by clicking the button | Redirected to the all recipes page |
 | Add Recipe Button | Expected to redirect to the add recipe page | Tested by clicking the button | Redirected to the add recipe page |
 | Contact Button | Expected to redirect to the contact page | Tested by clicking the button | Redirected to the contact page |
 | Contact Form | Expected to a message to the default email address | Tested by filling out the form | A message was sent to the default email address |
-| Logout Button | Expected to redirect to the login page | Tested by clicking the button | Redirected to the login page |
+| Logout Button | Expected to redirect to the login page and log the user out | Tested by clicking the button | Redirected to the login page and successfully logged out the user |
 | Search Function | Expected to search through the user's query | Tested by typing a query in the search bar | Searched through the user's query |
-| Recipe Card | Expected to redirect to the recipe page | Tested by clicking the card | Redirected to the recipe page |
+| Recipe Card | Expected to redirect to the single recipe page | Tested by clicking the card | Redirected to the single recipe page |
 | Edit Recipe Button | Expected to redirect to the edit recipe page | Tested by clicking the button | Redirected to the edit recipe page |
 | Delete Recipe Button | Expected to delete the recipe | Tested by clicking the button | Deleted the recipe |
 | Save Recipe Button | Expected to save the recipe to the user's saved recipes | Tested by clicking the button | Saved the recipe to the user's saved recipes |
