@@ -46,16 +46,51 @@ The project was tested on multiple devices and screen sizes to ensure that it is
 
 | Page | Screenshot |
 | --- | --- |
+| Landing Page (Hero) | ![Hero](documentation/responsive_images/desktop/hero_desktop.jpg) |
+| Recipe Search | ![Recipe Search](documentation/responsive_images/desktop/recipes_desktop.png) |
+| How it Works | ![How it Works](documentation/responsive_images/desktop/how_desktop.png) |
+| Profile | ![Profile](documentation/responsive_images/desktop/profile_desktop.png) |
+| Add Recipe | ![Add Recipe](documentation/responsive_images/desktop/add_recipe_desktop.png) |
+| Edit Recipe | ![Edit Recipe](documentation/responsive_images/desktop/edit_recipe_desktop.png) |
+| Contact | ![Contact](documentation/responsive_images/desktop/contact_desktop.jpg) |
+| Login | ![Login](documentation/responsive_images/desktop/login_desktop.jpg) |
+| Register | ![Register](documentation/responsive_images/desktop/register_desktop.jpg) |
+| Categories | ![Categories](documentation/responsive_images/desktop/categories_desktop.png) |
+| All Recipes | ![All Recipes](documentation/responsive_images/desktop/all_recipes_desktop.png) |
+| View Recipe | ![View Recipe](documentation/responsive_images/desktop/recipe_desktop.png) |
 
-### Mobile (iPhone 12 Pro Max)
+### Mobile (iPhone 14 Pro Max)
 
 | Page | Screenshot |
 | --- | --- |
+| Landing Page (Hero) | ![Hero](documentation/responsive_images/mobile/hero_mobile.png) |
+| Recipe Search | ![Recipe Search](documentation/responsive_images/mobile/recipes_mobile.png) |
+| How it Works | ![How it Works](documentation/responsive_images/mobile/how_2_mobile.png) |
+| How it Works & Footer | ![How it Works & Footer](documentation/responsive_images/mobile/how_mobile.png) |
+| Profile | ![Profile](documentation/responsive_images/mobile/profile_mobile.png) |
+| Add Recipe | ![Add Recipe](documentation/responsive_images/mobile/add_recipe_mobile.png) |
+| Edit Recipe | ![Edit Recipe](documentation/responsive_images/mobile/edit_recipe_mobile.png) |
+| Contact | ![Contact](documentation/responsive_images/mobile/contact_mobile.png) |
+| Login | ![Login](documentation/responsive_images/mobile/login_mobile.png) |
+| Register | ![Register](documentation/responsive_images/mobile/register_mobile.png) |
+| Categories | ![Categories](documentation/responsive_images/mobile/categories_mobile.png) |
+| All Recipes | ![All Recipes](documentation/responsive_images/mobile/all_recipes_mobile.png) |
 
 ### Tablet (iPad Air)
 
 | Page | Screenshot |
 | --- | --- |
+| Landing Page (Hero) | ![Hero](documentation/responsive_images/tablet/hero_tablet.png) |
+| Recipe Search | ![Recipe Search](documentation/responsive_images/tablet/recipes_tablet.png) |
+| How it Works | ![How it Works](documentation/responsive_images/tablet/how_tablet.png) |
+| Profile | ![Profile](documentation/responsive_images/tablet/profile_tablet.png) |
+| Add Recipe | ![Add Recipe](documentation/responsive_images/tablet/add_recipe_tablet.png) |
+| Edit Recipe | ![Edit Recipe](documentation/responsive_images/tablet/edit_recipe_tablet.png) |
+| Contact | ![Contact](documentation/responsive_images/tablet/contact_tablet.png) |
+| Login | ![Login](documentation/responsive_images/tablet/login_tablet.png) |
+| Register | ![Register](documentation/responsive_images/tablet/register_tablet.png) |
+| Categories | ![Categories](documentation/responsive_images/tablet/categories_tablet.png) |
+| All Recipes | ![All Recipes](documentation/responsive_images/tablet/all_recipes_tablet.png) |
 
 </details>
 
@@ -70,6 +105,41 @@ The project was tested on multiple devices and screen sizes to ensure that it is
 ![Mobile Lighthouse](documentation/other_images/validation/LighthouseMobile.png)
 
 ## DEFENSIVE PROGRAMMING
+
+Defensive Programming was tested manually, and the results were as follows:
+
+<details>
+<summary>Click for defensive programming testing</summary>
+
+| | Expected Behavior | Test | Actual Behavior |
+| --- | --- | --- | --- |
+| **Non-logged in users** | | | |
+| Home Button | Expected to redirect to the login page | Tested by clicking the button | Redirected to the login page |
+| Login Button | Expected to redirect to the login page | Tested by clicking the button | Redirected to the login page |
+| Register Button | Expected to redirect to the register page | Tested by clicking the button | Redirected to the register page |
+| Search Function | Expected to search through the user's query | Tested by typing a query in the search bar | Searched through the user's query |
+| Recipe Card | Expected to redirect to the login | Tested by clicking the card | Redirected to the login page |
+| **Logged in users** | | | |
+| Home Button | Expected to redirect to the profile page | Tested by clicking the button | Redirected to the profile page |
+| Profile Button | Expected to redirect to the profile page | Tested by clicking the button | Redirected to the profile page |
+| All Recipes Button | Expected to redirect to the all recipes page | Tested by clicking the button | Redirected to the all recipes page |
+| Add Recipe Button | Expected to redirect to the add recipe page | Tested by clicking the button | Redirected to the add recipe page |
+| Contact Button | Expected to redirect to the contact page | Tested by clicking the button | Redirected to the contact page |
+| Contact Form | Expected to a message to the default email address | Tested by filling out the form | A message was sent to the default email address |
+| Logout Button | Expected to redirect to the login page | Tested by clicking the button | Redirected to the login page |
+| Search Function | Expected to search through the user's query | Tested by typing a query in the search bar | Searched through the user's query |
+| Recipe Card | Expected to redirect to the recipe page | Tested by clicking the card | Redirected to the recipe page |
+| Edit Recipe Button | Expected to redirect to the edit recipe page | Tested by clicking the button | Redirected to the edit recipe page |
+| Delete Recipe Button | Expected to delete the recipe | Tested by clicking the button | Deleted the recipe |
+| Save Recipe Button | Expected to save the recipe to the user's saved recipes | Tested by clicking the button | Saved the recipe to the user's saved recipes |
+| Like Recipe Button | Expected to like the recipe and increment the like count | Tested by clicking the button | Liked the recipe and incremented the like count |
+| **Admin Only** | | | |
+| Categories Button | Expected to redirect to the categories page | Tested by clicking the button | Redirected to the categories page |
+| Add Category Button | Expected to redirect to the add category page | Tested by clicking the button | Redirected to the add category page |
+| Edit Category Button | Expected to redirect to the edit category page | Tested by clicking the button | Redirected to the edit category page |
+| Delete Category Button | Expected to delete the category | Tested by clicking the button | Deleted the category |
+
+</details>
 
 ## KNOWN BUGS
 
