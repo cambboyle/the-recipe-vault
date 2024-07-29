@@ -210,6 +210,7 @@ Here are some of the features that I implemented in the application, took out an
 <details>
 <summary>Future features</summary>
 
+- Profile Picture: Allow users to upload their own profile picture. (Logic is implemented, but nowhere to store the uploads)
 - Recipe Images: Allow users to upload their own recipe images.
 - Recipe ratings and reviews: Allow users to rate recipes and leave reviews.
 - Meal planning: Implement a feature that lets users plan their meals for the week using saved recipes.

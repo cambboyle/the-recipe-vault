@@ -1,7 +1,8 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for, jsonify, current_app)
+    redirect, request, session, url_for, jsonify, current_app
+)
 from flask_pymongo import PyMongo
 from flask_mail import Mail, Message
 from pymongo import DESCENDING
@@ -31,15 +32,11 @@ app.config["MAIL_USE_SSL"] = False
 app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
 
-
-print("MAIL_USERNAME", os.environ.get("MAIL_USERNAME"))
-print("MAIL_PASSWORD", os.environ.get("MAIL_PASSWORD"))
-
-
 mail = Mail(app)
 mongo = PyMongo(app)
 
 
+# Login required decorator
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -70,14 +67,13 @@ def all_recipes():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        # Does username already exist?
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("register"))
-        # Does email already exist?
+
         existing_user = mongo.db.users.find_one(
             {"email": request.form.get("email")})
 
@@ -103,33 +99,24 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        # Does username already exist?
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
         if existing_user:
-            # Does password match?
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
-                # put user in session
                 session["user"] = request.form.get("username").lower()
                 flash("Welcome back {}!".format(
-                        request.form.get("username")))
+                    request.form.get("username")))
                 return redirect(url_for(
-                        "profile", username=session["user"]))
+                    "profile", username=session["user"]))
             else:
-                # Incorrect password
                 flash("Incorrect username or password")
                 return redirect(url_for("login"))
 
         else:
-            # Incorrect username
             flash("Incorrect username or password")
             return redirect(url_for("login"))
-
-        if login_successful:
-            next_page = request.args.get('next')
-            return redirect(next_page or url_for('get_recipes'))
 
     return render_template("login.html")
 
@@ -137,31 +124,23 @@ def login():
 # Profile
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    # Check if the user is in session
     if "user" not in session:
         flash("Please log in to view your profile")
         return redirect(url_for("login"))
 
-    # Fetch the user from the database
     user = mongo.db.users.find_one({"username": session["user"]})
     if not user:
         flash("User not found")
         return redirect(url_for("login"))
 
     if request.method == "POST":
-        # Update Bio
         new_bio = request.form.get("bio")
         mongo.db.users.update_one({
             "username": user["username"]}, {"$set": {"bio": new_bio}})
         flash("Bio updated successfully")
-        # Refresh user data after update
         user = mongo.db.users.find_one({"username": session["user"]})
 
-    # Fetch user's recipes
-    user_recipes = list(mongo.db.recipes.find({
-        "created_by": user["username"]}))
-
-    # Fetch user's saved recipes
+    user_recipes = list(mongo.db.recipes.find({"created_by": user["username"]}))
     saved_recipes = list(mongo.db.saved_recipes.aggregate([
         {"$match": {"user": user["username"]}},
         {"$lookup": {
@@ -173,14 +152,7 @@ def profile(username):
         {"$unwind": "$recipe"}
     ]))
 
-    # Get the profile picture URL
-    profile_picture = user.get("profile_picture")
-    if profile_picture:
-        profile_picture = url_for(
-            'static', filename=profile_picture.replace('static/', '', 1))
-    else:
-        profile_picture = url_for(
-            'static', filename='images/default_profile.jpg')
+    profile_picture = user.get("profile_picture", 'static/images/default_profile.jpg')
 
     return render_template("profile.html",
                            username=user["username"],
@@ -188,8 +160,6 @@ def profile(username):
                            saved_recipes=saved_recipes,
                            profile_picture=profile_picture,
                            user_bio=user.get("bio", ""))
-
-    return redirect(url_for("login"))
 
 
 # Update Bio
@@ -206,12 +176,10 @@ def update_bio():
 
 # Allowed file extensions
 def allowed_file(filename):
-    return '.' in filename and \
-            filename.rsplit(
-                '.', 1)[1].lower() in current_app.config["ALLOWED_EXTENSIONS"]
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg'}
 
 
-# Profile Picture
+# Profile Picture Upload Route
 @app.route("/upload_profile_picture", methods=["POST"])
 @login_required
 def upload_profile_picture():
@@ -227,27 +195,13 @@ def upload_profile_picture():
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        username = session["user"]
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file_path = f"{app.config['UPLOAD_FOLDER']}/{filename}"
 
-        # Create a unique filename for the profile picture
-        _, file_extension = os.path.splitext(filename)
-        new_filename = f"{username}_profile{file_extension}"
-
-        # Make sure folder exists
-        upload_folder = os.path.join('static', 'uploads', 'profile_pictures')
-        os.makedirs(upload_folder, exist_ok=True)
-
-        file_path = os.path.join(upload_folder, new_filename)
-        file.save(file_path)
-
-        # Update the user's profile picture
-        db_file_path = os.path.join(
-            'uploads', 'profile_pictures', new_filename)
         mongo.db.users.update_one(
-            {"username": username},
-            {"$set": {"profile_picture": db_file_path}}
+            {"username": session["user"]},
+            {"$set": {"profile_picture": file_path}}
         )
-
         flash("Profile picture updated successfully")
     else:
         flash("Invalid file type. Please upload a .png, .jpg, or .jpeg file.")
@@ -258,7 +212,6 @@ def upload_profile_picture():
 # Logout
 @app.route("/logout")
 def logout():
-    # remove user from session
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("login"))
@@ -307,7 +260,6 @@ def view_recipe(recipe_id):
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     if recipe:
-        # Check if the user has saved the recipe
         is_saved = mongo.db.saved_recipes.find_one({
             "user": session["user"],
             "_id": ObjectId(recipe_id)
@@ -372,21 +324,20 @@ def edit_recipe(recipe_id):
 @app.route("/delete_recipe/<recipe_id>", methods=["GET", "POST"])
 def delete_recipe(recipe_id):
     try:
-        # Check if the user is logged in
         if "user" not in session:
             flash("Please log in to delete recipes")
             return redirect(url_for("login"))
             return jsonify({"error": "User not logged in"}), 401
-        # Find the recipe
+
         recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-        # Check if the recipe exists
+
         if not recipe:
             return jsonify({"error": "Recipe not found"}), 404
-        # Check if the logged-in user is the creator of the recipe
+
         if session["user"] != recipe["created_by"]:
             return jsonify({
                 "error": "You can only delete your own recipes"}), 403
-        # Delete the recipe
+
         result = mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
         if result.deleted_count == 1:
             flash("Recipe deleted successfully")
@@ -408,7 +359,6 @@ def get_categories():
 # Add Category
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
-    # Check if category exists
     if mongo.db.categories.find_one({
             "category_name": request.form.get("category_name")}):
         flash("Category already exists")
@@ -444,17 +394,16 @@ def edit_category(category_id):
 @app.route("/delete_category/<category_id>", methods=["GET", "POST"])
 def delete_category(category_id):
     try:
-        # Check if the user is logged in
         if "user" not in session:
             flash("Please log in to delete categories")
             return redirect(url_for("login"))
             return jsonify({"error": "User not logged in"}), 401
-        # Find the category
+
         category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-        # Check if the category exists
+
         if not category:
             return jsonify({"error": "Category not found"}), 404
-        # Delete the category
+
         result = mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
         if result.deleted_count == 1:
             flash("Category deleted successfully")
@@ -503,27 +452,23 @@ def search_recipes():
 def like_recipe(recipe_id):
     user = session["user"]
 
-    # Check if the recipe exists
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     if not recipe:
         return jsonify({"error": "Recipe not found"}), 404
 
     if user in recipe.get("liked_by", []):
-        # User has already liked the recipe, so remove their like
         mongo.db.recipes.update_one(
             {"_id": ObjectId(recipe_id)},
             {"$pull": {"liked_by": user}, "$inc": {"likes": -1}}
         )
         action = "removed"
     else:
-        # User has not liked the recipe yet, so add their like
         mongo.db.recipes.update_one(
             {"_id": ObjectId(recipe_id)},
             {"$addToSet": {"liked_by": user}, "$inc": {"likes": 1}}
         )
         action = "added"
 
-    # Fetch the updated like count
     updated_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
 
     return jsonify({
@@ -541,18 +486,15 @@ def save_recipe(recipe_id):
     if not recipe:
         return jsonify({"error": "Recipe not found"}), 404
 
-    # Check if the recipe has been saved by the user
     saved_recipe = mongo.db.saved_recipes.find_one({
         "user": session["user"],
         "recipe_id": ObjectId(recipe_id)
     })
 
     if saved_recipe:
-        # If saved_recipe exists, remove it
         mongo.db.saved_recipes.delete_one({"_id": saved_recipe["_id"]})
         action = "unsaved"
     else:
-        # If not saved, save it
         save = {
             "user": session["user"],
             "recipe_id": ObjectId(recipe_id),
@@ -596,4 +538,4 @@ def contact():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)
