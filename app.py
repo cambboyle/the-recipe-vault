@@ -283,30 +283,27 @@ def edit_recipe(recipe_id):
 
 
 # Delete Recipe
-@app.route("/delete_recipe/<recipe_id>", methods=["GET", "POST"])
+@app.route("/delete_recipe/<recipe_id>", methods=["POST"])
 def delete_recipe(recipe_id):
+    if "user" not in session:
+        flash("Please log in to delete recipes")
+        return jsonify({"error": "User not logged in"}), 401
+
     try:
-        if "user" not in session:
-            flash("Please log in to delete recipes")
-            return redirect(url_for("login"))
-            return jsonify({"error": "User not logged in"}), 401
-
         recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-
         if not recipe:
             return jsonify({"error": "Recipe not found"}), 404
 
         if session["user"] != recipe["created_by"]:
-            return jsonify({
-                "error": "You can only delete your own recipes"}), 403
+            return jsonify({"error": "You can only delete your own recipes"}), 403
 
         result = mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
         if result.deleted_count == 1:
             flash("Recipe deleted successfully")
-            return jsonify({
-                "success": True, "redirect": url_for("get_recipes")})
-        else:
-            return jsonify({"error": "Failed to delete recipe"}), 500
+            return jsonify({"success": True, "redirect": url_for("get_recipes")})
+
+        return jsonify({"error": "Failed to delete recipe"}), 500
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

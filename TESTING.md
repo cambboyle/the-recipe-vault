@@ -113,6 +113,10 @@ Defensive Programming was tested manually, and the results were as follows:
 
 | | Expected Behavior | Test | Actual Behavior |
 | --- | --- | --- | --- |
+| **General** | | | |
+| Text Boxes | Minimum & Maximum lenght on input boxes | Tested by typing characters in a text box that exceeds the minimum or maximum length | When form is submitted, validation message is displayed |
+| Password Regex | Expected to only accept characters in the regex | Tested by typing characters that do not match the regex | When form is submitted, validation message is displayed |
+| URL change | Redirect user to login page if URL is changed | Tested by changing the URL in the browser | Redirected to the login page |
 | **Non-logged in users** | | | |
 | Home Button | Expected to redirect to the home page | Tested by clicking the button | Redirected to the home page |
 | Login Button | Expected to redirect to the login page | Tested by clicking the button | Redirected to the login page |
@@ -147,7 +151,11 @@ Encountered a bug where the profile picture was not being stored in the database
 
 I can upload pictures from my IDE and on localhost, but when I try to upload them from Heroku, they are not uploaded.
 
+I have removed the ability to upload profile pictures from the project, as I was unable to get it to work with Heroku.
+
 ## FIXED BUGS
+
+### Bug 1
 
 One bug was fixed in the project, which was a bug in the recipe editing page.
 
@@ -156,3 +164,7 @@ The add ingredient/step button was not creating more ingredients/steps when clic
 This was fixed in by adding the appropriate JavaScript code from the script.js file to the edit_recipe.html file.
 
 The issue also persisted on the add recipe page, so this was also fixed.
+
+### Bug 2
+
+I encountered a bug when deleting a recipe, after clicking the delete button, the user was redirected to a black page, with one line of JSON in it. 

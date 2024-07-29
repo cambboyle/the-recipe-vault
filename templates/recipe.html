@@ -81,13 +81,12 @@
                 </div>
                 <!-- buttons -->
                 <div class="card-text col-sm-12 text-center">
-                    <a href="{{ url_for('get_recipes') }}" class="btn btn-primary">Back to Recipes</a>
+                    <a href="{{ url_for('get_recipes') }}" class="btn btn-primary p-2">Back to Recipes</a>
                     {% if session.user|lower == recipe.created_by|lower %}
-                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-outline-primary">Edit Recipe</a>
-                        <!-- Delete Button-->
-                        <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" onclick="confirmDelete('{{ recipe._id }}', '{{ recipe.name }}')" class="btn btn-danger">
+                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-outline-primary p-2">Edit Recipe</a>
+                        <button class="btn btn-danger" data-recipe-id="{{ recipe._id }}" data-recipe-name="{{ recipe.recipe_name }}">
                             Delete Recipe <i class="fa-solid fa-trash"></i>
-                        </a>
+                        </button>
                     {% endif %}
                 </div>
             </div>
@@ -149,6 +148,50 @@
                     .catch(error => console.error('Save Error:', error));
             });
         }
+
+        // Define the confirmDelete function
+        function confirmDelete(recipeId, recipeName) {
+            const confirmed = confirm(`Are you sure you want to delete the recipe "${recipeName}"? This action cannot be undone.`);
+            
+            if (confirmed) {
+                fetch(`/delete_recipe/${recipeId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect; // Redirect to the provided URL
+                    } else {
+                        alert(`Error: ${data.error}`);
+                    }
+                })
+                .catch(error => console.error(`Error: ${error}`));
+            }
+        }
+
+        // Attach event listeners to delete buttons
+        const deleteButtons = document.querySelectorAll('.btn-danger');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const recipeId = this.getAttribute('data-recipe-id');
+                const recipeName = this.getAttribute('data-recipe-name');
+
+                console.log(`Recipe ID: ${recipeId}, Recipe Name: ${recipeName}`);
+
+                if (!recipeId || recipeId === 'undefined') {
+                    console.error('Recipe ID not found');
+                    return;
+                }
+
+                confirmDelete(recipeId, recipeName);
+            });
+        });
     });
 </script>
 {% endblock %}

@@ -8,7 +8,6 @@
 
 ## Mockup
 
-| Mockup |
 | This is a mockup of the Recipe Vault application, showcased using Am I Responsive? |
 | --- |
 | ![Mockup](documentation/other_images/AmIResponsiveRecipeVault.png) |
@@ -186,9 +185,8 @@ Here are some of the features that I implemented in the application, took out an
 | Footer | The footer contains a navigation bar, a copyright notice, and social media links. | ![Footer](documentation/feature_images/footer.png) |
 | Register | This page allows the user to create an account on the site. | ![Register](documentation/feature_images/sign_up.png) |
 | Login | This page allows the user to log in to their account if they have an account. | ![Login](documentation/feature_images/login.png) |
-| Profile | This page displays the user's profile, which includes their username, recipes, saved recipes, and bio. | ![Profile](documentation/feature_images/profile.png) |
+| Profile | This page displays the user's profile, which includes their username, recipes, saved recipes, and bio. | ![Profile](documentation/responsive_images/desktop/profile_desktop.png) |
 | Edit Bio | This button enables the user to edit their bio. | ![Edit Bio](documentation/feature_images/edit_bio.png) |
-| Edit Profile Picture | This button enables the user to edit their profile picture. | ![Edit Profile Picture](documentation/feature_images/edit_profile_picture.png) |
 | User Recipes | This tab displays the user's recipes. | ![User Recipes](documentation/feature_images/user_recipes.png) |
 | Saved Recipes | This tab displays the user's saved recipes. | ![Saved Recipes](documentation/feature_images/saved_recipes.png) |
 | Add Recipe | This page allows the user to create a new recipe, which includes the recipe name, category, recipe description, serving size, prep time, cooking time, dietary restrictions, meal type, main ingredients, and recipe method. | ![Add Recipe](documentation/feature_images/add_recipe.png) |
@@ -196,6 +194,7 @@ Here are some of the features that I implemented in the application, took out an
 | Edit Recipe | This page is opened via the View Recipe page, which allows the user to edit the recipe details. | ![Edit Recipe](documentation/feature_images/edit_recipe.png) |
 | Delete Recipe | This button prompts the user to confirm the deletion of the recipe. | ![Delete Recipe](documentation/feature_images/delete_recipe.png) |
 | Contact Form | This page allows the user to contact the site administrator. | ![Contact Form](documentation/feature_images/contact_form.png) |
+| Email from Contact Form | This page displays an email to the site administrator, which includes the user's name, email, subject and message. | ![Email from Contact Form](documentation/feature_images/email.png) |
 | Flash Messages | Flash messages are displayed to the user when certain actions are performed, such as successfully logging in, successfully registering, or successfully editing a recipe. | ![Flash Messages](documentation/feature_images/flash_messages.png) |
 | ADMIN ONLY | ADMIN ONLY | ADMIN ONLY |
 | Categories | This page displays the list of categories that the site administrator has created. | ![Categories](documentation/feature_images/categories.png) |
@@ -210,7 +209,7 @@ Here are some of the features that I implemented in the application, took out an
 <details>
 <summary>Future features</summary>
 
-- Profile Picture: Allow users to upload their own profile picture. (Logic is implemented, but nowhere to store the uploads apart from local storage)
+- Profile Picture: Allow users to upload their own profile picture. (See [TESTING.md](TESTING.md) for more information.)
 - Recipe Images: Allow users to upload their own recipe images.
 - Recipe ratings and reviews: Allow users to rate recipes and leave reviews.
 - Meal planning: Implement a feature that lets users plan their meals for the week using saved recipes.
@@ -257,6 +256,57 @@ Here are some of the features that I implemented in the application, took out an
 - [MongoDB Atlas](https://www.mongodb.com/atlas)
 
 ## Database Schema
+
+Below are my database schemas for the MongoDB Atlas database.
+
+<details>
+<summary>Click for database schemas</summary>
+
+| Collection | Field | Type | Description |
+| --- | --- | --- | --- |
+| **users** | | | |
+| | _id | ObjectId | The unique identifier of the user. |
+| | username | String | The username of the user. |
+| | email | String | The email address of the user. |
+| | password | String | The password of the user. Encrypted using werkzeug.security.generate_password_hash. |
+| | bio | String | The bio of the user. |
+| **recipes** | | | |
+| | _id | ObjectId | The unique identifier of the recipe. |
+| | recipe_name | String | The name of the recipe. |
+| | category_name | String | The category of the recipe. |
+| | recipe_description | String | The description of the recipe. |
+| | serving_size | String | The serving size of the recipe. |
+| | prep_time | String | The prep time of the recipe. |
+| | cooking_time | String | The cooking time of the recipe. |
+| | dietary | String | The dietary restrictions of the recipe. |
+| | meal_type | String | The meal type of the recipe. |
+| | main_ingredients | Array | The main ingredients of the recipe. |
+| | recipe_method | Array | The recipe method of the recipe. |
+| | liked_by | Array | The users who liked the recipe. |
+| | likes | Number | The number of likes the recipe has received. |
+| | created_by | ObjectId | The user who created the recipe. |
+| | created_at | Date | The date and time the recipe was created. |
+| **saved_recipes** | | | |
+| | _id | ObjectId | The unique identifier of the saved recipe. |
+| | user | String| The user who saved the recipe. |
+| | recipe_id | ObjectId | The unique identifier of the recipe. |
+| | saved_at | Date | The date the recipe was saved. |
+| **categories** | | | |
+| | _id | ObjectId | The unique identifier of the category. |
+| | category_name | String | The name of the category. |
+| **dietary_requirements** | | | |
+| | _id | ObjectId | The unique identifier of the dietary requirement. |
+| | dietary_name | String | The name of the dietary requirement. |
+| **meal_type** | | | |
+| | _id | ObjectId | The unique identifier of the meal type. |
+| | meal_type | String | The name of the meal type. |
+| **saves** | | | |
+| | _id | ObjectId | The unique identifier of the save. |
+| | user | String | The user who saved the recipe. |
+| | recipe_id | ObjectId | The unique identifier of the recipe. |
+| | saved_at | Date | The date the recipe was saved. |
+
+</details>
 
 ## Testing
 
