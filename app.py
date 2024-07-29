@@ -19,9 +19,6 @@ app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
-app.config["UPLOAD_FOLDER"] = os.path.join(
-    'static', 'uploads', 'profile_pictures')
-app.config["ALLOWED_EXTENSIONS"] = {'png', 'jpg', 'jpeg'}
 app.secret_key = os.environ.get("SECRET_KEY")
 
 # Mail Config
@@ -172,41 +169,6 @@ def update_bio():
         "username": username}, {"$set": {"bio": new_bio}})
     flash("Bio updated successfully")
     return redirect(url_for("profile", username=username))
-
-
-# Allowed file extensions
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg'}
-
-
-# Profile Picture Upload Route
-@app.route("/upload_profile_picture", methods=["POST"])
-@login_required
-def upload_profile_picture():
-    if 'profile_picture' not in request.files:
-        flash("No file part")
-        return redirect(url_for("profile", username=session["user"]))
-
-    file = request.files['profile_picture']
-
-    if file.filename == '':
-        flash("No selected file")
-        return redirect(url_for("profile", username=session["user"]))
-
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        file_path = f"{app.config['UPLOAD_FOLDER']}/{filename}"
-
-        mongo.db.users.update_one(
-            {"username": session["user"]},
-            {"$set": {"profile_picture": file_path}}
-        )
-        flash("Profile picture updated successfully")
-    else:
-        flash("Invalid file type. Please upload a .png, .jpg, or .jpeg file.")
-
-    return redirect(url_for("profile", username=session["user"]))
 
 
 # Logout
@@ -538,4 +500,4 @@ def contact():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)
+            debug=False)

@@ -99,13 +99,14 @@
                             <span>{{ recipe.cooking_time }} Minutes</span>
                             {% endif %}
                         </span>
-                    </div>
-                    <span class="col-sm-12 bottom-right-image text-end me-2 p-1">
-                        <i id="like-container" class="fa-solid fa-cookie-bite p-1" style="color: #F7B65A"></i>
-                        <span id="likes_count" class="text-end">
-                            {{ recipe.likes }}
+                        <span class="col-sm-5 bottom-right-image text-end me-2">
+                            <i id="like-container" class="fa-solid fa-cookie-bite p-1" style="color: #F7B65A"></i>
+                            <span id="likes_count" class="text-end">
+                                {{ recipe.likes }}
+                            </span>
                         </span>
-                    </span>
+                    </div>
+                    
                     <div class="card-body d-flex flex-column">
                         <div class="badge-container d-flex justify-content-between mb-2">
                             <span class="badge recipe-badge text-truncate">

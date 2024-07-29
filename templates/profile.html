@@ -6,17 +6,13 @@
     <div class="row profile-header">
         <div class="col-md-4 text-center">
             <div class="profile-picture-container mb-3">
-                <img src="{{ profile_picture }}" alt="Profile Picture" class="profile-picture">
-                <button id="edit-picture-btn" class="btn btn-primary btn-sm edit-picture-btn">
-                    <i class="fas fa-edit"></i> Edit
-                </button>
-            </div>
-            <form id="picture-form" action="{{ url_for('upload_profile_picture') }}" method="POST" enctype="multipart/form-data" class="mt-3" style="display: none;">
-                <div class="mb-3">
-                    <input type="file" class="form-control form-control-sm" name="profile_picture" accept="image/*">
+                <img src="{{ url_for('static', filename='images/default_profile.jpg') }}" alt="Profile Picture" class="profile-picture">
+                <div>
+                    <div class="profile-picture alt">
+                        {{ profile_picture_alt }}
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">Upload Picture</button>
-            </form>
+            </div>
         </div>
         <div class="col-md-8">
             <div class="bio-container position-relative">
@@ -172,22 +168,18 @@
 {% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Edit picture toggle
-    const editPictureBtn = document.getElementById('edit-picture-btn');
-    const pictureForm = document.getElementById('picture-form');
-    editPictureBtn.addEventListener('click', function() {
-        pictureForm.style.display = pictureForm.style.display === 'none' ? 'block' : 'none';
-    });
-
-    // Edit bio toggle
+    // Ensure elements are present before adding events
     const editBioBtn = document.getElementById('edit-bio-btn');
     const bioDisplay = document.getElementById('bio-display');
     const bioForm = document.getElementById('bio-form');
-    editBioBtn.addEventListener('click', function() {
-        bioForm.style.display = bioForm.style.display === 'none' ? 'block' : 'none';
-        bioDisplay.style.display = bioDisplay.style.display === 'none' ? 'block' : 'none';
-    });
-
+    if (editBioBtn && bioDisplay && bioForm) {
+        editBioBtn.addEventListener('click', function() {
+            bioForm.style.display = bioForm.style.display === 'none' ? 'block' : 'none';
+            bioDisplay.style.display = bioDisplay.style.display === 'none' ? 'block' : 'none';
+        });
+    } else {
+        console.warn('Edit bio button or elements are missing from the DOM.');
+    }
 });
 </script>
 {% endblock %}

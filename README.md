@@ -6,12 +6,19 @@
 - The application is designed to veer away from physical cookbooks and instead focus on the concept of recipes.
 - Users must create an account to access the application's full features.
 
+## Mockup
+
+| Mockup |
+| This is a mockup of the Recipe Vault application, showcased using Am I Responsive? |
+| --- |
+| ![Mockup](documentation/other_images/AmIResponsiveRecipeVault.png) |
+
 ## Table of Contents
 
 - [The Recipe Vault](#the-recipe-vault)
   - [Introduction](#introduction)
-  - [Table of Contents](#table-of-contents)
   - [Mockup](#mockup)
+  - [Table of Contents](#table-of-contents)
   - [User Experience](#user-experience)
     - [Colour Scheme](#colour-scheme)
     - [Typography](#typography)
@@ -44,13 +51,6 @@
     - [Images](#images)
     - [Content](#content)
     - [Acknowledgements](#acknowledgements)
-
-## Mockup
-
-| Mockup |
-| This is a mockup of the Recipe Vault application, showcased using Am I Responsive? |
-| --- |
-| ![Mockup](documentation/other_images/AmIResponsiveRecipeVault.png) |
 
 ## User Experience
 
@@ -129,7 +129,7 @@ I used the following font families:
 
 ### User Feedback
 
- "**This app is easy to navigate and aesthetically pleasing! I like that I can store all of my recipes on one website as well as browse and learn from others. Being able to personalise my profile with a photo and bio makes it that little bit more sentimental. I would like there to be a feature where I can upload a picture of my recipe to its respective card, so I look forward to that being a future feature.**"- Mica Ali
+ "**This app is easy to navigate and aesthetically pleasing! I like that I can store all of my recipes on one website as well as browse and learn from others. Being able to personalise my profile with a bio makes it that little bit more sentimental. I would like there to be a feature where I can upload a profile picture to my profile and a picture of my recipe to its respective card, so I look forward to that being a future feature.**"- Mica Ali
 
 ## Wireframes
 
@@ -140,19 +140,19 @@ For help with responsive design and optimal practice, I created wireframes for d
 
 ### Landing Page
 
-![Landing Page] (documentation/wireframes/Landing-page.png)
+![Landing Page](documentation/wireframes/Landing-page.png)
 
 ### Recipe Search
 
-![Recipe Search] (documentation/wireframes/recipe-search.png)
+![Recipe Search](documentation/wireframes/recipe-search.png)
 
 ### Sign Up
 
-![Sign Up] (documentation/wireframes/Signup-page.png)
+![Sign Up](documentation/wireframes/Signup-page.png)
 
 ### Profile
 
-![Profile] (documentation/wireframes/profile-page.png)
+![Profile](documentation/wireframes/profile-page.png)
 
 </details>
 
@@ -210,7 +210,7 @@ Here are some of the features that I implemented in the application, took out an
 <details>
 <summary>Future features</summary>
 
-- Profile Picture: Allow users to upload their own profile picture. (Logic is implemented, but nowhere to store the uploads)
+- Profile Picture: Allow users to upload their own profile picture. (Logic is implemented, but nowhere to store the uploads apart from local storage)
 - Recipe Images: Allow users to upload their own recipe images.
 - Recipe ratings and reviews: Allow users to rate recipes and leave reviews.
 - Meal planning: Implement a feature that lets users plan their meals for the week using saved recipes.
@@ -406,6 +406,9 @@ Testing hero image by <a href="https://unsplash.com/@fsuarez?utm_content=creditC
 Hero Image by <a href="https://unsplash.com/@alexkurchev?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Oleksandr Kurchev</a> on <a href="https://unsplash.com/photos/kitchen-filled-with-cooking-pans-and-kitchen-utensils-9gtiGV76NnM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
 
 <a href="https://www.flaticon.com/free-icons/ramen" title="ramen icons">Ramen icons</a> created by Freepik - Flaticon
+
+Photo by <a href="https://unsplash.com/@thomas?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Thomas Marban</a> on <a href="https://unsplash.com/photos/man-in-chef-suit-EHK-EH1SRzQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+  
 
 ### Content
 

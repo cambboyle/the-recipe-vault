@@ -755,6 +755,10 @@ textarea.form-control {
   height: 220px;
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-picture {
@@ -767,6 +771,26 @@ textarea.form-control {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.profile-picture-alt {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  z-index: 5;
+}
+
+.profile-picture[alt]:not([alt=""]) + .profile-picture-alt {
+  display: flex; /* Show only if alt text is present */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .username {
