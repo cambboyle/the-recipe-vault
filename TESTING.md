@@ -167,4 +167,53 @@ The issue also persisted on the add recipe page, so this was also fixed.
 
 ### Bug 2
 
-I encountered a bug when deleting a recipe, after clicking the delete button, the user was redirected to a black page, with one line of JSON in it. 
+I encountered a bug when deleting a recipe, after clicking the delete button, the user was redirected to a black page, with one line of JSON in it.
+
+To fix this, I changed the a tag to a button tag in the recipe.html file for the delete recipe button.
+
+This was fixed in by adding the appropriate JavaScript code from the script.js file to the edit_recipe.html file.
+
+``` Javascript
+function confirmDelete(recipeId, recipeName) {
+            const confirmed = confirm(`Are you sure you want to delete the recipe "${recipeName}"? This action cannot be undone.`);
+            
+            if (confirmed) {
+                fetch(`/delete_recipe/${recipeId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect; // Redirect to the provided URL
+                    } else {
+                        alert(`Error: ${data.error}`);
+                    }
+                })
+                .catch(error => console.error(`Error: ${error}`));
+            }
+        }
+
+        // Attach event listeners to delete buttons
+        const deleteButtons = document.querySelectorAll('.btn-danger');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const recipeId = this.getAttribute('data-recipe-id');
+                const recipeName = this.getAttribute('data-recipe-name');
+
+                console.log(`Recipe ID: ${recipeId}, Recipe Name: ${recipeName}`);
+
+                if (!recipeId || recipeId === 'undefined') {
+                    console.error('Recipe ID not found');
+                    return;
+                }
+
+                confirmDelete(recipeId, recipeName);
+            });
+        });
+```
